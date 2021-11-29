@@ -17,9 +17,9 @@ namespace Resources.Script
         public Dictionary<Condition, List<Effect>> Actions;
         public int baseLife;
         public bool isUsed;
-        public List<Effect> needPlayer;
+        public bool needPlayer;
 
-        public Card(int id, string name, int cost, Faction faction, bool shipOrBase, bool isTaunt, Mesh image, Sprite icon, Dictionary<Condition,List<Effect>> actions, int baseLife,List<Effect> needPlayer, bool isUsed)
+        public Card(int id, string name, int cost, Faction faction, bool shipOrBase, bool isTaunt, Mesh image, Sprite icon, Dictionary<Condition,List<Effect>> actions, int baseLife,bool needPlayer, bool isUsed)
         {
             this.id = id;
             this.name = name;
@@ -39,15 +39,68 @@ namespace Resources.Script
         {
         
         }
-    
-        public void CheckFactionOnBoard(){}
-        public void AddValue(String type, int value){}
-        public void Scrap(int nbMax,ScrapZone zone, bool mustScrap){}
-        public void TargetDiscard(){}
-        public void DestroyTargetBase(Card card){}
-        public void Requisition(){}
-        public void CheckNbBase(){}
-        public void Copy(Card card){}
-        public void ToDiscard(int maxDiscard){}
+        
+        public bool CheckFactionOnBoard()
+        {
+            /*foreach (Card c in GameManager.currentPlayer.board)
+            {
+                if (c.faction == faction)
+                {
+                    return true;
+                }
+            }*/
+            return false;
+        }
+        
+        public void AddValue(String type, int value)
+        {
+            /*switch (type)
+            {
+                case "Hp":
+                    currentPlayer.hp += value;
+                    break;
+                case "Power":
+                    currentPlayer.totalPower += value;
+                    break;
+                case "Money":
+                    currentPlayer.money += value;
+                    break;
+            }*/
+        }
+
+        public void Scrap(int nbMax, ScrapZone zone, bool mustScrap)
+        {
+            
+        }
+
+        public void TargetDiscard()
+        {
+            
+        }
+
+        public void DestroyTargetBase(Card card)
+        {
+            
+        }
+
+        public void Requisition()
+        {
+            
+        }
+
+        public void CheckNbBase()
+        {
+            
+        }
+
+        public void Copy(Card card)
+        {
+            
+        }
+
+        public void ToDiscard(int maxDiscard)
+        {
+            
+        }
     }
 }
