@@ -10,7 +10,7 @@ using Debug = UnityEngine.Debug;
 
 public class Player : MonoBehaviour
 {
-    public enum Faction { };
+    /*public enum Faction { };
     public enum Effect { };
     
     //Variables de classe (attributs de la classe)
@@ -252,7 +252,7 @@ public class Player : MonoBehaviour
         }
         shop.display.Remove(card);
         shop.Refill();
-    }
+    }*/
 }
 
 
