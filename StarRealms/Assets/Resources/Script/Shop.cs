@@ -1,40 +1,34 @@
-/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class Shop : MonoBehaviour
+namespace Resources.Script
 {
-    class Card
+    public class Shop : MonoBehaviour
     {
-        int id;
-        string name;
-        int cost;
-        bool shipOrBase;
-        bool isTaunt;
-    }
-    Card Default;
-    int nbDefault = 10;
-    List<Card> display;
-    List<Card> gameDeck;
-    int chosenCard;
-    /*void RefillAll()
-    {
-        for(int i = 0; i < display.Count; i++)
+        public Card Default;
+        public int nbDefault = 10;
+        public List<Card> display = new List<Card>();
+        public List<Card> gameDeck;
+        public int chosenCard; 
+        /*public void RefillAll()
         {
-            gameDesk.Add(display[i]);
-        }
-        display.Clear();
-        for(int i=0;i<5;i++)
+            for(int i = 0; i < display.Count; i++)
+            {
+                gameDeck.Add(display[i]);
+            }
+            display.Clear();
+            for(int i=0;i<5;i++)
+            {
+                display.Add(gameDeck[0]);
+                gameDeck.RemoveAt(0);
+            }
+        }*/
+        public void Refill()
         {
-            display.Add(gameDesk[0]);
-            gameDesk.RemoveAt(0);
+            display.RemoveAt(chosenCard);
+            display.Add(gameDeck[0]);
+            gameDeck.RemoveAt(0);
         }
-    }*/
-    /*void Refill()
-    {
-        display.RemoveAt(chosenCard);
-        display.Add(gameDeck[0]);
-        gameDeck.RemoveAt(0);
     }
 }
-*/
