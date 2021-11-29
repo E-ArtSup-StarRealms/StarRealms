@@ -39,20 +39,23 @@ namespace Resources.Script
     
         void Update()
         {
-            if (Input.GetKeyUp(KeyCode.D)) 
-                Draw(1);
-            if (Input.GetKeyUp(KeyCode.B)) 
-                Buy(shop.transform.GetChild(0).GetComponent<Card>());
-            if (Input.GetKeyUp(KeyCode.P)) 
-                PlayCard(GameObject.Find("Hand").transform.GetChild(0).GetComponent<Card>());
-            if (Input.GetKeyUp(KeyCode.A)) 
-                PlayAll();
-            if (Input.GetKeyUp(KeyCode.E))
-                EndTurn();
-            if (Input.GetKeyUp(KeyCode.F))
-                Attack(enemyObject);
-            if (Input.GetKeyUp(KeyCode.L))
-                LookDeck();
+        if(gameObject.name == "Player")
+            {
+                if (Input.GetKeyUp(KeyCode.D))
+                    Draw(1);
+                if (Input.GetKeyUp(KeyCode.B))
+                    Buy(shop.transform.GetChild(0).GetComponent<Card>());
+                if (Input.GetKeyUp(KeyCode.P))
+                    PlayCard(GameObject.Find("Hand").transform.GetChild(0).GetComponent<Card>());
+                if (Input.GetKeyUp(KeyCode.A))
+                    PlayAll();
+                if (Input.GetKeyUp(KeyCode.E))
+                    EndTurn();
+                if (Input.GetKeyUp(KeyCode.F))
+                    Attack(enemyObject);
+                if (Input.GetKeyUp(KeyCode.L))
+                    LookDeck();
+            }
         }
 
     
@@ -74,7 +77,7 @@ namespace Resources.Script
         {
             if (freeShip)
                 TakeCardFromShop(card);
-            else if (money > card.cost)
+            else if (money >= card.cost)
             {
                 TakeCardFromShop(card);
                 money -= card.cost;
@@ -95,21 +98,16 @@ namespace Resources.Script
             bool canPlay = true;
             foreach (var card in hand)
             {
-                foreach (var action in card.Actions)
+                if (card.needPlayer)
                 {
-                    foreach (var effect in action.Value)
-                    {
-                        if (priorityCheck.Contains(effect))
-                        {
-                            canPlay = false;
-                        }
-                    }
+                    canPlay = false;
                 }
             }
 
             if (canPlay)
             {
-                for (int i = 0; i < hand.Count; i++)
+                int nbCards = hand.Count;
+                for (int i = 0; i < nbCards; i++)
                 {
                     PlayCard(hand[0]);
                 }
@@ -122,13 +120,14 @@ namespace Resources.Script
             {
                 if (money == 0 && totalPower == 0)
                 {
-                    for (int i = 0; i < board.Count; i++)
+                    int nbCard = board.Count;
+                    for (int i = 0; i < nbCard; i++)
                     {
-                        if (!board[i].shipOrBase)
+                        if (!board[0].shipOrBase)
                         {
-                            board[i].gameObject.transform.SetParent(objectDiscardPile.transform);
-                            discardPile.Add(board[i]);
-                            board.RemoveAt(i);
+                            board[0].gameObject.transform.SetParent(objectDiscardPile.transform);
+                            discardPile.Add(board[0]);
+                            board.RemoveAt(0);
                         }
                     }
                     Debug.Log("Changement de tour");
@@ -143,8 +142,9 @@ namespace Resources.Script
 
         public void Attack(GameObject target)
         {
-            if (target == enemyObject)
+            if (target.name == enemyObject.name)
             {
+                Debug.Log("ennemi");
                 if (canAttackPlayer())
                 {
                     enemy.hp -= totalPower;
@@ -190,23 +190,25 @@ namespace Resources.Script
         public void RefillDeck()
         {
             Shuffle();
-            for (int i = 0; i < objectDiscardPile.transform.childCount; i++)
+            for (int i = 0; i < discardPile.Count; i++)
             {
-                objectDiscardPile.transform.GetChild(0).gameObject.transform.SetParent(objectDeck.transform);
+                objectDiscardPile.transform.GetChild(0).SetParent(objectDeck.transform);
             }
-            deck = discardPile;
+            deck = new List<Card>(discardPile);
             discardPile.Clear();
         }
     
         public void Shuffle()
         {
-            List<Card> tempList = discardPile;
+            int nbCard = discardPile.Count;
+            List<Card> tempList = new List<Card>(discardPile);
             discardPile.Clear();
-            for (int i = 0; i < tempList.Count; i++)
+            for (int i = 0; i < nbCard; i++)
             {
-                int rnd = Random.Range(0, tempList.Count);
+                int rnd = Random.Range(0, nbCard - i);
                 discardPile.Add(tempList[rnd]);
                 tempList.RemoveAt(rnd);
+                objectDiscardPile.transform.GetChild(rnd).SetParent(objectDiscardPile.transform);
             }
         }
     
@@ -249,6 +251,3 @@ namespace Resources.Script
         }
     }
 }
-
-
-
