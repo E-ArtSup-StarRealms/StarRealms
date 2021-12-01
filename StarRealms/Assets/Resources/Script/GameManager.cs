@@ -21,6 +21,10 @@ namespace Resources.Script
         public bool cadOnTop;
         public bool freeShip;
 
+        public Player player1;
+        public Player player2;
+        public Player currentPlayer;
+
         [SerializeField]
         private GameObject panelWin;
         private bool firstRound;
