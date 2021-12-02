@@ -14,29 +14,16 @@ namespace Resources.Script
         public bool isTaunt = false;
         public Sprite icon;
         public Mesh image;
-        public Dictionary<Condition, List<Effect>> Actions = new Dictionary<Condition, List<Effect>>();
+        public Dictionary<List<Condition>, Dictionary<Effect, int>> Actions = new Dictionary<List<Condition>,
+            Dictionary<Effect, int>>();
         public int baseLife = 0;
         public bool isUsed = false;
         public bool needPlayer = false;
-        public int montantD = 0;
-        public int montantG = 0;
-        public int montantH = 0;
-        public int montantDraw = 0;
-        public int montantScrap = 0;
         public Card mySelf = null;
 
         void Start()
         {
             GameManager.currentPlayer.board.Add(this);
-        }
-        void OnMouseDown()
-        {
-            if (name == "Copy" && FindConditionOfEffect(Effect.Copy) == Condition.NotFound)
-            {
-                List<Effect> tmp = new List<Effect>();
-                tmp.Add(Effect.Copy);
-                Actions.Add(Condition.Nothing,tmp);
-            }
         }
         void Update()
         {
@@ -46,34 +33,10 @@ namespace Resources.Script
                 CheckCondition();
             }
         }
-        
-        public Card()
-        {
-            
-        }
-        public Card(int id, string name, int cost, Faction faction, bool shipOrBase, bool isTaunt, Mesh image, Sprite icon, Dictionary<Condition,List<Effect>> actions, int baseLife,bool needPlayer, bool isUsed)
+        public void SetId()
         {
             _nbCard++;
-            this.id = _nbCard;
-            this.name = name;
-            this.cost = cost;
-            this.faction = faction;
-            this.shipOrBase = shipOrBase;
-            this.isTaunt = isTaunt;
-            this.icon = icon;
-            this.image = image;
-            this.Actions = actions;
-            this.baseLife = baseLife;
-            this.isUsed = isUsed;
-            this.needPlayer = needPlayer;
-
-            foreach (List<Effect> lesEffets in Actions.Values)
-            {
-                if (lesEffets.Contains(Effect.Copy))
-                {
-                    mySelf = GameObject.Instantiate(this);
-                }
-            }
+            id = _nbCard;
         }
         public void PlaySelf()
         {
@@ -81,72 +44,77 @@ namespace Resources.Script
         }
         public void CheckCondition()
         {
-            foreach (Condition cond in Actions.Keys)
+            foreach (List<Condition> conds in Actions.Keys)
             {
-                switch (cond)
+                foreach (Condition cond in conds)
                 {
-                    case Condition.Nothing:
-                        DoEffect(Actions[cond]);
-                        break;
-                    case Condition.Or:
-                        /*choix du joueur*/
-                        int choix = 0;
-                        List<Effect> aFaire = new List<Effect>();
-                        aFaire.Add(Actions[cond][choix]);
-                        DoEffect(aFaire);
-                        break;
-                    case Condition.Synergie:
-                        if (CheckSynergie())
-                        {
-                            DoEffect(Actions[cond]);
-                        }
-                        break;
-                    case Condition.AutoScrap:
-                        /*Confirmation player*/
-                        DoEffect(Actions[cond]);
-                        Destroy(this);
-                        break;
-                    case Condition.ForEachSameFaction:
-                        for (int i = 0; i < CheckNbSameFactionOnBoard(); i++)
-                        {
-                            DoEffect(Actions[cond]);
-                        }
-                        break;
-                    case Condition.TwoBaseOrMore:
-                        if (CheckNbBaseOnBoard() >= 2)
-                        {
-                            DoEffect(Actions[cond]);
-                        }
-                        break;
+                    switch (cond)
+                    {
+                        case Condition.Nothing:
+                            DoEffect(Actions[conds]);
+                            break;
+                        case Condition.Or:
+                            /*choix du joueur*/
+                            Effect choix = Effect.D;
+                            Dictionary<Effect, int> aFaire = new Dictionary<Effect, int>();
+                            aFaire.Add(choix,Actions[conds][choix]);
+                            DoEffect(aFaire);
+                            break;
+                        case Condition.Synergie:
+                            if (CheckSynergie())
+                            {
+                                DoEffect(Actions[conds]);
+                            }
+
+                            break;
+                        case Condition.AutoScrap:
+                            /*Confirmation player*/
+                            DoEffect(Actions[conds]);
+                            Destroy(this);
+                            break;
+                        case Condition.ForEachSameFaction:
+                            for (int i = 0; i < CheckNbSameFactionOnBoard(); i++)
+                            {
+                                DoEffect(Actions[conds]);
+                            }
+
+                            break;
+                        case Condition.TwoBaseOrMore:
+                            if (CheckNbBaseOnBoard() >= 2)
+                            {
+                                DoEffect(Actions[conds]);
+                            }
+                            break;
+                    }
                 }
             }
         }
-        public void DoEffect(List<Effect> lesEffets)
+        public void DoEffect(Dictionary<Effect, int> lesEffets)
         {
-            foreach (Effect e in lesEffets)
+            foreach (KeyValuePair<Effect, int> e in lesEffets)
             {
-                switch (e)
+                switch (e.Key)
                 {
                     case Effect.Copy:
-                        GameManager.popUp.GetComponent<PopUpManager>().Activate(this,Zone.Board,e,1);
+                        GameManager.popUp.GetComponent<PopUpManager>().Activate(this,Zone.Board,e.Key,e.Value);
                         break;
                     case Effect.D:
-                        AddValue(Effect.D,montantD);
+                        AddValue(Effect.D,e.Value);
                         break;
                     case Effect.Discard:
-                        //ScrapOrDiscard(true,montantScrap,Zone.HandAndDiscardPile,true);
+                        GameManager.popUp.GetComponent<PopUpManager>().Activate(this,Zone.HandAndDiscardPile,e.Key,e.Value);
                         break;
                     case Effect.Draw:
-                        GameManager.currentPlayer.Draw(montantDraw);
+                        GameManager.currentPlayer.Draw(e.Value);
                         break;
                     case Effect.G:
-                        AddValue(Effect.G,montantG);
+                        AddValue(Effect.G,e.Value);
                         break;
                     case Effect.H:
-                        AddValue(Effect.H,montantH);
+                        AddValue(Effect.H,e.Value);
                         break;
                     case Effect.Hinder:
-                        /*choix du joueur*/
+                        GameManager.popUp.GetComponent<PopUpManager>().Activate(this,Zone.Board,e.Key,e.Value);
                         break;
                     case Effect.Requisition:
                         Requisition();
@@ -155,30 +123,35 @@ namespace Resources.Script
                         TargetDiscard();
                         break;
                     case Effect.Scrap:
-                        //ScrapOrDiscard(false,montantScrap,Zone.HandAndDiscardPile,false);
+                        GameManager.popUp.GetComponent<PopUpManager>().Activate(this,Zone.HandAndDiscardPile,e.Key,e.Value);
                         break;
                     case Effect.Wormhole:
                         GameManager.currentPlayer.cardOnTop = true;
                         break;
                     case Effect.BaseDestruction:
-                        DestroyTargetBase();
+                        GameManager.popUp.GetComponent<PopUpManager>().Activate(this,Zone.EnnemyBoardBase,e.Key,e.Value);
                         break;
                     case Effect.DiscardToDraw:
-                        /*choix du joueur*/
-                        int nbDiscard = 0;
-                        GameManager.currentPlayer.Draw(nbDiscard);
+                        GameManager.popUp.GetComponent<PopUpManager>().Activate(this,Zone.Hand,e.Key,e.Value);
                         break;
                     case Effect.AllShipOneMoreDamage:
                         foreach (Card card in GameManager.currentPlayer.board)
                         {
-                            if (!card.shipOrBase && card.montantD > 0)
+                            if (!card.shipOrBase && HaveIDamage(card))
                             {
                                 card.AddValue(Effect.D,1);
                             } 
                         }
                         break;
+                    case Effect.MultiFaction:
+                        faction = Faction.All;
+                        break;
                 }
             }
+        }
+        public void DiscardToDraw(int nbDiscard)
+        {
+            GameManager.currentPlayer.Draw(nbDiscard);
         }
         public bool CheckSynergie()
         {
@@ -242,10 +215,8 @@ namespace Resources.Script
                 GameManager.player1.toDiscard += 1;
             }
         }
-        public void DestroyTargetBase()
+        public void DestroyTargetBase(Card card)
         {
-            /*Choix du joueur*/
-            Card card = new Card();
             Destroy(card);
         }
         public void Requisition()
@@ -277,9 +248,9 @@ namespace Resources.Script
             isUsed = card.isUsed;
             needPlayer = card.needPlayer;
 
-            Condition cond = FindConditionOfEffect(Effect.Copy);
+            List<Condition> cond = FindConditionsOfEffect(Effect.Copy);
             Actions.Remove(cond);
-            foreach (KeyValuePair<Condition, List<Effect>> k in card.Actions)
+            foreach (KeyValuePair<List<Condition>, Dictionary<Effect, int>> k in card.Actions)
             {
                 Actions.Add(k.Key,k.Value);
             }
@@ -299,19 +270,35 @@ namespace Resources.Script
             isUsed = mySelf.isUsed;
             needPlayer = mySelf.needPlayer;
         }
-        private Condition FindConditionOfEffect(Effect e)
+        private List<Condition> FindConditionsOfEffect(Effect e)
         {
-            foreach ( KeyValuePair<Condition,List<Effect>> k in Actions)
+            foreach ( KeyValuePair<List<Condition>, Dictionary<Effect, int>> k in Actions)
             {
-                foreach (Effect effect in k.Value)
+                foreach (KeyValuePair<Effect, int> j in k.Value)
                 {
-                    if (effect == e)
+                    if (j.Key == e)
                     {
                         return k.Key;
                     }
                 }
             }
-            return Condition.NotFound;
+            List<Condition> resultat = new List<Condition>();
+            resultat.Add(Condition.NotFound);
+            return resultat;
+        }
+        private bool HaveIDamage(Card c)
+        {
+            foreach (KeyValuePair<List<Condition>, Dictionary<Effect, int>> k in c.Actions)
+            {
+                foreach (KeyValuePair<Effect, int> l in k.Value)
+                {
+                    if (l.Key == Effect.D)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }
