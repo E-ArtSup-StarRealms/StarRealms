@@ -1,27 +1,23 @@
-using System;
 using System.Collections.Generic;
-using System.Transactions;
-using System.Xml;
-using UnityEditor.Search;
 using UnityEngine;
 
 namespace Resources.Script
 {
     public class Card : MonoBehaviour
     {
-        private static int nbCard = 0;
+        private static int _nbCard = 0;
         public int id;
-        public new string name;
-        public int cost;
-        public Faction faction;
-        public bool shipOrBase;
-        public bool isTaunt;
+        public new string name = "";
+        public int cost = 0;
+        public Faction faction = Faction.Bleu;
+        public bool shipOrBase = false;
+        public bool isTaunt = false;
         public Sprite icon;
         public Mesh image;
-        public Dictionary<Condition, List<Effect>> Actions;
-        public int baseLife;
-        public bool isUsed;
-        public bool needPlayer;
+        public Dictionary<Condition, List<Effect>> Actions = new Dictionary<Condition, List<Effect>>();
+        public int baseLife = 0;
+        public bool isUsed = false;
+        public bool needPlayer = false;
         public int montantD = 0;
         public int montantG = 0;
         public int montantH = 0;
@@ -29,14 +25,36 @@ namespace Resources.Script
         public int montantScrap = 0;
         public Card mySelf = null;
 
+        void Start()
+        {
+            GameManager.currentPlayer.board.Add(this);
+        }
+        void OnMouseDown()
+        {
+            if (name == "Copy" && FindConditionOfEffect(Effect.Copy) == Condition.NotFound)
+            {
+                List<Effect> tmp = new List<Effect>();
+                tmp.Add(Effect.Copy);
+                Actions.Add(Condition.Nothing,tmp);
+            }
+        }
+        void Update()
+        {
+            transform.LookAt(GameObject.FindWithTag("MainCamera").transform.position - new Vector3(0,0,0));
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                CheckCondition();
+            }
+        }
+        
         public Card()
         {
             
         }
         public Card(int id, string name, int cost, Faction faction, bool shipOrBase, bool isTaunt, Mesh image, Sprite icon, Dictionary<Condition,List<Effect>> actions, int baseLife,bool needPlayer, bool isUsed)
         {
-            nbCard++;
-            this.id = nbCard;
+            _nbCard++;
+            this.id = _nbCard;
             this.name = name;
             this.cost = cost;
             this.faction = faction;
@@ -78,7 +96,7 @@ namespace Resources.Script
                         DoEffect(aFaire);
                         break;
                     case Condition.Synergie:
-                        if (CheckFactionOnBoard())
+                        if (CheckSynergie())
                         {
                             DoEffect(Actions[cond]);
                         }
@@ -110,12 +128,13 @@ namespace Resources.Script
                 switch (e)
                 {
                     case Effect.Copy:
-                        Copy();
+                        GameManager.popUp.GetComponent<PopUpManager>().Activate(this,Zone.Board,e,1);
                         break;
                     case Effect.D:
                         AddValue(Effect.D,montantD);
                         break;
                     case Effect.Discard:
+                        //ScrapOrDiscard(true,montantScrap,Zone.HandAndDiscardPile,true);
                         break;
                     case Effect.Draw:
                         GameManager.currentPlayer.Draw(montantDraw);
@@ -136,7 +155,7 @@ namespace Resources.Script
                         TargetDiscard();
                         break;
                     case Effect.Scrap:
-                        ScrapOrDiscard(false,montantScrap,Zone.HandAndDiscardPile,false);
+                        //ScrapOrDiscard(false,montantScrap,Zone.HandAndDiscardPile,false);
                         break;
                     case Effect.Wormhole:
                         GameManager.currentPlayer.cardOnTop = true;
@@ -161,7 +180,7 @@ namespace Resources.Script
                 }
             }
         }
-        public bool CheckFactionOnBoard()
+        public bool CheckSynergie()
         {
             foreach (Card c in GameManager.currentPlayer.board)
             {
@@ -199,46 +218,18 @@ namespace Resources.Script
                     break;
             }
         }
-        public void ScrapOrDiscard(bool scrapOrDiscard, int nbMax, Zone zone, bool mustDoIt)
+        public void ScrapOrDiscard(bool scrapOrDiscard, List<Card> lesCartes)
         {
-            switch(zone)
+            if (!scrapOrDiscard)
             {
-                case Zone.Hand:
-                    if (!scrapOrDiscard)
-                    {
-                        /*choix du joueur*/
-                        Card c = new Card();
-                        Destroy(c);
-                    }
-                    else
-                    {
-                        //GameManager.currentPlayer.Discard(nbMax);
-                    }
-                    break;
-                case Zone.DiscardPile:
-                    if (!scrapOrDiscard)
-                    {
-                        /*choix du joueur*/
-                        Card c = new Card();
-                        Destroy(c);
-                    }
-                    break;
-                case Zone.HandAndDiscardPile:
-                    if (!scrapOrDiscard)
-                    {
-                        /*choix du joueur*/
-                        Card c = new Card();
-                        Destroy(c);
-                    }
-                    break;
-                case Zone.Shop:
-                    if (!scrapOrDiscard)
-                    {
-                        /*choix du joueur*/
-                        Card c = new Card();
-                        Destroy(c);
-                    }
-                    break;
+                foreach (Card c in lesCartes)
+                {
+                    Destroy(c);
+                }
+            }
+            else
+            {
+                //GameManager.currentPlayer.Discard(nbMax);
             }
         }
         public void TargetDiscard()
@@ -273,10 +264,8 @@ namespace Resources.Script
             }
             return nbBase;
         }
-        public void Copy()
+        public void Copy(Card card)
         {
-            /*choix du joueur*/
-            Card card = new Card();
             name = card.name;
             cost = card.cost;
             faction = card.faction;
