@@ -1,0 +1,869 @@
+﻿{
+  "card" : [
+    {
+    "name": "Hunter B56",
+    "cost": 1,
+    "faction": "Rouge",
+    "shipOrBase": false,
+    "isTaunt": false,
+    "icon": "",
+    "mesh": "",
+    "Actions": [
+       {
+        "conditions": [""],
+        "effects": ["2D"]
+      },
+      {
+        "conditions": ["Synergie"],
+        "effects": ["Draw"]
+      }
+      
+    ],
+    "baseLife": 0,
+    "isUsed": false,
+    "needPlayer": false
+  },
+    {
+    "name": "Defective Transporter",
+    "cost": 2,
+    "faction": "Rouge",
+    "shipOrBase": false,
+    "isTaunt": false,
+    "icon": "",
+    "mesh": "",
+    "Actions": 
+    [
+      {
+        "conditions": [""],
+        "effects": ["D","Draw"]
+      },
+      {
+        "conditions": ["Synergie"],
+        "effects": ["2G"]
+      },
+      {
+        "conditions": ["AutoScrap"],
+        "effects": ["Scrap"]
+      }
+      
+    ],
+    "baseLife": 0,
+    "isUsed": false,
+    "needPlayer": true
+  },
+    {
+      "name": "Driller S88",
+      "cost": 2,
+      "faction": "Rouge",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["G"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["2D"]
+        },
+        {
+          "conditions": ["AutoScrap"],
+          "effects": ["2G"]
+        }
+        
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": true
+    },
+    {
+      "name": "Mainframe Repeater",
+      "cost": 3,
+      "faction": "Rouge",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["2D","Draw"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["2D"]
+        }
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": false
+    },
+    {
+      "name": "Bomber F62",
+      "cost": 3,
+      "faction": "Rouge",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["3D"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["Draw"]
+        },
+        {
+          "conditions": ["AutoScrap"],
+          "effects": ["2D"]
+        }
+        
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": true
+    },
+    {
+      "name": "Hyperlight Breaker",
+      "cost": 4,
+      "faction": "Rouge",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["3D"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["3D"]
+        },
+        {
+          "conditions": ["AutoScrap"],
+          "effects": ["Draw"]
+        }
+        
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": true
+    },
+    {
+      "name": "Teleporter G34",
+      "cost": 5,
+      "faction": "Rouge",
+      "shipOrBase": true,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["Draw"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["Draw"]
+        }
+        
+      ],
+      "baseLife": 5,
+      "isUsed": false,
+      "needPlayer": false
+    },
+    {
+      "name": "Mainframe A00",
+      "cost": 7,
+      "faction": "Rouge",
+      "shipOrBase": true,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["Scrap"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["AllShipOneMoreDamage"]
+        }
+        
+      ],
+      "baseLife": 5,
+      "isUsed": false,
+      "needPlayer": false
+    },
+    {
+      "name": "Bungler Fly",
+      "cost": 1,
+      "faction": "Vert",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": ["Or"],
+          "effects": ["2D","Hinder"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["Sabotage"]
+        }
+        
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": true
+    },
+    {
+      "name": "Garbage Cleaner",
+      "cost": 2,
+      "faction": "Vert",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["2G"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["Scrap"]
+        }
+        
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": true
+    },
+    {
+      "name": "Corrosive Sorter",
+      "cost": 3,
+      "faction": "Vert",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["Scrap","2D"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["Sabotage"]
+        }
+        
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": true
+    },
+    {
+      "name": "Hostile Shell",
+      "cost": 3,
+      "faction": "Vert",
+      "shipOrBase": true,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["2D"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["Hinder"]
+        },
+        {
+          "conditions": "AutoScrap",
+          "effects": ["2G"]
+        }
+        
+      ],
+      "baseLife": 3,
+      "isUsed": false,
+      "needPlayer": true
+    },
+    {
+      "name": "Amorphous Offshoot",
+      "cost": 4,
+      "faction": "Vert",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["Draw"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["Copy"]
+        }
+        
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": true
+    },
+    {
+      "name": "Arthropod Crusher",
+      "cost": 5,
+      "faction": "Vert",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["Sabotage","4D"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["Scrap"]
+        }
+        
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": true
+    },
+    {
+      "name": "Traveling Hive",
+      "cost": 6,
+      "faction": "Vert",
+      "shipOrBase": true,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["Hinder", "Draw"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["3D"]
+        }
+        
+      ],
+      "baseLife": 5,
+      "isUsed": false,
+      "needPlayer": true
+    },
+    {
+      "name": "The Swarm",
+      "cost": 7,
+      "faction": "Vert",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": ["ForEachSameFaction"],
+          "effects": ["Sabotage"]
+        },
+        {
+          "conditions": [""],
+          "effects": ["4D"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["3Hinder"]
+        }
+        
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": true
+    },
+    {
+      "name": "Tax Collector",
+      "cost": 1,
+      "faction": "Jaune",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["G"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["3G"]
+        }
+        
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": false
+    },
+    {
+      "name": "Trade Vessel",
+      "cost": 2,
+      "faction": "Jaune",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["2G"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["Draw"]
+        }
+        
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": false
+    },
+    {
+      "name": "Caller of the Fleet",
+      "cost": 3,
+      "faction": "Jaune",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["2G"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["Wormhole"]
+        }
+        
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": false
+    },
+    {
+      "name": "Fortified Trade Station",
+      "cost": 4,
+      "faction": "Jaune",
+      "shipOrBase": true,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": ["Or"],
+          "effects": ["2D", "2G"]
+        },
+        {
+          "conditions": ["Synergie","Or"],
+          "effects": ["D", "G"]
+        }
+        
+      ],
+      "baseLife": 4,
+      "isUsed": false,
+      "needPlayer": true
+    },
+    {
+      "name": "Emperor's Herald",
+      "cost": 5,
+      "faction": "Jaune",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": "",
+          "effects": ["4D"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["Requisition"]
+        },
+        {
+          "conditions": ["AutoScrap"],
+          "effects": ["BaseDestruction"]
+        }
+        
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": true
+    },
+    {
+      "name": "Fleet Optimizer",
+      "cost": 5,
+      "faction": "Jaune",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["3D","Scrap"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["4D"]
+        }
+        
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": true
+    },
+    {
+      "name": "Imperial Prime Destroyer",
+      "cost": 6,
+      "faction": "Jaune",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["6D"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["BaseDestruction"]
+        },
+        {
+          "conditions": ["AutoScrap"],
+          "effects": ["Draw"]
+        }
+        
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": true
+    },
+    {
+      "name": "Emperor's Will",
+      "cost": 7,
+      "faction": "Jaune",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["8D"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["6D"]
+        }
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": false
+    },
+    {
+      "name": "Medic Shuttle",
+      "cost": 1,
+      "faction": "Bleu",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["G","H"]
+        },
+        {
+          "conditions": ["Synergie","TwoBaseOrMore"],
+          "effects": ["2H"]
+        }
+        
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": false
+    },
+    {
+      "name": "Deflector Shield",
+      "cost": 2,
+      "faction": "Bleu",
+      "shipOrBase": true,
+      "isTaunt": true,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["G","D"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["H"]
+        }
+        
+      ],
+      "baseLife": 2,
+      "isUsed": false,
+      "needPlayer": false
+    },
+    {
+      "name": "Federation's Mechanic",
+      "cost": 3,
+      "faction": "Bleu",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["G","2H"]
+        },
+        {
+          "conditions": ["Synergie","TwoBaseOrMore"],
+          "effects": ["Scrap"]
+        }
+        
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": true
+    },
+    {
+      "name": "Defensive Frigate",
+      "cost": 4,
+      "faction": "Bleu",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["3D"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["3H"]
+        }
+        
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": false
+    },
+    {
+      "name": "Recycling Station",
+      "cost": 4,
+      "faction": "Bleu",
+      "shipOrBase": true,
+      "isTaunt": true,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["2DiscardToDraw"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["G"]
+        }
+  
+      ],
+      "baseLife": 4,
+      "isUsed": false,
+      "needPlayer": true
+    },
+    {
+      "name": "Armored Protector",
+      "cost": 5,
+      "faction": "Bleu",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["4D"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["2D","Draw"]
+        }
+        
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": false
+    },
+    {
+      "name": "Emergency Shelter",
+      "cost": 6,
+      "faction": "Bleu",
+      "shipOrBase": true,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["2H"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["Draw"]
+        },
+        {
+          "conditions": ["AutoScrap"],
+          "effects": ["7D"]
+        }
+        
+      ],
+      "baseLife": 6,
+      "isUsed": false,
+      "needPlayer": true
+    },
+    {
+      "name": "Diplomatic Headquarters",
+      "cost": 7,
+      "faction": "Bleu",
+      "shipOrBase": true,
+      "isTaunt": true,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["3H"]
+        },
+        {
+          "conditions": ["Synergie"],
+          "effects": ["MultiFaction"]
+        }
+        
+      ],
+      "baseLife": 7,
+      "isUsed": false,
+      "needPlayer": false
+    },
+    {
+      "name": "Scout",
+      "cost": 0,
+      "faction": "Neutre",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["G"]
+        }
+        
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": false
+    },
+    {
+      "name": "Viper",
+      "cost": 0,
+      "faction": "Neutre",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["D"]
+        }
+        
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": false
+    },
+    {
+      "name": "Explorer",
+      "cost": 2,
+      "faction": "Neutre",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
+          "conditions": [""],
+          "effects": ["2G"]
+        },
+        {
+          "conditions": ["AutoScrap"],
+          "effects": ["2D"]
+        }
+        
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": true
+    }
+  ]
+}
