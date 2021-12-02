@@ -5,21 +5,7 @@ namespace Resources.Script
 {
     public class GameManager : MonoBehaviour
     {
-        //variable temporaire
-        public List<GameObject> display;
-        public List<GameObject> gameDeck;
-        public List<GameObject> deck;
-        public List<GameObject> discardPile;
-        public List<GameObject> hand;
-        public List<GameObject> board;
-        public List<GameObject> boardOpponent;
-        public int hp;
-        public int hpOpponent;
-        public int money;
-        public int totalPower;
-        public int toDiscard;
-        public bool cadOnTop;
-        public bool freeShip;
+        public GameObject popUp;
 
         public static Player player1;
         public static Player player2;
@@ -31,97 +17,63 @@ namespace Resources.Script
 
         private void Start()
         {
+            popUp.SetActive(true);
             panelWin.SetActive(false);
             firstRound = true;
-            hp = 50;
-            hpOpponent = 50;
+            player1.hp = 50;
+            player2.hp = 50;
+            currentPlayer = player1;
+            currentPlayer.money = 0;
+            currentPlayer.totalPower = 0;
             BeginTurn();
         }
 
         //Distribue les carte selon si c'est le premier tour ou non
         private void BeginTurn()
         {
+
+           
+           
+
             if(firstRound)
             {
-                for(int i = 0;i < 3; i = i+1)
-                {
-                    Draw();
-                }
+
+                currentPlayer.Draw(3);
                 firstRound = false;
+
             }
             else
             {
-                for (int i = 0; i < 5; i = i + 1)
-                {
-                    Draw();
-                }
+
+                currentPlayer.Draw(5);
+
             }
 
         }
 
-        //l'action de pioche qui peux �tre appeller n'importe quand 
-        private void Draw()
+        private void endTurn()
         {
-            int deckSize = deck.Count;
-            int defauceSize = discardPile.Count;
-            if ( deckSize <= 0)
+            currentPlayer.money = 0;
+            currentPlayer.totalPower = 0;
+            if (currentPlayer = player1)
             {
-                for (int i = 0; i < defauceSize; i = i + 1)
+                if(player2.hp <= 0 )
                 {
-                    ReFillDeck();
+                    panelWin.SetActive(true);
                 }
-                // on rappelle la fonction car la le joueur n'a toujour pas piocher ducoup ;D
-                Draw(); 
+                player1.hp = currentPlayer.hp;
+                currentPlayer = player2;
             }
             else
             {
-                GameObject card = deck[deck.Count - 1].gameObject;
-                deck.RemoveAt(deck.Count - 1);
-                hand.Add(card);
-            }
-        
-        }
-
-        //si il n'y a plus de carte dans le deck du joueur il est refill par la deffauce 
-        private void ReFillDeck()
-        {
-            //le Random fait une sorte de m�lange des carte avant de les deplacer dans le deck
-            int id = Random.Range(0, discardPile.Count);
-            GameObject card = discardPile[id].gameObject;
-            discardPile.RemoveAt(id);
-            deck.Add(card);
-        }
-
-
-        private void EndTurn()
-        {
-            if(hpOpponent <= 0)
-            {
-                panelWin.SetActive(true);
-            }
-            else
-            {
-                int tHp = hp;
-                int thpOpponent = hpOpponent;
-                money = 0;
-                totalPower = 0;
-                hp = thpOpponent;
-                hpOpponent = tHp;
-
-                //met toute les carte de la main a la deffauce 
-                int handSize = hand.Count;
-                for (int i = 0; i < handSize; i = i + 1)
+                if (player1.hp <= 0)
                 {
-                    GameObject card = hand[hand.Count - 1].gameObject;
-                    hand.RemoveAt(hand.Count - 1);
-                    discardPile.Add(card);
+                    panelWin.SetActive(true);
                 }
-
-
-                BeginTurn();
+                player2.hp = currentPlayer.hp;
+                currentPlayer = player1;
             }
-        
-
+            
         }
 
     }
