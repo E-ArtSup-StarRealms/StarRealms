@@ -246,8 +246,7 @@ namespace Resources.Script
                 card.gameObject.transform.SetParent(objectDiscardPile.transform);
                 discardPile.Add(card);
             }
-            shop.display.Remove(card);
-            shop.Refill();
+            shop.Refill(card);
         }
     }
 }

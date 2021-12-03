@@ -10,23 +10,10 @@ namespace Resources.Script
         public int nbDefault = 10;
         public List<Card> display = new List<Card>();
         public List<Card> gameDeck;
-        public int chosenCard; 
-        /*public void RefillAll()
+        
+        public void Refill(Card chosenCard)
         {
-            for(int i = 0; i < display.Count; i++)
-            {
-                gameDeck.Add(display[i]);
-            }
-            display.Clear();
-            for(int i=0;i<5;i++)
-            {
-                display.Add(gameDeck[0]);
-                gameDeck.RemoveAt(0);
-            }
-        }*/
-        public void Refill()
-        {
-            display.RemoveAt(chosenCard);
+            display.Remove(chosenCard);
             display.Add(gameDeck[0]);
             gameDeck.RemoveAt(0);
         }
