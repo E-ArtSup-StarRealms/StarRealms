@@ -28,16 +28,14 @@ namespace Resources.Script
         {
             panelWin.SetActive(false);
             firstRound = true;
-            //BeginTurn();
+            BeginTurn();
         }
 
         //Distribue les carte selon si c'est le premier tour ou non
         private void BeginTurn()
         {
 
-           
-           
-
+            //pioche de debut de tour
             if(firstRound)
             {
 
@@ -54,13 +52,22 @@ namespace Resources.Script
 
         }
 
-        private void endTurn()
+        public static void endTurn()
         {
+           //supression de la money et du power restan 
             currentPlayer.money = 0;
             currentPlayer.totalPower = 0;
+
+        //echange de borad (visuelle)
+            Vector3 boardpos1 = player1.objectBoard.GetComponent<Transform>().position;
+            Vector3 boardpos2 = player2.objectBoard.GetComponent<Transform>().position;
+            player1.objectBoard.GetComponent < Transform >().position = boardpos2;
+            player2.objectBoard.GetComponent < Transform >().position = boardpos1;
+            
+            //switche du current player et des hp de ce dernier
             if (currentPlayer = player1)
             {
-             
+               
                 player1.hp = currentPlayer.hp;
                 currentPlayer = player2;
             }
