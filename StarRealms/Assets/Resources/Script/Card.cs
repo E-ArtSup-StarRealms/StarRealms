@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Resources.Script
@@ -23,16 +26,38 @@ namespace Resources.Script
 
         void Start()
         {
-            GameManager.currentPlayer.board.Add(this);
+            switch (faction)
+            {
+                case Faction.Neutre:
+                    GameManager.currentPlayer.deck.Add(this);
+                    break;
+                default:
+                    GameManager.currentPlayer.board.Add(this);
+                    break;
+            }
         }
         void Update()
         {
-            transform.LookAt(GameObject.FindWithTag("MainCamera").transform.position - new Vector3(0,0,0));
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                CheckCondition();
-            }
+            //transform.LookAt(GameObject.FindWithTag("MainCamera").transform.position - new Vector3(0,0,0));
         }
+
+        private void OnMouseDown()
+        {
+            CheckCondition(GetFirstCond());
+        }
+
+        public List<Condition> GetFirstCond()
+        {
+            List<Condition> firstCond = new List<Condition>();
+            int pos = 0;
+            foreach (KeyValuePair<List<Condition>, Dictionary<Effect, int>> conds in Actions)
+            {
+                firstCond = conds.Key;
+                return firstCond;
+            }
+            return firstCond;
+        }
+
         public void SetId()
         {
             _nbCard++;
@@ -42,51 +67,64 @@ namespace Resources.Script
         {
             GameManager.currentPlayer.PlayCard(this);
         }
-        public void CheckCondition()
+
+        public void CancelPlay()
         {
-            foreach (List<Condition> conds in Actions.Keys)
+            
+        }
+        
+        public void CheckCondition(List<Condition> conds)
+        {
+            List<bool> allCheck = new List<bool>();
+            foreach (Condition cond in conds)
             {
-                foreach (Condition cond in conds)
+                switch (cond)
                 {
-                    switch (cond)
-                    {
-                        case Condition.Nothing:
-                            DoEffect(Actions[conds]);
-                            break;
-                        case Condition.Or:
-                            /*choix du joueur*/
-                            Effect choix = Effect.D;
-                            Dictionary<Effect, int> aFaire = new Dictionary<Effect, int>();
-                            aFaire.Add(choix,Actions[conds][choix]);
-                            DoEffect(aFaire);
-                            break;
-                        case Condition.Synergie:
-                            if (CheckSynergie())
-                            {
-                                DoEffect(Actions[conds]);
-                            }
+                    case Condition.Nothing:
+                        allCheck.Add(true);
+                        break;
+                    case Condition.Or:
+                        /*choix du joueur*/
+                        Effect choix = Effect.D;
+                        Dictionary<Effect, int> aFaire = new Dictionary<Effect, int>();
+                        aFaire.Add(choix,Actions[conds][choix]);
+                        DoEffect(aFaire);
+                        break;
+                    case Condition.Synergie:
+                        if (CheckSynergie())
+                        {
+                            allCheck.Add(true);
+                        }
 
-                            break;
-                        case Condition.AutoScrap:
-                            /*Confirmation player*/
+                        break;
+                    case Condition.AutoScrap:
+                        /*Confirmation player*/
+                        DoEffect(Actions[conds]);
+                        Destroy(this);
+                        break;
+                    case Condition.ForEachSameFaction:
+                        for (int i = 0; i < CheckNbSameFactionOnBoard(); i++)
+                        {
                             DoEffect(Actions[conds]);
-                            Destroy(this);
-                            break;
-                        case Condition.ForEachSameFaction:
-                            for (int i = 0; i < CheckNbSameFactionOnBoard(); i++)
-                            {
-                                DoEffect(Actions[conds]);
-                            }
+                        }
 
-                            break;
-                        case Condition.TwoBaseOrMore:
-                            if (CheckNbBaseOnBoard() >= 2)
-                            {
-                                DoEffect(Actions[conds]);
-                            }
-                            break;
-                    }
+                        break;
+                    case Condition.TwoBaseOrMore:
+                        if (CheckNbBaseOnBoard() >= 2)
+                        {
+                            allCheck.Add(true);
+                        }
+                        break;
                 }
+            }
+            if (!allCheck.Contains(false) && allCheck.Contains(true))
+            {
+                DoEffect(Actions[conds]);
+            }
+
+            foreach (Condition cond in conds)
+            {
+                
             }
         }
         public void DoEffect(Dictionary<Effect, int> lesEffets)
@@ -254,7 +292,7 @@ namespace Resources.Script
             {
                 Actions.Add(k.Key,k.Value);
             }
-            CheckCondition();
+            CheckCondition(GetFirstCond());
         }
         public void UnCopy()
         {

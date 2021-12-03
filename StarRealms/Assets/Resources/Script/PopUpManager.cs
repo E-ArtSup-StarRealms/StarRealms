@@ -27,14 +27,12 @@ namespace Resources.Script
         }
         public void Validate()
         {
-            Debug.Log("Validate");
             switch (effectApplied)
             {
                 case Effect.Copy:
                     Debug.Log(LesCartes.Count);
                     if (LesCartes.Count > 0)
                     {
-                        Debug.Log("do Copy");
                         cardFrom.Copy(LesCartes[0]);
                     }
                     break;
@@ -45,28 +43,29 @@ namespace Resources.Script
                     cardFrom.ScrapOrDiscard(false,LesCartes);
                     break;
             }
+            gameObject.SetActive(false);
         }
+        public void Cancel()
+        {
+            cardFrom.CancelPlay();
+            gameObject.SetActive(false);
+        }
+        
         void Update()
         {
             if (Input.GetMouseButtonDown(0) && cardFrom != null)
             {
-                Debug.Log("click");
                 if (Camera.main)
                 {
-                    Debug.Log("camera");
                     var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                     if (Physics.Raycast(ray, out var hit, 100.0f))
                     {
-                        Debug.Log("raycast");
                         if (hit.transform != null)
                         {
-                            Debug.Log("hit not null");
                             if (hit.transform.gameObject.GetComponent<Card>() != null)
                             {
-                                Debug.Log("hit is card");
                                 if (hit.transform.gameObject.GetComponent<Card>() != cardFrom)
                                 {
-                                    Debug.Log("hit is not cardFrom");
                                     switch (zoneApplied)
                                     {
                                         case Zone.Board:
@@ -141,6 +140,14 @@ namespace Resources.Script
                             }
                         }
                     }
+                }
+                if (LesCartes.Count > 1)
+                {
+                    GameObject.Find("Text_Validate").GetComponent<Text>().text = LesCartes[0].name;
+                }
+                else
+                {
+                    GameObject.Find("Text_Validate").GetComponent<Text>().text = LesCartes.Count + " cards";
                 }
             }
         }

@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Object = UnityEngine.Object;
 
 namespace Resources.Script
 {
@@ -39,8 +41,15 @@ namespace Resources.Script
         void Start()
         {
             myCardsList = JsonUtility.FromJson<CardsList>(textJSON.text);
-            foreach (Cards c in myCardsList.card)
+            var posX = 4.75f;
+            var posY = 2f;
+            foreach (var c in myCardsList.card)
             {
+                if (posX < -4.6f)
+                {
+                    posX = 4.75f;
+                    posY -= 2f;
+                }
                 Object finalObject;
                 if (!c.shipOrBase)
                 {
@@ -52,7 +61,10 @@ namespace Resources.Script
                     finalObject = Instantiate(UnityEngine.Resources.Load("Prefab/carteBase"),
                         GameObject.Find("GameDeck").transform);
                 }
-                Card finalCard = finalObject.GetComponent<Card>();
+                var where = new Vector3(posX,posY,0);
+                finalObject.GetComponent<Transform>().position = where;
+                finalObject.name = c.name;
+                var finalCard = finalObject.GetComponent<Card>();
                 finalCard.SetId();
                 finalCard.name = c.name;
                 finalCard.cost = c.cost;
@@ -70,6 +82,9 @@ namespace Resources.Script
                     case "Bleu":
                         finalCard.faction = Faction.Bleu;
                         break;
+                    case "Neutre":
+                        finalCard.faction = Faction.Neutre;
+                        break;
                     case "All":
                         finalCard.faction = Faction.All;
                         break;
@@ -78,9 +93,9 @@ namespace Resources.Script
                 finalCard.isTaunt = c.isTaunt;
                 //finalCard.image = c.mesh;
                 //finalCard.icon = c.icon;
-                foreach (Actions a in c.Actions)
+                foreach (var a in c.Actions)
                 {
-                    List<char> lesChars = new List<char>();
+                    var lesChars = new List<char>();
                     lesChars.Add('2');
                     lesChars.Add('3');
                     lesChars.Add('4');
@@ -89,13 +104,13 @@ namespace Resources.Script
                     lesChars.Add('7');
                     lesChars.Add('8');
                     lesChars.Add('9');
-                    List<Condition> lesConds = new List<Condition>();
-                    Dictionary<Effect, int> lesEfs = new Dictionary<Effect, int>();
-                    foreach (string sC in a.conditions)
+                    var lesConds = new List<Condition>();
+                    var lesEfs = new Dictionary<Effect, int>();
+                    foreach (var sC in a.conditions)
                     {
                         switch (sC)
                         {
-                            case "Nothing":
+                            case "":
                                 lesConds.Add(Condition.Nothing);
                                 break;
                             case "Or":
@@ -115,15 +130,16 @@ namespace Resources.Script
                                 break;
                         }
                     }
-                    foreach (string sE in a.effects)
+                    foreach (var sE in a.effects)
                     {
                         string effet = sE;
                         int montant = 1;
+                        
                         if (lesChars.Contains(effet[0]))
                         {
-                            char sMontant = effet[0];
-                            montant = sMontant;
-                            effet = effet.Remove(0);
+                            string sMontant = effet[0].ToString();
+                            montant = Convert.ToInt32(sMontant);
+                            effet = effet.Substring(1);
                         }
                         switch (effet)
                         {
@@ -179,6 +195,17 @@ namespace Resources.Script
                 finalCard.baseLife = c.baseLife;
                 finalCard.needPlayer = c.needPlayer;
                 finalCard.isUsed = c.isUsed;
+                /*foreach (KeyValuePair<List<Condition>,Dictionary<Effect,int>> k in finalCard.Actions)
+                {
+                    if (k.Value.ContainsKey(Effect.D))
+                    {
+                        foreach (KeyValuePair<Effect,int> l in k.Value)
+                        {
+                            Debug.Log(finalCard.name +" : "+ l.Key+ " pour " + l.Value);
+                        }
+                    }
+                }*/
+                posX -= 0.85f;
             }
         }
     }
