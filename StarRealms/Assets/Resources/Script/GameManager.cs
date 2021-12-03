@@ -60,19 +60,13 @@ namespace Resources.Script
             currentPlayer.totalPower = 0;
             if (currentPlayer = player1)
             {
-                if(player2.hp <= 0 )
-                {
-                    panelWin.SetActive(true);
-                }
+             
                 player1.hp = currentPlayer.hp;
                 currentPlayer = player2;
             }
             else
             {
-                if (player1.hp <= 0)
-                {
-                    panelWin.SetActive(true);
-                }
+
                 player2.hp = currentPlayer.hp;
                 currentPlayer = player1;
             }

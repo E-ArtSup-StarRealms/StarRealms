@@ -125,8 +125,7 @@ namespace Resources.Script
 
         public void EndTurn()
         {
-            if (hand.Count == 0)
-            {
+           
                 if (money == 0 && totalPower == 0)
                 {
                     int nbCard = board.Count;
@@ -139,14 +138,20 @@ namespace Resources.Script
                             board.RemoveAt(0);
                         }
                     }
+                    nbCard = hand.Count;
+                    for (int i = 0; i < nbCard; i++)
+                    {
+                        hand[0].gameObject.transform.SetParent(objectDiscardPile.transform);
+                        discardPile.Add(hand[0]);
+                        hand.RemoveAt(0);
+                    }
                     Debug.Log("Changement de tour");
                     //Appel de la fonction de changement de tour dans le GameManeger
                 }
                 else
                     Debug.Log("Vous avez de l'argent ou des points d'attaque inutilisés");
-            }
-            else
-                Debug.Log("Il vous reste des cartes dans votre main");
+                // LANCER LA POPUP
+            
         }
 
         public void Attack(GameObject target)
