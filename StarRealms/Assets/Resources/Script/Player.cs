@@ -65,11 +65,20 @@ namespace Resources.Script
             {
                 if (deck.Count == 0)
                 {
-                    RefillDeck();
+                    if (discardPile.Count != 0)
+                    {
+                        RefillDeck();
+                        deck[0].gameObject.transform.SetParent(objectHand.transform);
+                        hand.Add(deck[0]);
+                        deck.RemoveAt(0);
+                    }
                 }
-                deck[0].gameObject.transform.SetParent(objectHand.transform);
-                hand.Add(deck[0]);
-                deck.RemoveAt(0);
+                else
+                {
+                    deck[0].gameObject.transform.SetParent(objectHand.transform);
+                    hand.Add(deck[0]);
+                    deck.RemoveAt(0);
+                }
             }
         }
 
