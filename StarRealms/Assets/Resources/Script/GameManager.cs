@@ -70,7 +70,7 @@ namespace Resources.Script
                 player2.hp = currentPlayer.hp;
                 currentPlayer = player1;
             }
-            
+            BeginTurn();
         }
 
     }
