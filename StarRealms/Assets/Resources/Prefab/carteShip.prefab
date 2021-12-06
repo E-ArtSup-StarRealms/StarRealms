@@ -46,7 +46,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3159398277510331105}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -75,6 +75,8 @@ MonoBehaviour:
   isUsed: 0
   needPlayer: 0
   mySelf: {fileID: 0}
+  timer: 0.1
+  objectToMove: {fileID: 0}
 --- !u!1 &3159398277613403670
 GameObject:
   m_ObjectHideFlags: 0

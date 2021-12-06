@@ -22,6 +22,11 @@ namespace Resources.Script
         public Card mySelf = null;
         private int _rankCond = 0;
 
+        private float currentTime = 0;
+        public float timer;
+        public GameObject objectToMove;
+
+
         void Start()
         {
             
@@ -29,6 +34,24 @@ namespace Resources.Script
         void Update()
         {
             //transform.LookAt(GameObject.FindWithTag("MainCamera").transform.position - new Vector3(0,0,0));
+
+            if (GameManager.currentPlayer.shopObject.GetComponent<Shop>().display.Contains(this))
+            {
+                if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
+                {
+
+                        currentTime += Time.deltaTime;
+
+                        float percent = currentTime / timer;
+
+                        transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position,percent);
+                        transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
+                }
+                else
+                {
+                    currentTime = 0;
+                }
+            }
         }
         private void OnMouseDown()
         {

@@ -18,10 +18,14 @@ namespace Resources.Script
         }
         public void Startfill()
         {
+           
             for(int i=0 ; i < 5 ; i++)
             {
-                display.Add(gameDeck[1]);
-                gameDeck.Remove(gameDeck[1]);
+                display.Add(gameDeck[0]);
+                gameDeck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).transform.GetChild(i).gameObject;
+                gameDeck.Remove(gameDeck[0]);
+                
+
             }
         
         }
