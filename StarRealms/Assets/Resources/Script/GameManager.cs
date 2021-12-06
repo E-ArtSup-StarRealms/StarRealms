@@ -32,7 +32,7 @@ namespace Resources.Script
         }
 
         //Distribue les carte selon si c'est le premier tour ou non
-        private void BeginTurn()
+        public static void BeginTurn()
         {
 
             //pioche de debut de tour
