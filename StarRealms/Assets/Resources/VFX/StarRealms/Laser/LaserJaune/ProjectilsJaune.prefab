@@ -14577,6 +14577,8 @@ GameObject:
   - component: {fileID: 1012564639808352773}
   - component: {fileID: 5669124897315336661}
   - component: {fileID: 5669124897315336660}
+  - component: {fileID: 7139927342204391151}
+  - component: {fileID: 7995098769638486967}
   m_Layer: 0
   m_Name: VfX_Projectils
   m_TagString: Untagged
@@ -14633,6 +14635,35 @@ MonoBehaviour:
   _data:
     _json: '{"declarations":{"collection":{"$content":[],"$version":"A"},"$version":"A"}}'
     _objectReferences: []
+--- !u!65 &7139927342204391151
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012564639808352772}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.8467445, y: 1, z: 1}
+  m_Center: {x: -0.92337227, y: 0, z: 0}
+--- !u!54 &7995098769638486967
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012564639808352772}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 1
 --- !u!1 &2951365742026285625
 GameObject:
   m_ObjectHideFlags: 0
