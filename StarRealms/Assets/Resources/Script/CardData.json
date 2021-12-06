@@ -35,11 +35,11 @@
     [
       {
         "conditions": [""],
-        "effects": ["D","Draw"]
+        "effects": ["G","Draw"]
       },
       {
         "conditions": ["Synergie"],
-        "effects": ["2G"]
+        "effects": ["G"]
       },
       {
         "conditions": ["AutoScrap"],
@@ -63,7 +63,7 @@
       [
         {
           "conditions": [""],
-          "effects": ["G"]
+          "effects": ["Scrap"]
         },
         {
           "conditions": ["Synergie"],
@@ -71,7 +71,7 @@
         },
         {
           "conditions": ["AutoScrap"],
-          "effects": ["2G"]
+          "effects": ["3G"]
         }
         
       ],
@@ -447,6 +447,10 @@
         {
           "conditions": ["Synergie"],
           "effects": ["Draw"]
+        },
+        {
+          "conditions": ["AutoScrap"],
+          "effects": ["Scrap"]
         }
         
       ],
@@ -471,6 +475,10 @@
         {
           "conditions": ["Synergie"],
           "effects": ["Wormhole"]
+        },
+        {
+          "conditions": ["AutoScrap"],
+          "effects": ["Hinder"]
         }
         
       ],
@@ -668,7 +676,7 @@
           "effects": ["G","2H"]
         },
         {
-          "conditions": ["Synergie","TwoBaseOrMore"],
+          "conditions": ["Synergie"],
           "effects": ["Scrap"]
         }
         
@@ -737,7 +745,7 @@
       [
         {
           "conditions": [""],
-          "effects": ["4D"]
+          "effects": ["3D"]
         },
         {
           "conditions": ["Synergie"],
@@ -856,8 +864,8 @@
           "effects": ["2G"]
         },
         {
-          "conditions": ["AutoScrap"],
-          "effects": ["2D"]
+          "conditions": ["AutoScrap","Or"],
+          "effects": ["2D","Hinder"]
         }
         
       ],

@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Resources.Script
@@ -23,6 +20,7 @@ namespace Resources.Script
         public bool isUsed = false;
         public bool needPlayer = false;
         public Card mySelf = null;
+        private int _rankCond = 0;
 
         void Start()
         {
@@ -40,24 +38,66 @@ namespace Resources.Script
         {
             //transform.LookAt(GameObject.FindWithTag("MainCamera").transform.position - new Vector3(0,0,0));
         }
-
         private void OnMouseDown()
         {
-            CheckCondition(GetFirstCond());
+            if (!GameManager.popUp.activeSelf && !isUsed)
+            {
+                if(HaveIThisCondition(Condition.AutoScrap))
+                {
+                    GameManager.popUpAutoScrap.GetComponent<PopUpAutoScrap>().
+                        Activate(this,Actions[GetListCondsFromCondition(Condition.Or)]);
+                } else if (HaveIThisCondition(Condition.Or))
+                {
+                    GameManager.popUpOr.GetComponent<PopUpOrManager>().
+                        Activate(this,Actions[GetListCondsFromCondition(Condition.Or)]);
+                }
+            }
         }
-
-        public List<Condition> GetFirstCond()
+        public List<Condition> GetNextCond(bool clicked)
         {
             List<Condition> firstCond = new List<Condition>();
-            int pos = 0;
-            foreach (KeyValuePair<List<Condition>, Dictionary<Effect, int>> conds in Actions)
+            int thisRank = 0;
+            if (!isUsed)
             {
-                firstCond = conds.Key;
-                return firstCond;
+                foreach (KeyValuePair<List<Condition>, Dictionary<Effect, int>> conds in Actions)
+                {
+                    if (thisRank == _rankCond)
+                    {
+                        if (!conds.Key.Contains(Condition.Or) && !conds.Key.Contains(Condition.AutoScrap))
+                        {
+                            if (!Actions[conds.Key].ContainsKey(Effect.Discard) &&
+                                !Actions[conds.Key].ContainsKey(Effect.Hinder) &&
+                                !Actions[conds.Key].ContainsKey(Effect.Scrap) &&
+                                !Actions[conds.Key].ContainsKey(Effect.BaseDestruction) &&
+                                !Actions[conds.Key].ContainsKey(Effect.DiscardToDraw))
+                            {
+                                firstCond = conds.Key;
+                                _rankCond++;
+                            } else if (clicked)
+                            {
+                                firstCond = conds.Key;
+                                _rankCond++;
+                            }
+                        }
+                        else if (clicked)
+                        {
+                            firstCond = conds.Key;
+                            _rankCond++;
+                        }
+                        if (_rankCond == Actions.Keys.Count)
+                        {
+                            isUsed = true;
+                        }
+                        return firstCond;
+                    }
+                    else
+                    {
+                        thisRank++;
+                    }
+                }
             }
             return firstCond;
         }
-
         public void SetId()
         {
             _nbCard++;
@@ -65,14 +105,13 @@ namespace Resources.Script
         }
         public void PlaySelf()
         {
+            _rankCond = 0;
             GameManager.currentPlayer.PlayCard(this);
         }
-
         public void CancelPlay()
         {
-            
+
         }
-        
         public void CheckCondition(List<Condition> conds)
         {
             List<bool> allCheck = new List<bool>();
@@ -107,7 +146,6 @@ namespace Resources.Script
                         {
                             DoEffect(Actions[conds]);
                         }
-
                         break;
                     case Condition.TwoBaseOrMore:
                         if (CheckNbBaseOnBoard() >= 2)
@@ -186,6 +224,7 @@ namespace Resources.Script
                         break;
                 }
             }
+            CheckCondition(GetNextCond(false));
         }
         public void DiscardToDraw(int nbDiscard)
         {
@@ -235,12 +274,27 @@ namespace Resources.Script
             {
                 foreach (Card c in lesCartes)
                 {
+                    if (GameManager.currentPlayer.hand.Contains(c))
+                    {
+                        GameManager.currentPlayer.hand.Remove(c);
+                    }else if (GameManager.currentPlayer.discardPile.Contains(c))
+                    {
+                        GameManager.currentPlayer.discardPile.Remove(c);
+                    } else if (GameManager.currentPlayer.shopObject.GetComponent<Shop>().display.Contains(c))
+                    {
+                        GameManager.currentPlayer.shopObject.GetComponent<Shop>().display.Remove(c);
+                        GameManager.currentPlayer.shopObject.GetComponent<Shop>().Refill(c);
+                    }
                     Destroy(c);
                 }
             }
             else
             {
-                //GameManager.currentPlayer.Discard(nbMax);
+                foreach (Card c in lesCartes)
+                {
+                    GameManager.currentPlayer.hand.Remove(c);
+                    GameManager.currentPlayer.discardPile.Add(c);
+                }
             }
         }
         public void TargetDiscard()
@@ -292,7 +346,7 @@ namespace Resources.Script
             {
                 Actions.Add(k.Key,k.Value);
             }
-            CheckCondition(GetFirstCond());
+            CheckCondition(GetNextCond(false));
         }
         public void UnCopy()
         {
@@ -337,6 +391,30 @@ namespace Resources.Script
                 }
             }
             return false;
+        }
+        private bool HaveIThisCondition(Condition condition)
+        {
+            foreach (List<Condition> lesConds in Actions.Keys)
+            {
+                foreach (Condition cond in lesConds)
+                {
+                    if (cond == condition)
+                        return true;
+                }
+            }
+            return false;
+        }
+        private List<Condition> GetListCondsFromCondition(Condition condition)
+        {
+            foreach (List<Condition> lesConds in Actions.Keys)
+            {
+                foreach (Condition cond in lesConds)
+                {
+                    if (cond == condition)
+                        return lesConds;
+                }
+            }
+            return new List<Condition>();
         }
     }
 }

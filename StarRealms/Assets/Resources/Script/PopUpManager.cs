@@ -42,6 +42,9 @@ namespace Resources.Script
                 case Effect.Scrap:
                     cardFrom.ScrapOrDiscard(false,LesCartes);
                     break;
+                case Effect.Hinder:
+                    cardFrom.ScrapOrDiscard(false,LesCartes);
+                    break;
             }
             gameObject.SetActive(false);
         }
@@ -78,7 +81,6 @@ namespace Resources.Script
                                                     LesCartes.Remove(LesCartes[0]);
                                                     LesCartes.Add(hit.transform.gameObject.GetComponent<Card>());
                                                 }
-                                                Debug.Log("Add");
                                             }
                                             break;
                                         case Zone.Hand:
