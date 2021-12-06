@@ -7,6 +7,8 @@ namespace Resources.Script
     public class GameManager : MonoBehaviour
     {
         public static GameObject popUp;
+        public static GameObject popUpOr;
+        public static GameObject popUpAutoScrap;
         public static Player player1 ;
         public static Player player2;
         public static Player currentPlayer;
@@ -18,7 +20,14 @@ namespace Resources.Script
         private void Awake()
         {
             popUp = GameObject.Find("PopUp");
+            popUpOr = GameObject.Find("PopUpOr");
+            popUpAutoScrap = GameObject.Find("PopUpAutoScrap");
+
             popUp.SetActive(false);
+            popUpAutoScrap.SetActive(false);
+            popUpOr.SetActive(false);
+            
+
             player1 = GameObject.Find("Player1").GetComponent<Player>();
             player2 = GameObject.Find("Player2").GetComponent<Player>();
             currentPlayer = player1;
@@ -26,7 +35,8 @@ namespace Resources.Script
 
         private void Start()
         {
-            panelWin.SetActive(false);
+            // I SLASHED PANEL WIN CAUSE I COULDNT FIND IT
+         panelWin.SetActive(false);
             firstRound = true;
             BeginTurn();
         }
