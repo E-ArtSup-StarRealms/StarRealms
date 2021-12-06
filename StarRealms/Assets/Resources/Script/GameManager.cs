@@ -13,7 +13,7 @@ namespace Resources.Script
 
         [SerializeField]
         private GameObject panelWin;
-        private bool firstRound;
+        private static bool firstRound;
 
         private void Awake()
         {
