@@ -13,6 +13,7 @@ namespace Resources.Script
         public static Player player2;
         public static Player currentPlayer;
 
+
         [SerializeField]
         private GameObject panelWin;
         private static bool firstRound;
@@ -23,6 +24,7 @@ namespace Resources.Script
             popUpOr = GameObject.Find("PopUpOr");
             popUpAutoScrap = GameObject.Find("PopUpAutoScrap");
 
+
             popUp.SetActive(false);
             popUpAutoScrap.SetActive(false);
             popUpOr.SetActive(false);
@@ -31,6 +33,8 @@ namespace Resources.Script
             player1 = GameObject.Find("Player1").GetComponent<Player>();
             player2 = GameObject.Find("Player2").GetComponent<Player>();
             currentPlayer = player1;
+
+            currentPlayer.shopObject.GetComponent<Shop>().Startfill();
         }
 
         private void Start()
@@ -48,7 +52,7 @@ namespace Resources.Script
             //pioche de debut de tour
             if(firstRound)
             {
-
+                
                 currentPlayer.Draw(3);
                 firstRound = false;
 
