@@ -19645,6 +19645,7 @@ GameObject:
   - component: {fileID: 3225605328316786209}
   - component: {fileID: 3998671834845328087}
   - component: {fileID: 2347855415299372242}
+  - component: {fileID: 5512431301355312397}
   m_Layer: 0
   m_Name: VFXShoot
   m_TagString: Untagged
@@ -19700,6 +19701,19 @@ MonoBehaviour:
     _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
     _objectReferences:
     - {fileID: 11400000, guid: 34d035c5ca9375b40969b9571e937c89, type: 2}
+--- !u!135 &5512431301355312397
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2502536561426396911}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5546168857315802069
 GameObject:
   m_ObjectHideFlags: 0
