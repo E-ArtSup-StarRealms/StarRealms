@@ -195,18 +195,18 @@ namespace Resources.Script
                 finalCard.baseLife = c.baseLife;
                 finalCard.needPlayer = c.needPlayer;
                 finalCard.isUsed = c.isUsed;
-                /*foreach (KeyValuePair<List<Condition>,Dictionary<Effect,int>> k in finalCard.Actions)
+                switch (finalCard.faction)
                 {
-                    if (k.Value.ContainsKey(Effect.D))
-                    {
-                        foreach (KeyValuePair<Effect,int> l in k.Value)
-                        {
-                            Debug.Log(finalCard.name +" : "+ l.Key+ " pour " + l.Value);
-                        }
-                    }
-                }*/
+                    case Faction.Neutre:
+                        GameManager.currentPlayer.deck.Add(finalCard);
+                        break;
+                    default:
+                        GameManager.currentPlayer.shopObject.GetComponent<Shop>().gameDeck.Add(finalCard);
+                        break;
+                }
                 posX -= 0.85f;
             }
+            GameManager.currentPlayer.shopObject.GetComponent<Shop>().Startfill();
         }
     }
 }

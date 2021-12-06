@@ -15,7 +15,17 @@ namespace Resources.Script
             gameObject.SetActive(true);
             cardFrom = c;
             effect.Clear();
-            effect.Add(lesEffets.Keys.ToList()[0],lesEffets.Values.ToList()[0]);
+            if (!HasOr)
+            {
+                effect.Add(lesEffets.Keys.ToList()[0],lesEffets.Values.ToList()[0]);
+            }
+            else
+            {
+                foreach(KeyValuePair<Effect, int> k in lesEffets)
+                {
+                    effect.Add(k.Key,k.Value);
+                }
+            }
             SetUp(HasOr);
         }
 
@@ -28,12 +38,13 @@ namespace Resources.Script
             else
             {
                 string explication = "";
+                Debug.Log(effect.Count);
                 foreach (KeyValuePair<Effect, int> k in effect)
                 {
                     explication += k.Value + " " + k.Key;
                     explication += " or ";
                 }
-                GameObject.Find("Text_AutoScrap").transform.GetChild(0).GetComponent<Text>().text = explication;
+                GameObject.Find("Text_AutoScrap").GetComponent<Text>().text = explication;
             }
             
         }

@@ -24,15 +24,7 @@ namespace Resources.Script
 
         void Start()
         {
-            switch (faction)
-            {
-                case Faction.Neutre:
-                    GameManager.currentPlayer.deck.Add(this);
-                    break;
-                default:
-                    GameManager.currentPlayer.shopObject.GetComponent<Shop>().gameDeck.Add(this);
-                    break;
-            }
+            
         }
         void Update()
         {

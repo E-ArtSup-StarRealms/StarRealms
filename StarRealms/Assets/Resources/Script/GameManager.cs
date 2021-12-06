@@ -33,8 +33,6 @@ namespace Resources.Script
             player1 = GameObject.Find("Player1").GetComponent<Player>();
             player2 = GameObject.Find("Player2").GetComponent<Player>();
             currentPlayer = player1;
-
-            currentPlayer.shopObject.GetComponent<Shop>().Startfill();
         }
 
         private void Start()
