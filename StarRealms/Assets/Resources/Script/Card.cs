@@ -30,7 +30,7 @@ namespace Resources.Script
                     GameManager.currentPlayer.deck.Add(this);
                     break;
                 default:
-                    GameManager.currentPlayer.board.Add(this);
+                    GameManager.currentPlayer.shopObject.GetComponent<Shop>().gameDeck.Add(this);
                     break;
             }
         }
@@ -45,7 +45,8 @@ namespace Resources.Script
                 if(HaveIThisCondition(Condition.AutoScrap))
                 {
                     GameManager.popUpAutoScrap.GetComponent<PopUpAutoScrap>().
-                        Activate(this,Actions[GetListCondsFromCondition(Condition.Or)]);
+                        Activate(this,Actions[GetListCondsFromCondition(Condition.AutoScrap)],
+                            GetListCondsFromCondition(Condition.AutoScrap).Contains(Condition.Or));
                 } else if (HaveIThisCondition(Condition.Or))
                 {
                     GameManager.popUpOr.GetComponent<PopUpOrManager>().

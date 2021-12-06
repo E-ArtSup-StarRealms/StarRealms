@@ -871,7 +871,7 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": false
     }
   ]
 }
