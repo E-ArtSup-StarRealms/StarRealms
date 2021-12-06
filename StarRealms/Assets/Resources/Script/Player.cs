@@ -145,6 +145,8 @@ namespace Resources.Script
                         discardPile.Add(hand[0]);
                         hand.RemoveAt(0);
                     }
+                    GameManager.endTurn();
+                    
                     Debug.Log("Changement de tour");
                     //Appel de la fonction de changement de tour dans le GameManeger
                 }
