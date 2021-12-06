@@ -16,7 +16,7 @@ namespace Resources.Script
 
         [SerializeField]
         private GameObject panelWin;
-        private static bool firstRound;
+        private static bool firstRound = true;
 
         private void Awake()
         {
@@ -38,9 +38,8 @@ namespace Resources.Script
         private void Start()
         {
             // I SLASHED PANEL WIN CAUSE I COULDNT FIND IT
-         panelWin.SetActive(false);
-            firstRound = true;
-            BeginTurn();
+             panelWin.SetActive(false);
+            //BeginTurn();
         }
 
         //Distribue les carte selon si c'est le premier tour ou non

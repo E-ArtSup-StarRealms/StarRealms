@@ -26,16 +26,11 @@ namespace Resources.Script
         public float timer;
         public GameObject objectToMove;
 
-
-        void Start()
-        {
-            
-        }
         void Update()
         {
             //transform.LookAt(GameObject.FindWithTag("MainCamera").transform.position - new Vector3(0,0,0));
 
-            if (GameManager.currentPlayer.shopObject.GetComponent<Shop>().display.Contains(this))
+            if (GameManager.currentPlayer.shopObject.GetComponent<Shop>().display.Contains(this) && objectToMove != null)
             {
                 if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
                 {

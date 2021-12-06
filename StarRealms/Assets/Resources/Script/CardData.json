@@ -1,27 +1,29 @@
 ﻿{
   "card" : [
     {
-    "name": "Hunter B56",
-    "cost": 1,
-    "faction": "Rouge",
-    "shipOrBase": false,
-    "isTaunt": false,
-    "icon": "",
-    "mesh": "",
-    "Actions": [
-       {
+      "name": "Hunter B56",
+      "cost": 1,
+      "faction": "Rouge",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "Actions": 
+      [
+        {
         "conditions": [""],
         "effects": ["2D"]
-      },
-      {
+        },
+        {
         "conditions": ["Synergie"],
         "effects": ["Draw"]
-      }
+        }
       
-    ],
-    "baseLife": 0,
-    "isUsed": false,
-    "needPlayer": false
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": false, 
+      "nbExemplaire" : 3
   },
     {
     "name": "Defective Transporter",
@@ -49,7 +51,8 @@
     ],
     "baseLife": 0,
     "isUsed": false,
-    "needPlayer": true
+    "needPlayer": true,
+      "nbExemplaire" : 3
   },
     {
       "name": "Driller S88",
@@ -77,7 +80,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 2
     },
     {
       "name": "Mainframe Repeater",
@@ -100,7 +104,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 3
     },
     {
       "name": "Bomber F62",
@@ -128,7 +133,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 3
     },
     {
       "name": "Hyperlight Breaker",
@@ -156,7 +162,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 3
     },
     {
       "name": "Teleporter G34",
@@ -180,7 +187,8 @@
       ],
       "baseLife": 5,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 2
     },
     {
       "name": "Mainframe A00",
@@ -204,7 +212,8 @@
       ],
       "baseLife": 5,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 1
     },
     {
       "name": "Bungler Fly",
@@ -228,7 +237,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 3
     },
     {
       "name": "Garbage Cleaner",
@@ -252,7 +262,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 3
     },
     {
       "name": "Corrosive Sorter",
@@ -276,7 +287,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 3
     },
     {
       "name": "Hostile Shell",
@@ -304,7 +316,8 @@
       ],
       "baseLife": 3,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 3
     },
     {
       "name": "Amorphous Offshoot",
@@ -328,7 +341,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 3
     },
     {
       "name": "Arthropod Crusher",
@@ -352,7 +366,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 2
     },
     {
       "name": "Traveling Hive",
@@ -376,7 +391,8 @@
       ],
       "baseLife": 5,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 2
     },
     {
       "name": "The Swarm",
@@ -404,7 +420,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 1
     },
     {
       "name": "Tax Collector",
@@ -428,7 +445,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 3
     },
     {
       "name": "Trade Vessel",
@@ -456,7 +474,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 3
     },
     {
       "name": "Caller of the Fleet",
@@ -484,7 +503,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 1
     },
     {
       "name": "Fortified Trade Station",
@@ -508,7 +528,8 @@
       ],
       "baseLife": 4,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 2
     },
     {
       "name": "Emperor's Herald",
@@ -536,7 +557,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 1
     },
     {
       "name": "Fleet Optimizer",
@@ -560,7 +582,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 2
     },
     {
       "name": "Imperial Prime Destroyer",
@@ -588,7 +611,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 3
     },
     {
       "name": "Emperor's Will",
@@ -611,7 +635,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 1
     },
     {
       "name": "Medic Shuttle",
@@ -635,7 +660,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 3
     },
     {
       "name": "Deflector Shield",
@@ -659,7 +685,8 @@
       ],
       "baseLife": 2,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 4
     },
     {
       "name": "Federation's Mechanic",
@@ -683,7 +710,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 3
     },
     {
       "name": "Defensive Frigate",
@@ -707,7 +735,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 2
     },
     {
       "name": "Recycling Station",
@@ -731,7 +760,8 @@
       ],
       "baseLife": 4,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 2
     },
     {
       "name": "Armored Protector",
@@ -755,7 +785,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 3
     },
     {
       "name": "Emergency Shelter",
@@ -783,7 +814,8 @@
       ],
       "baseLife": 6,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 2
     },
     {
       "name": "Diplomatic Headquarters",
@@ -807,7 +839,8 @@
       ],
       "baseLife": 7,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 1
     },
     {
       "name": "Scout",
@@ -827,7 +860,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 16
     },
     {
       "name": "Viper",
@@ -847,7 +881,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 4
     },
     {
       "name": "Explorer",
@@ -871,7 +906,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 10
     }
   ]
 }
