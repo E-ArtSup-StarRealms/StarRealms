@@ -135,7 +135,6 @@ namespace Resources.Script
                                     break;
                             }
                         }
-
                         foreach (string sE in a.effects)
                         {
                             string effet = sE;
@@ -204,7 +203,9 @@ namespace Resources.Script
                     finalCard.baseLife = c.baseLife;
                     finalCard.needPlayer = c.needPlayer;
                     finalCard.isUsed = c.isUsed;
-                    finalObject.GetComponent<Renderer>().material = (Material) UnityEngine.Resources.Load("Materiau/Tmp/Vaisseaux/"+finalCard.faction+"/"+finalObject.name);
+                    finalObject.GetComponent<Transform>().GetChild(0).GetComponent<Renderer>().
+                        material = (Material) UnityEngine.Resources.
+                        Load("Materiau/Tmp/Vaisseaux/"+finalCard.faction+"/"+finalObject.name);
                     finalCard.gameObject.SetActive(false);
                     switch (finalCard.name)
                     {
