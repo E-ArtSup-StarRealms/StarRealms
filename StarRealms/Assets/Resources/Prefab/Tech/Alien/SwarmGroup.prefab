@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2702699793465255101
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3380099226974545606}
+  - component: {fileID: 833694818337136006}
+  - component: {fileID: 4621102942509526960}
+  m_Layer: 0
+  m_Name: SwarmGroup
+  m_TagString: Untagged
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3380099226974545606
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2702699793465255101}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -90.39799, y: 0.69, z: 8.5390005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &833694818337136006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2702699793465255101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"collection":{"$content":[{"name":"Crowd","value":{"$content":15,"$type":"System.Int32"},"$version":"A"},{"name":"PositionDamping","value":{"$content":5.0,"$type":"System.Single"},"$version":"A"},{"name":"RotationDamping","value":{"$content":10.0,"$type":"System.Single"},"$version":"A"},{"name":"SwarmAnimation","value":{"$content":[{"$content":0,"$type":"UnityEngine.Object"},{"$content":1,"$type":"UnityEngine.Object"},{"$content":2,"$type":"UnityEngine.Object"},{"$content":3,"$type":"UnityEngine.Object"}],"$type":"Unity.VisualScripting.AotList"},"$version":"A"},{"name":"Speed","value":{"$content":75.0,"$type":"System.Single"},"$version":"A"},{"name":"Swarm","value":{"$content":0,"$type":"System.Int32"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
+    _objectReferences:
+    - {fileID: 4453919137325002506, guid: af6aec28d9a698243bfb3b454ffa8da4, type: 3}
+    - {fileID: 5796697885799591641, guid: 35b57afd88b57d14083b3e8c681b30af, type: 3}
+    - {fileID: 34875641957001101, guid: 879283724cc992c4ab0b6ad94aadfd21, type: 3}
+    - {fileID: 2464796643703328588, guid: 3a7f3bd385ad56f49abb4aef6c6d8858, type: 3}
+--- !u!114 &4621102942509526960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2702699793465255101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2fe5546f775c47d2820aa5e8a715f53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
+    _objectReferences:
+    - {fileID: 11400000, guid: c9b7f4dbdb23f4a4fb4a75a99a7e56ad, type: 2}
