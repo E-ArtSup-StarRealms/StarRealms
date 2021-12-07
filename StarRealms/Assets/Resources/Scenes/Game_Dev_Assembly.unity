@@ -3016,10 +3016,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1a0f37e471abcc4184e7e991d73d682, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Default: {fileID: 0}
-  nbDefault: 10
+  explorer: []
   display: []
-  gameDeck: []
 --- !u!4 &1696648938
 Transform:
   m_ObjectHideFlags: 0
@@ -3617,7 +3615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cb4e4ada3add804880b45e6a3b7a20b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textJSON: {fileID: 4900000, guid: 16ec0b49616ee4b48809428c715dfcc9, type: 3}
+  textJson: {fileID: 4900000, guid: 16ec0b49616ee4b48809428c715dfcc9, type: 3}
   myCardsList:
     card: []
 --- !u!4 &1914413942
