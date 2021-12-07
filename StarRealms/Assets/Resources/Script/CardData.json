@@ -8,7 +8,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
         "conditions": [""],
@@ -33,7 +33,7 @@
     "isTaunt": false,
     "icon": "",
     "mesh": "",
-    "Actions": 
+    "actions": 
     [
       {
         "conditions": [""],
@@ -62,7 +62,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -91,7 +91,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -115,7 +115,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -144,7 +144,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -173,7 +173,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -198,7 +198,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -223,7 +223,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": ["Or"],
@@ -248,7 +248,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -273,7 +273,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -298,7 +298,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -327,7 +327,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -352,7 +352,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -377,7 +377,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -402,7 +402,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": ["ForEachSameFaction"],
@@ -431,7 +431,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -456,7 +456,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -485,7 +485,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -514,7 +514,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": ["Or"],
@@ -539,7 +539,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": "",
@@ -568,7 +568,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -593,7 +593,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -622,7 +622,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -646,7 +646,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -671,7 +671,7 @@
       "isTaunt": true,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -696,7 +696,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -721,7 +721,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -746,7 +746,7 @@
       "isTaunt": true,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -771,7 +771,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -796,7 +796,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -825,7 +825,7 @@
       "isTaunt": true,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -850,7 +850,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -871,7 +871,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -892,7 +892,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],

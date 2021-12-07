@@ -8,15 +8,15 @@ namespace Resources.Script
 {
     public class CardCreator : MonoBehaviour
     {
-        public TextAsset textJSON;
+        public TextAsset textJson;
         
-        [System.Serializable]
+        [Serializable]
         public class Actions
         {
             public string[] conditions;
             public string[] effects;
         }
-        [System.Serializable]
+        [Serializable]
         public class Cards
         {
             public string name;
@@ -26,13 +26,13 @@ namespace Resources.Script
             public bool isTaunt;
             public string icon;
             public string mesh;
-            public List<Actions> Actions;
+            public List<Actions> actions;
             public int baseLife;
             public bool isUsed;
             public bool needPlayer;
             public int nbExemplaire;
         }
-        [System.Serializable]
+        [Serializable]
         public class CardsList
         {
             public Cards[] card;
@@ -40,10 +40,10 @@ namespace Resources.Script
         public CardsList myCardsList = new CardsList();
         void Start()
         {
-            myCardsList = JsonUtility.FromJson<CardsList>(textJSON.text);
-            var posX = 4.75f;
-            var posY = 2f;
-            foreach (var c in myCardsList.card)
+            myCardsList = JsonUtility.FromJson<CardsList>(textJson.text);
+            float posX = 4.75f;
+            float posY = 2f;
+            foreach (Cards c in myCardsList.card)
             {
                 if (posX < -4.6f)
                 {
@@ -98,9 +98,9 @@ namespace Resources.Script
                     finalCard.isTaunt = c.isTaunt;
                     //finalCard.image = c.mesh;
                     //finalCard.icon = c.icon;
-                    foreach (var a in c.Actions)
+                    foreach (Actions a in c.actions)
                     {
-                        var lesChars = new List<char>();
+                        List<Char> lesChars = new List<char>();
                         lesChars.Add('2');
                         lesChars.Add('3');
                         lesChars.Add('4');
@@ -109,9 +109,9 @@ namespace Resources.Script
                         lesChars.Add('7');
                         lesChars.Add('8');
                         lesChars.Add('9');
-                        var lesConds = new List<Condition>();
-                        var lesEfs = new Dictionary<Effect, int>();
-                        foreach (var sC in a.conditions)
+                        List<Condition> lesConds = new List<Condition>();
+                        Dictionary<Effect, int> lesEfs = new Dictionary<Effect, int>();
+                        foreach (string sC in a.conditions)
                         {
                             switch (sC)
                             {
@@ -136,7 +136,7 @@ namespace Resources.Script
                             }
                         }
 
-                        foreach (var sE in a.effects)
+                        foreach (string sE in a.effects)
                         {
                             string effet = sE;
                             int montant = 1;
@@ -207,29 +207,29 @@ namespace Resources.Script
                     switch (finalCard.name)
                     {
                         case "Scout":
-                            if(GameManager.player1.deck.Count<8)
-                                GameManager.player1.deck.Add(finalCard);
+                            if(GameManager.Player1.deck.Count<8)
+                                GameManager.Player1.deck.Add(finalCard);
                             else
-                                GameManager.player2.deck.Add(finalCard);
+                                GameManager.Player2.deck.Add(finalCard);
                             break;
                         case "Viper":
-                            if(GameManager.player1.deck.Count<10)
-                                GameManager.player1.deck.Add(finalCard);
+                            if(GameManager.Player1.deck.Count<10)
+                                GameManager.Player1.deck.Add(finalCard);
                             else
-                                GameManager.player2.deck.Add(finalCard);
+                                GameManager.Player2.deck.Add(finalCard);
                             break;
                         case "Explorer":
-                            GameManager.currentPlayer.shopObject.GetComponent<Shop>().Default.Add(finalCard);
+                            GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().explorer.Add(finalCard);
                             break;
                         default:
-                            Shop.gameDeck.Add(finalCard);
+                            Shop.GameDeck.Add(finalCard);
                             break;
                     }
                 }
                 posX -= 0.85f;
             }
             Shop.ShuffleGameDeck();
-            GameManager.currentPlayer.shopObject.GetComponent<Shop>().Startfill();
+            GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().Startfill();
             GameManager.BeginTurn();
         }
     }

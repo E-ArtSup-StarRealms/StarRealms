@@ -10,12 +10,12 @@ namespace Resources.Script
         public Card cardFrom;
         public Dictionary<Effect, int> effect = new Dictionary<Effect, int>();
         
-        public void Activate(Card c, Dictionary<Effect,int> lesEffets, bool HasOr)
+        public void Activate(Card c, Dictionary<Effect,int> lesEffets, bool hasOr)
         {
             gameObject.SetActive(true);
             cardFrom = c;
             effect.Clear();
-            if (!HasOr)
+            if (!hasOr)
             {
                 effect.Add(lesEffets.Keys.ToList()[0],lesEffets.Values.ToList()[0]);
             }
@@ -26,29 +26,27 @@ namespace Resources.Script
                     effect.Add(k.Key,k.Value);
                 }
             }
-            SetUp(HasOr);
+            SetUp(hasOr);
         }
-
-        void SetUp(bool HasOr)
+        void SetUp(bool hasOr)
         {
-            if (!HasOr)
+            if (!hasOr)
             {
-                GameObject.Find("Text_AutoScrap").transform.GetChild(0).GetComponent<Text>().text = effect.Values.First() + " " + effect.Keys.First();
+                GameObject.Find("Text_AutoScrap").GetComponent<Text>().text = effect.Values.First() + " " + effect.Keys.First();
             }
             else
             {
                 string explication = "";
-                Debug.Log(effect.Count);
                 foreach (KeyValuePair<Effect, int> k in effect)
                 {
                     explication += k.Value + " " + k.Key;
                     explication += " or ";
                 }
+                explication = explication.Substring(0, explication.Length - 4);
                 GameObject.Find("Text_AutoScrap").GetComponent<Text>().text = explication;
             }
             
         }
-        
         public void Validate()
         {
             cardFrom.DoEffect(effect);

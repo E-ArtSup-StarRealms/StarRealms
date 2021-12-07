@@ -1,38 +1,33 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Resources.Script
 {
     public class GameManager : MonoBehaviour
     {
-        public static GameObject popUp;
-        public static GameObject popUpOr;
-        public static GameObject popUpAutoScrap;
-        public static Player player1 ;
-        public static Player player2;
-        public static Player currentPlayer;
-
+        public static GameObject PopUp;
+        public static GameObject PopUpOr;
+        public static GameObject PopUpAutoScrap;
+        public static Player Player1 ;
+        public static Player Player2;
+        public static Player CurrentPlayer;
 
         [SerializeField]
         private GameObject panelWin;
-        private static bool firstRound = true;
+        private static bool _firstRound = true;
 
         private void Awake()
         {
-            popUp = GameObject.Find("PopUp");
-            popUpOr = GameObject.Find("PopUpOr");
-            popUpAutoScrap = GameObject.Find("PopUpAutoScrap");
-
-
-            popUp.SetActive(false);
-            popUpAutoScrap.SetActive(false);
-            popUpOr.SetActive(false);
+            PopUp = GameObject.Find("PopUp");
+            PopUpOr = GameObject.Find("PopUpOr");
+            PopUpAutoScrap = GameObject.Find("PopUpAutoScrap");
             
+            PopUp.SetActive(false);
+            PopUpAutoScrap.SetActive(false);
+            PopUpOr.SetActive(false);
 
-            player1 = GameObject.Find("Player1").GetComponent<Player>();
-            player2 = GameObject.Find("Player2").GetComponent<Player>();
-            currentPlayer = player1;
+            Player1 = GameObject.Find("Player1").GetComponent<Player>();
+            Player2 = GameObject.Find("Player2").GetComponent<Player>();
+            CurrentPlayer = Player1;
         }
 
         private void Start()
@@ -47,49 +42,41 @@ namespace Resources.Script
         {
 
             //pioche de debut de tour
-            if(firstRound)
+            if(_firstRound)
             {
-                
-                currentPlayer.Draw(3);
-                firstRound = false;
-
+                CurrentPlayer.Draw(3);
+                _firstRound = false;
             }
             else
             {
-
-                currentPlayer.Draw(5);
-
+                CurrentPlayer.Draw(5);
             }
-
         }
 
-        public static void endTurn()
+        public static void EndTurn()
         {
-           //supression de la money et du power restan 
-            currentPlayer.money = 0;
-            currentPlayer.totalPower = 0;
+            //supression de la money et du power restan 
+            CurrentPlayer.money = 0;
+            CurrentPlayer.totalPower = 0;
 
-        //echange de borad (visuelle)
-            Vector3 boardpos1 = player1.objectBoard.GetComponent<Transform>().position;
-            Vector3 boardpos2 = player2.objectBoard.GetComponent<Transform>().position;
-            player1.objectBoard.GetComponent < Transform >().position = boardpos2;
-            player2.objectBoard.GetComponent < Transform >().position = boardpos1;
+            //echange de borad (visuelle)
+            Vector3 boardpos1 = Player1.objectBoard.GetComponent<Transform>().position;
+            Vector3 boardpos2 = Player2.objectBoard.GetComponent<Transform>().position;
+            Player1.objectBoard.GetComponent < Transform >().position = boardpos2;
+            Player2.objectBoard.GetComponent < Transform >().position = boardpos1;
             
             //switche du current player et des hp de ce dernier
-            if (currentPlayer = player1)
+            if (CurrentPlayer == Player1)
             {
-               
-                player1.hp = currentPlayer.hp;
-                currentPlayer = player2;
+                Player1.hp = CurrentPlayer.hp;
+                CurrentPlayer = Player2;
             }
             else
             {
-
-                player2.hp = currentPlayer.hp;
-                currentPlayer = player1;
+                Player2.hp = CurrentPlayer.hp;
+                CurrentPlayer = Player1;
             }
             BeginTurn();
         }
-
     }
 }

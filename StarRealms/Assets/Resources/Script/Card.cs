@@ -5,61 +5,84 @@ namespace Resources.Script
 {
     public class Card : MonoBehaviour
     {
-        private static int _nbCard = 0;
+        private static int _nbCard;
         public int id;
         public new string name = "";
-        public int cost = 0;
+        public int cost;
         public Faction faction = Faction.Bleu;
-        public bool shipOrBase = false;
-        public bool isTaunt = false;
+        public bool shipOrBase;
+        public bool isTaunt;
         public Sprite icon;
         public Mesh image;
         public Dictionary<List<Condition>, Dictionary<Effect, int>> Actions = new Dictionary<List<Condition>,
             Dictionary<Effect, int>>();
-        public int baseLife = 0;
-        public bool isUsed = false;
-        public bool needPlayer = false;
-        public Card mySelf = null;
-        private int _rankCond = 0;
+        public int baseLife;
+        public bool isUsed;
+        public bool needPlayer;
+        public Card mySelf;
+        private int _rankCond;
 
-        private float currentTime = 0;
+        private float _currentTime;
         public float timer;
         public GameObject objectToMove;
 
         void Update()
         {
-            //transform.LookAt(GameObject.FindWithTag("MainCamera").transform.position - new Vector3(0,0,0));
-
-            if (GameManager.currentPlayer.shopObject.GetComponent<Shop>().display.Contains(this) && objectToMove != null)
+            if (GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().display.Contains(this) && objectToMove != null)
             {
                 if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
                 {
-
-                        currentTime += Time.deltaTime;
-
-                        float percent = currentTime / timer;
-
-                        transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position,percent);
-                        transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
+                    _currentTime += Time.deltaTime;
+                    float percent = _currentTime / timer;
+                    transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position,percent);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
                 }
                 else
                 {
-                    currentTime = 0;
+                    _currentTime = 0;
+                }
+            }
+            if (GameManager.Player1.GetComponent<Player>().hand.Contains(this))
+            {
+                if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
+                {
+                    _currentTime += Time.deltaTime;
+                    float percent = _currentTime / timer;
+                    transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position, percent);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
+                }
+                else
+                {
+                    _currentTime = 0;
+                }
+            }
+            if (GameManager.Player1.GetComponent<Player>().discardPile.Contains(this))
+            {
+                if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
+                {
+                    _currentTime += Time.deltaTime;
+                    float percent = _currentTime / timer;
+                    transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position, percent);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
+                }
+                else
+                {
+                    _currentTime = 0;
                 }
             }
         }
         private void OnMouseDown()
         {
-            if (!GameManager.popUp.activeSelf && !isUsed)
+            if (!GameManager.PopUp.activeSelf && !isUsed /*&& GameManager.currentPlayer.board.Contains(this)*/)
             {
                 if(HaveIThisCondition(Condition.AutoScrap))
                 {
-                    GameManager.popUpAutoScrap.GetComponent<PopUpAutoScrap>().
+                    GameManager.PopUpAutoScrap.GetComponent<PopUpAutoScrap>().
                         Activate(this,Actions[GetListCondsFromCondition(Condition.AutoScrap)],
                             GetListCondsFromCondition(Condition.AutoScrap).Contains(Condition.Or));
                 } else if (HaveIThisCondition(Condition.Or))
                 {
-                    GameManager.popUpOr.GetComponent<PopUpOrManager>().
+                    GameManager.PopUpOr.GetComponent<PopUpOrManager>().
                         Activate(this,Actions[GetListCondsFromCondition(Condition.Or)]);
                 }
             }
@@ -117,7 +140,11 @@ namespace Resources.Script
         public void PlaySelf()
         {
             _rankCond = 0;
-            GameManager.currentPlayer.PlayCard(this);
+            if (!shipOrBase && HaveIDamage(this))
+            {
+                AddValue(Effect.D,1);
+            }
+            GameManager.CurrentPlayer.PlayCard(this);
         }
         public void CancelPlay()
         {
@@ -145,12 +172,6 @@ namespace Resources.Script
                         {
                             allCheck.Add(true);
                         }
-
-                        break;
-                    case Condition.AutoScrap:
-                        /*Confirmation player*/
-                        DoEffect(Actions[conds]);
-                        Destroy(this);
                         break;
                     case Condition.ForEachSameFaction:
                         for (int i = 0; i < CheckNbSameFactionOnBoard(); i++)
@@ -170,11 +191,6 @@ namespace Resources.Script
             {
                 DoEffect(Actions[conds]);
             }
-
-            foreach (Condition cond in conds)
-            {
-                
-            }
         }
         public void DoEffect(Dictionary<Effect, int> lesEffets)
         {
@@ -183,16 +199,16 @@ namespace Resources.Script
                 switch (e.Key)
                 {
                     case Effect.Copy:
-                        GameManager.popUp.GetComponent<PopUpManager>().Activate(this,Zone.Board,e.Key,e.Value);
+                        GameManager.PopUp.GetComponent<PopUpManager>().Activate(this,Zone.Board,e.Key,e.Value);
                         break;
                     case Effect.D:
                         AddValue(Effect.D,e.Value);
                         break;
                     case Effect.Discard:
-                        GameManager.popUp.GetComponent<PopUpManager>().Activate(this,Zone.HandAndDiscardPile,e.Key,e.Value);
+                        GameManager.PopUp.GetComponent<PopUpManager>().Activate(this,Zone.Hand,e.Key,e.Value);
                         break;
                     case Effect.Draw:
-                        GameManager.currentPlayer.Draw(e.Value);
+                        GameManager.CurrentPlayer.Draw(e.Value);
                         break;
                     case Effect.G:
                         AddValue(Effect.G,e.Value);
@@ -201,7 +217,7 @@ namespace Resources.Script
                         AddValue(Effect.H,e.Value);
                         break;
                     case Effect.Hinder:
-                        GameManager.popUp.GetComponent<PopUpManager>().Activate(this,Zone.Board,e.Key,e.Value);
+                        GameManager.PopUp.GetComponent<PopUpManager>().Activate(this,Zone.Display,e.Key,e.Value);
                         break;
                     case Effect.Requisition:
                         Requisition();
@@ -210,19 +226,19 @@ namespace Resources.Script
                         TargetDiscard();
                         break;
                     case Effect.Scrap:
-                        GameManager.popUp.GetComponent<PopUpManager>().Activate(this,Zone.HandAndDiscardPile,e.Key,e.Value);
+                        GameManager.PopUp.GetComponent<PopUpManager>().Activate(this,Zone.HandAndDiscardPile,e.Key,e.Value);
                         break;
                     case Effect.Wormhole:
-                        GameManager.currentPlayer.cardOnTop = true;
+                        GameManager.CurrentPlayer.cardOnTop = true;
                         break;
                     case Effect.BaseDestruction:
-                        GameManager.popUp.GetComponent<PopUpManager>().Activate(this,Zone.EnnemyBoardBase,e.Key,e.Value);
+                        GameManager.PopUp.GetComponent<PopUpManager>().Activate(this,Zone.EnnemyBoardBase,e.Key,e.Value);
                         break;
                     case Effect.DiscardToDraw:
-                        GameManager.popUp.GetComponent<PopUpManager>().Activate(this,Zone.Hand,e.Key,e.Value);
+                        GameManager.PopUp.GetComponent<PopUpManager>().Activate(this,Zone.Hand,e.Key,e.Value);
                         break;
                     case Effect.AllShipOneMoreDamage:
-                        foreach (Card card in GameManager.currentPlayer.board)
+                        foreach (Card card in GameManager.CurrentPlayer.board)
                         {
                             if (!card.shipOrBase && HaveIDamage(card))
                             {
@@ -239,11 +255,11 @@ namespace Resources.Script
         }
         public void DiscardToDraw(int nbDiscard)
         {
-            GameManager.currentPlayer.Draw(nbDiscard);
+            GameManager.CurrentPlayer.Draw(nbDiscard);
         }
         public bool CheckSynergie()
         {
-            foreach (Card c in GameManager.currentPlayer.board)
+            foreach (Card c in GameManager.CurrentPlayer.board)
             {
                 if (c.faction == faction || c.faction == Faction.All)
                 {
@@ -255,7 +271,7 @@ namespace Resources.Script
         public int CheckNbSameFactionOnBoard()
         {
             int nbSameFaction = 0;
-            foreach (Card c in GameManager.currentPlayer.board)
+            foreach (Card c in GameManager.CurrentPlayer.board)
             {
                 if (c.faction == faction || c.faction == Faction.All)
                 {
@@ -269,13 +285,13 @@ namespace Resources.Script
             switch (type)
             {
                 case Effect.H:
-                    GameManager.currentPlayer.hp += value;
+                    GameManager.CurrentPlayer.hp += value;
                     break;
                 case Effect.D:
-                    GameManager.currentPlayer.totalPower += value;
+                    GameManager.CurrentPlayer.totalPower += value;
                     break;
                 case Effect.G:
-                    GameManager.currentPlayer.money += value;
+                    GameManager.CurrentPlayer.money += value;
                     break;
             }
         }
@@ -285,37 +301,37 @@ namespace Resources.Script
             {
                 foreach (Card c in lesCartes)
                 {
-                    if (GameManager.currentPlayer.hand.Contains(c))
+                    if (GameManager.CurrentPlayer.hand.Contains(c))
                     {
-                        GameManager.currentPlayer.hand.Remove(c);
-                    }else if (GameManager.currentPlayer.discardPile.Contains(c))
+                        GameManager.CurrentPlayer.hand.Remove(c);
+                    }else if (GameManager.CurrentPlayer.discardPile.Contains(c))
                     {
-                        GameManager.currentPlayer.discardPile.Remove(c);
-                    } else if (GameManager.currentPlayer.shopObject.GetComponent<Shop>().display.Contains(c))
+                        GameManager.CurrentPlayer.discardPile.Remove(c);
+                    } else if (GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().display.Contains(c))
                     {
-                        GameManager.currentPlayer.shopObject.GetComponent<Shop>().display.Remove(c);
-                        GameManager.currentPlayer.shopObject.GetComponent<Shop>().Refill(c);
+                        GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().display.Remove(c);
+                        GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().Refill(c);
                     }
-                    Destroy(c);
+                    Destroy(c.gameObject);
                 }
             }
             else
             {
                 foreach (Card c in lesCartes)
                 {
-                    GameManager.currentPlayer.hand.Remove(c);
-                    GameManager.currentPlayer.discardPile.Add(c);
+                    GameManager.CurrentPlayer.hand.Remove(c);
+                    GameManager.CurrentPlayer.discardPile.Add(c);
                 }
             }
         }
         public void TargetDiscard()
         {
-            if (GameManager.currentPlayer == GameManager.player1)
+            if (GameManager.CurrentPlayer == GameManager.Player1)
             {
-                GameManager.player2.toDiscard += 1;
-            } else if (GameManager.currentPlayer == GameManager.player2)
+                GameManager.Player2.toDiscard += 1;
+            } else if (GameManager.CurrentPlayer == GameManager.Player2)
             {
-                GameManager.player1.toDiscard += 1;
+                GameManager.Player1.toDiscard += 1;
             }
         }
         public void DestroyTargetBase(Card card)
@@ -324,12 +340,12 @@ namespace Resources.Script
         }
         public void Requisition()
         {
-            GameManager.currentPlayer.freeShip = true;
+            GameManager.CurrentPlayer.freeShip = true;
         }
         public int CheckNbBaseOnBoard()
         {
             int nbBase = 0;
-            foreach (Card c in GameManager.currentPlayer.board)
+            foreach (Card c in GameManager.CurrentPlayer.board)
             {
                 if (c.shipOrBase)
                 {

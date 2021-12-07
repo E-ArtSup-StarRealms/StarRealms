@@ -9,42 +9,43 @@ namespace Resources.Script
     {    
         //Variables de classe (attributs de la classe)
         public int hp = 50;
-        public int money = 0;
-        public int totalPower = 0;
+        public int money;
+        public int totalPower;
         public int toDiscard;
         public List<Card> deck = new List<Card>();
         public List<Card> discardPile = new List<Card>();
         public List<Card> hand = new List<Card>();
         public List<Card> board = new List<Card>();
-        public Dictionary<Faction, int> dicoFacThisTurn;
+        public Dictionary<Faction, int> DicoFacThisTurn;
         public bool cardOnTop;
         public bool freeShip;
     
         //Variables utiles pour le code
         public List<Effect> priorityCheck;
         public GameObject shopObject;
-        private Shop shop;
+        private Shop _shop;
         public GameObject enemyObject;
-        private Player enemy;
+        private Player _enemy;
         public GameObject objectDeck;
         public GameObject objectDiscardPile;
         public GameObject objectHand;
         public GameObject objectBoard;
+        public static  int HandNumber;
 
         void Start()
         {
-            shop = shopObject.GetComponent<Shop>();
-            enemy = enemyObject.GetComponent<Player>();
+            _shop = shopObject.GetComponent<Shop>();
+            _enemy = enemyObject.GetComponent<Player>();
         }
     
         void Update()
         {
-        if(gameObject.name == "Player")
+            if(gameObject.name == "Player")
             {
                 if (Input.GetKeyUp(KeyCode.D))
                     Draw(1);
                 if (Input.GetKeyUp(KeyCode.B))
-                    Buy(shop.transform.GetChild(0).GetComponent<Card>());
+                    Buy(_shop.transform.GetChild(0).GetComponent<Card>());
                 if (Input.GetKeyUp(KeyCode.P))
                     PlayCard(GameObject.Find("Hand").transform.GetChild(0).GetComponent<Card>());
                 if (Input.GetKeyUp(KeyCode.A))
@@ -69,6 +70,9 @@ namespace Resources.Script
                     {
                         RefillDeck();
                         deck[0].gameObject.transform.SetParent(objectHand.transform);
+                        deck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).
+                            transform.GetChild(0).transform.GetChild(HandNumber).gameObject;
+                        HandNumber++;
                         hand.Add(deck[0]);
                         deck.RemoveAt(0);
                     }
@@ -76,6 +80,9 @@ namespace Resources.Script
                 else
                 {
                     deck[0].gameObject.transform.SetParent(objectHand.transform);
+                    deck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).
+                        transform.GetChild(0).transform.GetChild(HandNumber).gameObject;
+                    HandNumber++;
                     hand.Add(deck[0]);
                     deck.RemoveAt(0);
                 }
@@ -125,34 +132,35 @@ namespace Resources.Script
 
         public void EndTurn()
         {
-           
-                if (money == 0 && totalPower == 0)
+            if (money == 0 && totalPower == 0)
+            {
+                int nbCard = board.Count;
+                for (int i = 0; i < nbCard; i++)
                 {
-                    int nbCard = board.Count;
-                    for (int i = 0; i < nbCard; i++)
+                    if (!board[0].shipOrBase)
                     {
-                        if (!board[0].shipOrBase)
-                        {
-                            board[0].gameObject.transform.SetParent(objectDiscardPile.transform);
-                            discardPile.Add(board[0]);
-                            board.RemoveAt(0);
-                        }
+                        board[0].gameObject.transform.SetParent(objectDiscardPile.transform);
+                        board[0].objectToMove = objectDiscardPile.transform.GetChild(0).gameObject;
+                        discardPile.Add(board[0]);
+                        board.RemoveAt(0);
                     }
-                    nbCard = hand.Count;
-                    for (int i = 0; i < nbCard; i++)
-                    {
-                        hand[0].gameObject.transform.SetParent(objectDiscardPile.transform);
-                        discardPile.Add(hand[0]);
-                        hand.RemoveAt(0);
-                    }
-                    GameManager.endTurn();
-                    
-                    Debug.Log("Changement de tour");
-                    //Appel de la fonction de changement de tour dans le GameManeger
                 }
-                else
-                    Debug.Log("Vous avez de l'argent ou des points d'attaque inutilisés");
-                // LANCER LA POPUP
+                nbCard = hand.Count;
+                for (int i = 0; i < nbCard; i++)
+                {
+                    hand[0].gameObject.transform.SetParent(objectDiscardPile.transform);
+                    hand[0].objectToMove = objectDiscardPile.transform.GetChild(0).gameObject;
+                    discardPile.Add(hand[0]);
+                    hand.RemoveAt(0);
+                }
+                GameManager.EndTurn();
+                
+                Debug.Log("Changement de tour");
+                //Appel de la fonction de changement de tour dans le GameManeger
+            }
+            else
+                Debug.Log("Vous avez de l'argent ou des points d'attaque inutilisés");
+            // LANCER LA POPUP
             
         }
 
@@ -161,11 +169,11 @@ namespace Resources.Script
             if (target.name == enemyObject.name)
             {
                 Debug.Log("ennemi");
-                if (canAttackPlayer())
+                if (CanAttackPlayer())
                 {
-                    enemy.hp -= totalPower;
+                    _enemy.hp -= totalPower;
                     totalPower = 0;
-                    if (enemy.hp <= 0)
+                    if (_enemy.hp <= 0)
                         Debug.Log("You Win");
                 }
                 else
@@ -174,7 +182,7 @@ namespace Resources.Script
             else
             {
                 Card targetCard = target.GetComponent<Card>();
-                if (targetCard.isTaunt || canAttackPlayer())
+                if (targetCard.isTaunt || CanAttackPlayer())
                 {
                     AttackBase(targetCard, target);
                 }
@@ -240,9 +248,9 @@ namespace Resources.Script
             else
                 Debug.Log("Vous n'avez pas assez d'attaque");
         }
-        public bool canAttackPlayer()
+        public bool CanAttackPlayer()
         {
-            foreach (Card card in enemy.board)
+            foreach (Card card in _enemy.board)
             {
                 if (card.isTaunt)
                     return false;
@@ -262,7 +270,7 @@ namespace Resources.Script
                 card.gameObject.transform.SetParent(objectDiscardPile.transform);
                 discardPile.Add(card);
             }
-            shop.Refill(card);
+            _shop.Refill(card);
         }
     }
 }
