@@ -56,18 +56,18 @@ namespace Resources.Script
                     Object finalObject;
                     if (!c.shipOrBase)
                     {
-                        finalObject = Instantiate(UnityEngine.Resources.Load("Prefab/carteShip"),
+                        finalObject = Instantiate(UnityEngine.Resources.Load("Prefab/newCard"),
                             GameObject.Find("GameDeck").transform);
                     }
                     else
                     {
-                        finalObject = Instantiate(UnityEngine.Resources.Load("Prefab/carteBase"),
+                        finalObject = Instantiate(UnityEngine.Resources.Load("Prefab/newCard"),
                             GameObject.Find("GameDeck").transform);
                     }
 
                     Vector3 where = new Vector3(posX, posY, 0);
                     finalObject.GetComponent<Transform>().position = where;
-                    finalObject.name = c.name;
+                    finalObject.name = c.name;;
                     Card finalCard = finalObject.GetComponent<Card>();
                     finalCard.SetId();
                     finalCard.name = c.name;
@@ -204,6 +204,7 @@ namespace Resources.Script
                     finalCard.baseLife = c.baseLife;
                     finalCard.needPlayer = c.needPlayer;
                     finalCard.isUsed = c.isUsed;
+                    finalObject.GetComponent<Renderer>().material = (Material) UnityEngine.Resources.Load("Materiau/Tmp/Vaisseaux/"+finalCard.faction+"/"+finalObject.name);
                     finalCard.gameObject.SetActive(false);
                     switch (finalCard.name)
                     {
