@@ -15,11 +15,14 @@ namespace Resources.Script
         private GameObject panelWin;
         private static bool _firstRound = true;
 
-        public GameObject camP1;
-        public GameObject camP2;
+        public static GameObject camP1;
+        public static GameObject camP2;
 
         private void Awake()
         {
+            camP1 = GameObject.Find("CM vcam1");
+            camP2 = GameObject.Find("CM vcam1 (1)");
+            camP1.SetActive(false);
             PopUp = GameObject.Find("PopUp");
             PopUpOr = GameObject.Find("PopUpOr");
             PopUpAutoScrap = GameObject.Find("PopUpAutoScrap");
@@ -63,10 +66,19 @@ namespace Resources.Script
             CurrentPlayer.totalPower = 0;
 
            //echange de borad (visuelle)
-         
-            
+         if(camP2.activeSelf == false)
+            {
+                GameManager.camP2.SetActive(true);
+                GameManager.camP1.SetActive(false);
+            }
+            else
+            {
+                GameManager.camP1.SetActive(true);
+                GameManager.camP2.SetActive(false);
+            }
+
             //switche du current player et des hp de ce dernier
-            if (CurrentPlayer == Player1)
+                if (CurrentPlayer == Player1)
             {
              
                CurrentPlayer = Player2;

@@ -72,6 +72,7 @@ namespace Resources.Script
                         deck[0].gameObject.transform.SetParent(objectHand.transform);
                         deck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(HandNumber).gameObject;
                         deck[0].objectToMove.SetActive(true);
+                        deck[0].gameObject.SetActive(true);
                         HandNumber++;
                         hand.Add(deck[0]);
                         deck.RemoveAt(0);
@@ -82,6 +83,7 @@ namespace Resources.Script
                     deck[0].gameObject.transform.SetParent(objectHand.transform);
                     deck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(HandNumber).gameObject;
                     deck[0].objectToMove.SetActive(true);
+                    deck[0].gameObject.SetActive(true);
                     HandNumber++;
                     hand.Add(deck[0]);
                     deck.RemoveAt(0);

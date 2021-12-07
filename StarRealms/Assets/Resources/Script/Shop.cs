@@ -20,6 +20,7 @@ namespace Resources.Script
             for(int i=0 ; i < 5 ; i++)
             {
                 display.Add(GameDeck[0]);
+                GameDeck[0].gameObject.SetActive(true);
                 GameDeck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).transform.GetChild(i).gameObject;
                 GameDeck.Remove(GameDeck[0]);
             }
