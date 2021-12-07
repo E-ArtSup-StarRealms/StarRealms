@@ -9,12 +9,14 @@ namespace Resources.Script
     {
         public Card cardFrom;
         public Dictionary<Effect, int> effect = new Dictionary<Effect, int>();
+        public bool isOr;
         
         public void Activate(Card c, Dictionary<Effect,int> lesEffets, bool hasOr)
         {
             gameObject.SetActive(true);
             cardFrom = c;
             effect.Clear();
+            isOr = hasOr;
             if (!hasOr)
             {
                 effect.Add(lesEffets.Keys.ToList()[0],lesEffets.Values.ToList()[0]);
@@ -26,11 +28,11 @@ namespace Resources.Script
                     effect.Add(k.Key,k.Value);
                 }
             }
-            SetUp(hasOr);
+            SetUp();
         }
-        void SetUp(bool hasOr)
+        void SetUp()
         {
-            if (!hasOr)
+            if (!isOr)
             {
                 GameObject.Find("Text_AutoScrap").GetComponent<Text>().text = effect.Values.First() + " " + effect.Keys.First();
             }
@@ -45,11 +47,18 @@ namespace Resources.Script
                 explication = explication.Substring(0, explication.Length - 4);
                 GameObject.Find("Text_AutoScrap").GetComponent<Text>().text = explication;
             }
-            
         }
         public void Validate()
         {
-            cardFrom.DoEffect(effect);
+            if(isOr)
+            {
+                GameManager.PopUpOr.GetComponent<PopUpOrManager>().
+                    Activate(cardFrom,cardFrom.Actions[cardFrom.GetListCondsFromCondition(Condition.Or)]);
+            }
+            else
+            {
+                cardFrom.DoEffect(effect);
+            }
             gameObject.SetActive(false);
         }
     }

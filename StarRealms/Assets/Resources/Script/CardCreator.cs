@@ -204,6 +204,7 @@ namespace Resources.Script
                     finalCard.baseLife = c.baseLife;
                     finalCard.needPlayer = c.needPlayer;
                     finalCard.isUsed = c.isUsed;
+                    finalCard.gameObject.SetActive(false);
                     switch (finalCard.name)
                     {
                         case "Scout":
@@ -226,7 +227,7 @@ namespace Resources.Script
                             break;
                     }
                 }
-                posX -= 0.85f;
+                //posX -= 0.85f;
             }
             Shop.ShuffleGameDeck();
             GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().Startfill();

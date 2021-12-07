@@ -73,7 +73,7 @@ namespace Resources.Script
         }
         private void OnMouseDown()
         {
-            if (!GameManager.PopUp.activeSelf && !isUsed /*&& GameManager.currentPlayer.board.Contains(this)*/)
+            if (!GameManager.PopUp.activeSelf && !isUsed && GameManager.CurrentPlayer.board.Contains(this))
             {
                 if(HaveIThisCondition(Condition.AutoScrap))
                 {
@@ -159,13 +159,6 @@ namespace Resources.Script
                 {
                     case Condition.Nothing:
                         allCheck.Add(true);
-                        break;
-                    case Condition.Or:
-                        /*choix du joueur*/
-                        Effect choix = Effect.D;
-                        Dictionary<Effect, int> aFaire = new Dictionary<Effect, int>();
-                        aFaire.Add(choix,Actions[conds][choix]);
-                        DoEffect(aFaire);
                         break;
                     case Condition.Synergie:
                         if (CheckSynergie())
@@ -389,7 +382,7 @@ namespace Resources.Script
             isUsed = mySelf.isUsed;
             needPlayer = mySelf.needPlayer;
         }
-        private List<Condition> FindConditionsOfEffect(Effect e)
+        public List<Condition> FindConditionsOfEffect(Effect e)
         {
             foreach ( KeyValuePair<List<Condition>, Dictionary<Effect, int>> k in Actions)
             {
@@ -405,7 +398,7 @@ namespace Resources.Script
             resultat.Add(Condition.NotFound);
             return resultat;
         }
-        private bool HaveIDamage(Card c)
+        public bool HaveIDamage(Card c)
         {
             foreach (KeyValuePair<List<Condition>, Dictionary<Effect, int>> k in c.Actions)
             {
@@ -419,7 +412,7 @@ namespace Resources.Script
             }
             return false;
         }
-        private bool HaveIThisCondition(Condition condition)
+        public bool HaveIThisCondition(Condition condition)
         {
             foreach (List<Condition> lesConds in Actions.Keys)
             {
@@ -431,7 +424,7 @@ namespace Resources.Script
             }
             return false;
         }
-        private List<Condition> GetListCondsFromCondition(Condition condition)
+        public List<Condition> GetListCondsFromCondition(Condition condition)
         {
             foreach (List<Condition> lesConds in Actions.Keys)
             {
