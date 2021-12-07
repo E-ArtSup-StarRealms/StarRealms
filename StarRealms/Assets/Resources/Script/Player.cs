@@ -134,6 +134,7 @@ namespace Resources.Script
 
         public void EndTurn()
         {
+            HandNumber = 0;
             if (money == 0 && totalPower == 0)
             {
                 int nbCard = board.Count;
@@ -217,10 +218,13 @@ namespace Resources.Script
 
         public void RefillDeck()
         {
+            
+
             Shuffle();
-            for (int i = 0; i < discardPile.Count; i++)
+            for (int i = 1 ; i < discardPile.Count; i++)
             {
-                objectDiscardPile.transform.GetChild(0).SetParent(objectDeck.transform);
+                
+                objectDiscardPile.transform.GetChild(1).SetParent(objectDeck.transform);
             }
             deck = new List<Card>(discardPile);
             discardPile.Clear();

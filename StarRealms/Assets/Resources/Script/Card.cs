@@ -56,6 +56,24 @@ namespace Resources.Script
                     _currentTime = 0;
                 }
             }
+
+
+            if (GameManager.Player2.GetComponent<Player>().hand.Contains(this))
+            {
+                if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
+                {
+                    _currentTime += Time.deltaTime;
+                    float percent = _currentTime / timer;
+                    transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position, percent);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
+                }
+                else
+                {
+                    _currentTime = 0;
+                }
+            }
+
+
             if (GameManager.Player1.GetComponent<Player>().discardPile.Contains(this))
             {
                 if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
@@ -70,6 +88,24 @@ namespace Resources.Script
                     _currentTime = 0;
                 }
             }
+
+            if (GameManager.Player2.GetComponent<Player>().discardPile.Contains(this))
+            {
+                if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
+                {
+                    _currentTime += Time.deltaTime;
+                    float percent = _currentTime / timer;
+                    transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position, percent);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
+                }
+                else
+                {
+                    _currentTime = 0;
+                }
+            }
+
+
+
         }
         private void OnMouseDown()
         {
