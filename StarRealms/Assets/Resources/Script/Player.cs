@@ -70,8 +70,8 @@ namespace Resources.Script
                     {
                         RefillDeck();
                         deck[0].gameObject.transform.SetParent(objectHand.transform);
-                        deck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).
-                            transform.GetChild(0).transform.GetChild(HandNumber).gameObject;
+                        deck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(HandNumber).gameObject;
+                        deck[0].objectToMove.SetActive(true);
                         HandNumber++;
                         hand.Add(deck[0]);
                         deck.RemoveAt(0);
@@ -80,8 +80,8 @@ namespace Resources.Script
                 else
                 {
                     deck[0].gameObject.transform.SetParent(objectHand.transform);
-                    deck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).
-                        transform.GetChild(0).transform.GetChild(HandNumber).gameObject;
+                    deck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(HandNumber).gameObject;
+                    deck[0].objectToMove.SetActive(true);
                     HandNumber++;
                     hand.Add(deck[0]);
                     deck.RemoveAt(0);
@@ -140,6 +140,7 @@ namespace Resources.Script
                     if (!board[0].shipOrBase)
                     {
                         board[0].gameObject.transform.SetParent(objectDiscardPile.transform);
+                        board[0].objectToMove.SetActive(false);
                         board[0].objectToMove = objectDiscardPile.transform.GetChild(0).gameObject;
                         discardPile.Add(board[0]);
                         board.RemoveAt(0);
@@ -149,6 +150,7 @@ namespace Resources.Script
                 for (int i = 0; i < nbCard; i++)
                 {
                     hand[0].gameObject.transform.SetParent(objectDiscardPile.transform);
+                    hand[0].objectToMove.SetActive(false);
                     hand[0].objectToMove = objectDiscardPile.transform.GetChild(0).gameObject;
                     discardPile.Add(hand[0]);
                     hand.RemoveAt(0);

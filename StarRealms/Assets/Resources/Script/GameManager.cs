@@ -15,6 +15,9 @@ namespace Resources.Script
         private GameObject panelWin;
         private static bool _firstRound = true;
 
+        public GameObject camP1;
+        public GameObject camP2;
+
         private void Awake()
         {
             PopUp = GameObject.Find("PopUp");
@@ -59,21 +62,17 @@ namespace Resources.Script
             CurrentPlayer.money = 0;
             CurrentPlayer.totalPower = 0;
 
-            //echange de borad (visuelle)
-            Vector3 boardpos1 = Player1.objectBoard.GetComponent<Transform>().position;
-            Vector3 boardpos2 = Player2.objectBoard.GetComponent<Transform>().position;
-            Player1.objectBoard.GetComponent < Transform >().position = boardpos2;
-            Player2.objectBoard.GetComponent < Transform >().position = boardpos1;
+           //echange de borad (visuelle)
+         
             
             //switche du current player et des hp de ce dernier
             if (CurrentPlayer == Player1)
             {
-                Player1.hp = CurrentPlayer.hp;
-                CurrentPlayer = Player2;
+             
+               CurrentPlayer = Player2;
             }
             else
             {
-                Player2.hp = CurrentPlayer.hp;
                 CurrentPlayer = Player1;
             }
             BeginTurn();
