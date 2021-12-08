@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6212970577364821739}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: P_ALIEN_AILETTE_3D_Francis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8434320684921585172}
   - component: {fileID: 3298914415753775810}
-  m_Layer: 0
+  - component: {fileID: 1305261073}
+  - component: {fileID: 1305261074}
+  m_Layer: 8
   m_Name: AlienArthropodCrusher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,6 +115,37 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1305261073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434320684921585195}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2fe5546f775c47d2820aa5e8a715f53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
+    _objectReferences:
+    - {fileID: 11400000, guid: 8a93db7b278a21b4d93be308cf01ee15, type: 2}
+--- !u!114 &1305261074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434320684921585195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"collection":{"$content":[],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
 --- !u!1 &8958677853873391017
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,7 +155,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8958677853873391016}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: P_ALIEN_AILETTE_3D_Francis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,6 +244,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ALIEN_AILETTE_3D_Francis
       objectReference: {fileID: 0}
+    - target: {fileID: 4090417262906867647, guid: 7dd7c78219ce23d47806f0084cc43af0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7dd7c78219ce23d47806f0084cc43af0, type: 3}
 --- !u!1 &4083108878038049905 stripped
@@ -252,6 +289,10 @@ PrefabInstance:
     - target: {fileID: 6306647234455258986, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
       propertyPath: m_Name
       value: ALIEN_CARAPACE_2_3D_Blanche (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6306647234455258986, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6687395276087860688, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
       propertyPath: m_RootOrder
@@ -326,6 +367,10 @@ PrefabInstance:
     - target: {fileID: 6923694503869839717, guid: fc84abf842d96f8438a1063ce8564586, type: 3}
       propertyPath: m_Name
       value: ALIEN_CORP_VAISSEAU_3_3D_Francis
+      objectReference: {fileID: 0}
+    - target: {fileID: 6923694503869839717, guid: fc84abf842d96f8438a1063ce8564586, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7736682625062675423, guid: fc84abf842d96f8438a1063ce8564586, type: 3}
       propertyPath: m_RootOrder
@@ -453,9 +498,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3815587705812318964, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4569013494956655245, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
       propertyPath: m_Name
       value: ALIEN_CANON_3D_Blanche
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569013494956655245, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
@@ -527,9 +580,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3815587705812318964, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4569013494956655245, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
       propertyPath: m_Name
       value: ALIEN_CANON_3D_Blanche
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569013494956655245, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
@@ -601,9 +662,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3815587705812318964, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4569013494956655245, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
       propertyPath: m_Name
       value: ALIEN_CANON_3D_Blanche
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569013494956655245, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
@@ -622,6 +691,10 @@ PrefabInstance:
     - target: {fileID: 6923694503869839717, guid: fc84abf842d96f8438a1063ce8564586, type: 3}
       propertyPath: m_Name
       value: ALIEN_CORP_VAISSEAU_3_3D_Francis (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6923694503869839717, guid: fc84abf842d96f8438a1063ce8564586, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7736682625062675423, guid: fc84abf842d96f8438a1063ce8564586, type: 3}
       propertyPath: m_RootOrder
@@ -697,6 +770,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ALIEN_CARAPACE_3_3D_Blanche
       objectReference: {fileID: 0}
+    - target: {fileID: 291694399422803355, guid: b967e4f3681a4174a9fbb7e430fd0329, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1101022555900311329, guid: b967e4f3681a4174a9fbb7e430fd0329, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -770,6 +847,10 @@ PrefabInstance:
     - target: {fileID: 2312908274118400183, guid: 5ec7929d6a94a0f43b505db57ae6c273, type: 3}
       propertyPath: m_Name
       value: ALIEN_JOINTURE_3D_Blanche
+      objectReference: {fileID: 0}
+    - target: {fileID: 2312908274118400183, guid: 5ec7929d6a94a0f43b505db57ae6c273, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3121779037783179789, guid: 5ec7929d6a94a0f43b505db57ae6c273, type: 3}
       propertyPath: m_RootOrder
@@ -897,9 +978,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3815587705812318964, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4569013494956655245, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
       propertyPath: m_Name
       value: ALIEN_CANON_3D_Blanche
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569013494956655245, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
@@ -971,9 +1060,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3815587705812318964, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4569013494956655245, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
       propertyPath: m_Name
       value: ALIEN_CANON_3D_Blanche
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569013494956655245, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
@@ -992,6 +1089,10 @@ PrefabInstance:
     - target: {fileID: 6923694503869839717, guid: fc84abf842d96f8438a1063ce8564586, type: 3}
       propertyPath: m_Name
       value: ALIEN_CORP_VAISSEAU_3_3D_Francis (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6923694503869839717, guid: fc84abf842d96f8438a1063ce8564586, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7736682625062675423, guid: fc84abf842d96f8438a1063ce8564586, type: 3}
       propertyPath: m_RootOrder
@@ -1067,6 +1168,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ALIEN_CARAPACE_2_3D_Blanche
       objectReference: {fileID: 0}
+    - target: {fileID: 6306647234455258986, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6687395276087860688, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
       propertyPath: m_RootOrder
       value: 21
@@ -1140,6 +1245,10 @@ PrefabInstance:
     - target: {fileID: 6306647234455258986, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
       propertyPath: m_Name
       value: ALIEN_CARAPACE_2_3D_Blanche
+      objectReference: {fileID: 0}
+    - target: {fileID: 6306647234455258986, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6687395276087860688, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
       propertyPath: m_RootOrder
@@ -1215,6 +1324,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ALIEN_CARAPACE_2_3D_Blanche
       objectReference: {fileID: 0}
+    - target: {fileID: 6306647234455258986, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6687395276087860688, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
       propertyPath: m_RootOrder
       value: 17
@@ -1288,6 +1401,10 @@ PrefabInstance:
     - target: {fileID: 6306647234455258986, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
       propertyPath: m_Name
       value: ALIEN_CARAPACE_2_3D_Blanche
+      objectReference: {fileID: 0}
+    - target: {fileID: 6306647234455258986, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6687395276087860688, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
       propertyPath: m_RootOrder
@@ -1363,6 +1480,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ALIEN_CARAPACE_2_3D_Blanche
       objectReference: {fileID: 0}
+    - target: {fileID: 6306647234455258986, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6687395276087860688, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
       propertyPath: m_RootOrder
       value: 18
@@ -1436,6 +1557,10 @@ PrefabInstance:
     - target: {fileID: 7378942224788773396, guid: 7363faadc36b7a14290ce1497e67fe0e, type: 3}
       propertyPath: m_Name
       value: ALIEN_REACTEUR_3D_Blanche
+      objectReference: {fileID: 0}
+    - target: {fileID: 7378942224788773396, guid: 7363faadc36b7a14290ce1497e67fe0e, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7866825888805552302, guid: 7363faadc36b7a14290ce1497e67fe0e, type: 3}
       propertyPath: m_RootOrder
@@ -1511,6 +1636,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ALIEN_CARAPACE_3_3D_Blanche
       objectReference: {fileID: 0}
+    - target: {fileID: 291694399422803355, guid: b967e4f3681a4174a9fbb7e430fd0329, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1101022555900311329, guid: b967e4f3681a4174a9fbb7e430fd0329, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1584,6 +1713,10 @@ PrefabInstance:
     - target: {fileID: 6306647234455258986, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
       propertyPath: m_Name
       value: ALIEN_CARAPACE_2_3D_Blanche
+      objectReference: {fileID: 0}
+    - target: {fileID: 6306647234455258986, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6687395276087860688, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
       propertyPath: m_RootOrder
@@ -1659,6 +1792,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ALIEN_CARAPACE_2_3D_Blanche
       objectReference: {fileID: 0}
+    - target: {fileID: 6306647234455258986, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6687395276087860688, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -1733,6 +1870,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ALIEN_CARAPACE_2_3D_Blanche
       objectReference: {fileID: 0}
+    - target: {fileID: 6306647234455258986, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6687395276087860688, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
       propertyPath: m_RootOrder
       value: 16
@@ -1806,6 +1947,10 @@ PrefabInstance:
     - target: {fileID: 2312908274118400183, guid: 5ec7929d6a94a0f43b505db57ae6c273, type: 3}
       propertyPath: m_Name
       value: ALIEN_JOINTURE_3D_Blanche
+      objectReference: {fileID: 0}
+    - target: {fileID: 2312908274118400183, guid: 5ec7929d6a94a0f43b505db57ae6c273, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3121779037783179789, guid: 5ec7929d6a94a0f43b505db57ae6c273, type: 3}
       propertyPath: m_RootOrder
@@ -1937,16 +2082,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: ALIEN_AILETTE_3D_Francis
       objectReference: {fileID: 0}
+    - target: {fileID: 4090417262906867647, guid: 7dd7c78219ce23d47806f0084cc43af0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7dd7c78219ce23d47806f0084cc43af0, type: 3}
---- !u!4 &7329366133756505086 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3715404240366085381, guid: 7dd7c78219ce23d47806f0084cc43af0, type: 3}
-  m_PrefabInstance: {fileID: 6212970578431020795}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7997534249255563588 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4090417262906867647, guid: 7dd7c78219ce23d47806f0084cc43af0, type: 3}
+  m_PrefabInstance: {fileID: 6212970578431020795}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7329366133756505086 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3715404240366085381, guid: 7dd7c78219ce23d47806f0084cc43af0, type: 3}
   m_PrefabInstance: {fileID: 6212970578431020795}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &6212970577575056279
@@ -1978,6 +2127,10 @@ PrefabInstance:
     - target: {fileID: 6306647234455258986, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
       propertyPath: m_Name
       value: ALIEN_CARAPACE_2_3D_Blanche
+      objectReference: {fileID: 0}
+    - target: {fileID: 6306647234455258986, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6687395276087860688, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
       propertyPath: m_RootOrder
@@ -2053,6 +2206,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ALIEN_COCKPIT_3D_Alizee
       objectReference: {fileID: 0}
+    - target: {fileID: 7122241110687241296, guid: c546269b448f7264bb486e4a7671fab5, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7610124744653934314, guid: c546269b448f7264bb486e4a7671fab5, type: 3}
       propertyPath: m_RootOrder
       value: 23
@@ -2127,6 +2284,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ALIEN_CARAPACE_1_3D_Blanche
       objectReference: {fileID: 0}
+    - target: {fileID: 2878844711077134827, guid: dad0867ec870b174daa9ae1ae19e1238, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3222438437704670033, guid: dad0867ec870b174daa9ae1ae19e1238, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -2197,6 +2358,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8434320684921585172}
     m_Modifications:
+    - target: {fileID: 1394872940609301774, guid: c7779a3d2f012ac4f896a3f2a8290ae8, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3933424833353676502, guid: c7779a3d2f012ac4f896a3f2a8290ae8, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.084
@@ -2205,9 +2370,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.029
       objectReference: {fileID: 0}
+    - target: {fileID: 7242934156131344966, guid: c7779a3d2f012ac4f896a3f2a8290ae8, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8364325147591493227, guid: c7779a3d2f012ac4f896a3f2a8290ae8, type: 3}
       propertyPath: m_Name
       value: ALIEN_REACTEURexagon_3D_Blanche
+      objectReference: {fileID: 0}
+    - target: {fileID: 8364325147591493227, guid: c7779a3d2f012ac4f896a3f2a8290ae8, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 9178298430672248017, guid: c7779a3d2f012ac4f896a3f2a8290ae8, type: 3}
       propertyPath: m_RootOrder
@@ -2283,6 +2456,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ALIEN_COCKPIT_3D_Alizee
       objectReference: {fileID: 0}
+    - target: {fileID: 7122241110687241296, guid: c546269b448f7264bb486e4a7671fab5, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7610124744653934314, guid: c546269b448f7264bb486e4a7671fab5, type: 3}
       propertyPath: m_RootOrder
       value: 22
@@ -2357,6 +2534,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ALIEN_REACTEUR_3D_Blanche
       objectReference: {fileID: 0}
+    - target: {fileID: 7378942224788773396, guid: 7363faadc36b7a14290ce1497e67fe0e, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7866825888805552302, guid: 7363faadc36b7a14290ce1497e67fe0e, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -2430,6 +2611,10 @@ PrefabInstance:
     - target: {fileID: 6306647234455258986, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
       propertyPath: m_Name
       value: ALIEN_CARAPACE_2_3D_Blanche
+      objectReference: {fileID: 0}
+    - target: {fileID: 6306647234455258986, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6687395276087860688, guid: eca44ad6fbbe40f4a8deafd7468943dc, type: 3}
       propertyPath: m_RootOrder
@@ -2557,9 +2742,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3815587705812318964, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4569013494956655245, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
       propertyPath: m_Name
       value: ALIEN_CANON_3D_Blanche
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569013494956655245, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1121ce4ae1701ea40afaae8722f84ca4, type: 3}
