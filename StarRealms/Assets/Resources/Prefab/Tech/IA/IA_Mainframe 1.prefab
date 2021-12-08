@@ -108,7 +108,7 @@ PrefabInstance:
     - target: {fileID: 8410798960125214318, guid: a8a0d147a289ff74fa8426f8f34664b1, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: c18ff744dd7a352448e1132ad1df0fc0, type: 2}
+      objectReference: {fileID: 2100000, guid: 832ee5f89da56284790fa3db18416dca, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8a0d147a289ff74fa8426f8f34664b1, type: 3}
 --- !u!1 &7327130247408531395 stripped
@@ -390,7 +390,7 @@ PrefabInstance:
     - target: {fileID: 8410798960125214318, guid: a8a0d147a289ff74fa8426f8f34664b1, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: c18ff744dd7a352448e1132ad1df0fc0, type: 2}
+      objectReference: {fileID: 2100000, guid: 832ee5f89da56284790fa3db18416dca, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8a0d147a289ff74fa8426f8f34664b1, type: 3}
 --- !u!1 &4971316160217380829 stripped
@@ -492,7 +492,7 @@ PrefabInstance:
     - target: {fileID: 8410798960125214318, guid: a8a0d147a289ff74fa8426f8f34664b1, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: c18ff744dd7a352448e1132ad1df0fc0, type: 2}
+      objectReference: {fileID: 2100000, guid: 832ee5f89da56284790fa3db18416dca, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8a0d147a289ff74fa8426f8f34664b1, type: 3}
 --- !u!1 &4772867596805730523 stripped
@@ -738,7 +738,7 @@ PrefabInstance:
     - target: {fileID: 3454478436910545007, guid: 65b99376ab11aa64ba5109e342b9aa02, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 1c30140e85fd2f24e84090b9cca13ed5, type: 2}
+      objectReference: {fileID: 2100000, guid: 4ff114e17dfa5ba4ca8dbd200eaa74aa, type: 2}
     - target: {fileID: 3814612268484860346, guid: 65b99376ab11aa64ba5109e342b9aa02, type: 3}
       propertyPath: m_Name
       value: IA_SPHERE_3D_Lucas (2)
