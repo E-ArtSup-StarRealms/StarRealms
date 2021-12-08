@@ -9,7 +9,7 @@ namespace Resources.Script
     {    
         //Variables de classe (attributs de la classe)
         public int hp = 50;
-        public int money;
+        public int money  = 4000000;
         public int totalPower;
         public int toDiscard;
         public List<Card> deck = new List<Card>();
@@ -56,6 +56,7 @@ namespace Resources.Script
                     Attack(enemyObject);
                 if (Input.GetKeyUp(KeyCode.L))
                     LookDeck();
+
             }
         }
 

@@ -25,84 +25,94 @@ namespace Resources.Script
         private float _currentTime;
         public float timer;
         public GameObject objectToMove;
+        public bool draged;
+        public Vector3 mousePosition;
+        private bool overBoard;
+
+
+        
 
         void Update()
         {
-            if (GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().display.Contains(this) && objectToMove != null)
+            if (! draged)
             {
-                if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
+                if (GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().display.Contains(this) && objectToMove != null)
                 {
-                    _currentTime += Time.deltaTime;
-                    float percent = _currentTime / timer;
-                    transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position,percent);
-                    transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
+                    if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
+                    {
+                        _currentTime += Time.deltaTime;
+                        float percent = _currentTime / timer;
+                        transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position, percent);
+                        transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
+                    }
+                    else
+                    {
+                        _currentTime = 0;
+                    }
                 }
-                else
+                if (GameManager.Player1.GetComponent<Player>().hand.Contains(this))
                 {
-                    _currentTime = 0;
+                    if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
+                    {
+                        _currentTime += Time.deltaTime;
+                        float percent = _currentTime / timer;
+                        transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position, percent);
+                        transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
+                    }
+                    else
+                    {
+                        _currentTime = 0;
+                    }
                 }
-            }
-            if (GameManager.Player1.GetComponent<Player>().hand.Contains(this))
-            {
-                if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
-                {
-                    _currentTime += Time.deltaTime;
-                    float percent = _currentTime / timer;
-                    transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position, percent);
-                    transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
-                }
-                else
-                {
-                    _currentTime = 0;
-                }
-            }
 
 
-            if (GameManager.Player2.GetComponent<Player>().hand.Contains(this))
-            {
-                if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
+                if (GameManager.Player2.GetComponent<Player>().hand.Contains(this))
                 {
-                    _currentTime += Time.deltaTime;
-                    float percent = _currentTime / timer;
-                    transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position, percent);
-                    transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
+                    if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
+                    {
+                        _currentTime += Time.deltaTime;
+                        float percent = _currentTime / timer;
+                        transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position, percent);
+                        transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
+                    }
+                    else
+                    {
+                        _currentTime = 0;
+                    }
                 }
-                else
-                {
-                    _currentTime = 0;
-                }
-            }
 
 
-            if (GameManager.Player1.GetComponent<Player>().discardPile.Contains(this))
-            {
-                if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
+                if (GameManager.Player1.GetComponent<Player>().discardPile.Contains(this))
                 {
-                    _currentTime += Time.deltaTime;
-                    float percent = _currentTime / timer;
-                    transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position, percent);
-                    transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
+                    if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
+                    {
+                        _currentTime += Time.deltaTime;
+                        float percent = _currentTime / timer;
+                        transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position, percent);
+                        transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
+                    }
+                    else
+                    {
+                        _currentTime = 0;
+                    }
                 }
-                else
-                {
-                    _currentTime = 0;
-                }
-            }
 
-            if (GameManager.Player2.GetComponent<Player>().discardPile.Contains(this))
-            {
-                if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
+                if (GameManager.Player2.GetComponent<Player>().discardPile.Contains(this))
                 {
-                    _currentTime += Time.deltaTime;
-                    float percent = _currentTime / timer;
-                    transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position, percent);
-                    transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
-                }
-                else
-                {
-                    _currentTime = 0;
+                    if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
+                    {
+                        _currentTime += Time.deltaTime;
+                        float percent = _currentTime / timer;
+                        transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position, percent);
+                        transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
+                    }
+                    else
+                    {
+                        _currentTime = 0;
+                    }
                 }
             }
+          
 
 
 
@@ -121,6 +131,56 @@ namespace Resources.Script
                     GameManager.PopUpOr.GetComponent<PopUpOrManager>().
                         Activate(this,Actions[GetListCondsFromCondition(Condition.Or)]);
                 }
+            }
+                
+            if (!GameManager.PopUp.activeSelf && !isUsed && GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().display.Contains(this))
+            { 
+               GameManager.CurrentPlayer.Buy(this);
+            }
+
+
+           
+        }
+        private void OnMouseUp()
+        {
+            if (draged)
+            {
+                if (overBoard)
+                {
+                    // ICI INCERER L'ANIM DE DESCTUICTION  DE CARTE + ANIM DEBUT DE VAISSEAU.
+                    
+                }
+                draged = false;
+            }
+          
+        }
+        private void OnTriggerEnter(Collider other)
+        {
+             if (other.gameObject.CompareTag("board"))
+            {
+                overBoard = true;
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.CompareTag("board"))
+            {
+                overBoard = false;
+            }
+        }
+        private void OnMouseDrag()
+        {
+            if (!GameManager.PopUp.activeSelf && !isUsed && GameManager.CurrentPlayer.hand.Contains(this))
+            {
+                Camera camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+                draged = true;
+                transform.position = new Vector3(transform.position.x + Input.GetAxis("Mouse X") / 4, transform.position.y + Input.GetAxis("Mouse Y") / 4.5f, transform.position.z);
+                //mousePosition = Input.mousePosition;
+                //mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+                //gameObject.transform.position = new Vector3(mousePosition.x, mousePosition.y, transform.position.z);
+             
+                
             }
         }
         public List<Condition> GetNextCond(bool clicked)
