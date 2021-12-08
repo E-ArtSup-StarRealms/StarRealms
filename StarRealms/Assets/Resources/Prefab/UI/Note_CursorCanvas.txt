@@ -1,5 +1,0 @@
-Ce canvas a besoin d'un Camera Overlay avec uniquement UI d'activé dans Layer Culling 
-
-Il en va de même pour les autres canvas du jeu !
-
-Attention au fov du cmv cam (bug à corriger très vite)
