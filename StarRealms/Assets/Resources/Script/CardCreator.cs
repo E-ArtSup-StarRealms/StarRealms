@@ -206,6 +206,8 @@ namespace Resources.Script
                     finalObject.GetComponent<Transform>().GetChild(0).GetComponent<Renderer>().
                         material = (Material) UnityEngine.Resources.
                         Load("Materiau/Tmp/Vaisseaux/"+finalCard.faction+"/"+finalObject.name);
+                    finalCard.model3D = UnityEngine.Resources.
+                        Load("Prefab/Tmp_Vaisseaux/"+finalCard.faction+"/"+finalObject.name);
                     finalCard.gameObject.SetActive(false);
                     switch (finalCard.name)
                     {

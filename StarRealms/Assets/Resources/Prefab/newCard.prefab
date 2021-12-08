@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 4239763706394411476}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children:
   - {fileID: 7336486094125994071}
   m_Father: {fileID: 0}
@@ -44,8 +44,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.8486718, y: 1.1290915, z: 0.026316509}
+  m_Center: {x: -0.0044508576, y: 0.0022188425, z: -0.0081771985}
 --- !u!114 &1369153984513416804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,6 +72,9 @@ MonoBehaviour:
   mySelf: {fileID: 0}
   timer: 0.1
   objectToMove: {fileID: 0}
+  draged: 0
+  model3D: {fileID: 0}
+  vaisseauBoard: {fileID: 0}
 --- !u!1 &5030059355066289440
 GameObject:
   m_ObjectHideFlags: 0

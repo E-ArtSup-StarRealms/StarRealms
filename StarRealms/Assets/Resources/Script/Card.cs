@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Resources.Script
@@ -20,18 +21,16 @@ namespace Resources.Script
         public bool isUsed;
         public bool needPlayer;
         public Card mySelf;
-        private int _rankCond;
-
-        private float _currentTime;
         public float timer;
         public GameObject objectToMove;
         public bool draged;
-        public Vector3 mousePosition;
-        private bool overBoard;
-
-
+        public Object model3D;
+        public Object vaisseauBoard;
         
-
+        private int _rankCond;
+        private float _currentTime;
+        private bool overBoard;
+        
         void Update()
         {
             if (! draged)
@@ -147,8 +146,20 @@ namespace Resources.Script
             {
                 if (overBoard)
                 {
-                    // ICI INCERER L'ANIM DE DESCTUICTION  DE CARTE + ANIM DEBUT DE VAISSEAU.
-                    
+                    vaisseauBoard = Instantiate(model3D, new Vector3(),new Quaternion());
+                    vaisseauBoard.GetComponent<ShipManager>().objectToMove = 
+                        GameManager.CurrentPlayer.objectBoard.transform.GetChild(0).transform.GetChild(0)
+                            .transform.GetChild(ShipManager.BoardNumber).gameObject;
+                    vaisseauBoard.GetComponent<ShipManager>().objectToMove.SetActive(true);
+                    vaisseauBoard.GetComponent<Transform>().SetParent(vaisseauBoard.GetComponent<ShipManager>().objectToMove.transform);
+                    ShipManager.BoardNumber++;
+                    vaisseauBoard.GetComponent<ShipManager>().hisCard = this;
+                    GameManager.CurrentPlayer.board.Add(this);
+                    GameManager.CurrentPlayer.hand.Remove(this);
+                    objectToMove.SetActive(false);
+                    gameObject.GetComponent<BoxCollider>().enabled = false;
+                    transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
+                    transform.SetParent(vaisseauBoard.GetComponent<ShipManager>().objectToMove.transform);
                 }
                 draged = false;
             }
@@ -156,12 +167,11 @@ namespace Resources.Script
         }
         private void OnTriggerEnter(Collider other)
         {
-             if (other.gameObject.CompareTag("board"))
+            if (other.gameObject.CompareTag("board"))
             {
                 overBoard = true;
             }
         }
-
         private void OnTriggerExit(Collider other)
         {
             if (other.gameObject.CompareTag("board"))
@@ -169,18 +179,15 @@ namespace Resources.Script
                 overBoard = false;
             }
         }
+        
         private void OnMouseDrag()
         {
             if (!GameManager.PopUp.activeSelf && !isUsed && GameManager.CurrentPlayer.hand.Contains(this))
             {
-                Camera camera = GameObject.Find("Main Camera").GetComponent<Camera>();
                 draged = true;
-                transform.position = new Vector3(transform.position.x + Input.GetAxis("Mouse X") / 4, transform.position.y + Input.GetAxis("Mouse Y") / 4.5f, transform.position.z);
-                //mousePosition = Input.mousePosition;
-                //mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-                //gameObject.transform.position = new Vector3(mousePosition.x, mousePosition.y, transform.position.z);
-             
-                
+                Vector3 position = transform.position;
+                position = new Vector3(position.x + Input.GetAxis("Mouse X") / 4, position.y + Input.GetAxis("Mouse Y") / 4.5f, position.z);
+                transform.position = position;
             }
         }
         public List<Condition> GetNextCond(bool clicked)
