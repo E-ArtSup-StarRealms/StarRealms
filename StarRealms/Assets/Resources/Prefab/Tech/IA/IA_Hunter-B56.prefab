@@ -9,7 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7348049324366077929}
-  m_Layer: 0
+  - component: {fileID: 857612923}
+  - component: {fileID: 857612924}
+  m_Layer: 8
   m_Name: IA_Hunter-B56
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 7348049324366077930}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 43.43}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2441, y: 1.2441, z: 1.2441}
   m_Children:
   - {fileID: 7276600615811928655}
   - {fileID: 7733409773733358830}
@@ -50,6 +52,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &857612923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7348049324366077930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2fe5546f775c47d2820aa5e8a715f53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
+    _objectReferences:
+    - {fileID: 11400000, guid: 8a93db7b278a21b4d93be308cf01ee15, type: 2}
+--- !u!114 &857612924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7348049324366077930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"collection":{"$content":[],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
 --- !u!1 &7601698523961578303
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7601698523961578302}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: IA_CANON-BASE_3D_Lucas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +123,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7601698524293874852}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: IA_CANON-BASE_3D_Lucas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,6 +156,10 @@ PrefabInstance:
     - target: {fileID: 2694177179941902249, guid: df0d0031b143bfb4490d024bf5129749, type: 3}
       propertyPath: m_Name
       value: IA_AILE_REACTEUR_3D_Nicolas (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2694177179941902249, guid: df0d0031b143bfb4490d024bf5129749, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3326035260270365971, guid: df0d0031b143bfb4490d024bf5129749, type: 3}
       propertyPath: m_RootOrder
@@ -202,6 +239,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_AILE_REACTEUR_3D_Nicolas (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 2694177179941902249, guid: df0d0031b143bfb4490d024bf5129749, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3326035260270365971, guid: df0d0031b143bfb4490d024bf5129749, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -279,6 +320,10 @@ PrefabInstance:
     - target: {fileID: 2694177179941902249, guid: df0d0031b143bfb4490d024bf5129749, type: 3}
       propertyPath: m_Name
       value: IA_AILE_REACTEUR_3D_Nicolas (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2694177179941902249, guid: df0d0031b143bfb4490d024bf5129749, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3326035260270365971, guid: df0d0031b143bfb4490d024bf5129749, type: 3}
       propertyPath: m_RootOrder
@@ -362,6 +407,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_CANON-BASE_3D_Lucas
       objectReference: {fileID: 0}
+    - target: {fileID: 3506124229303693538, guid: 04722f72270403643bd1a53949a80889, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4315453145673706072, guid: 04722f72270403643bd1a53949a80889, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -427,6 +476,10 @@ PrefabInstance:
     - target: {fileID: 3506889833275656494, guid: 4c1a104c3c475814ea51659936dfca8f, type: 3}
       propertyPath: m_Name
       value: IA_CROISSANT_3D_Nicolas (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3506889833275656494, guid: 4c1a104c3c475814ea51659936dfca8f, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4314775090322690964, guid: 4c1a104c3c475814ea51659936dfca8f, type: 3}
       propertyPath: m_RootOrder
@@ -501,6 +554,10 @@ PrefabInstance:
     - target: {fileID: 2751441342100284861, guid: 062798e36bc219540983b8405b322c90, type: 3}
       propertyPath: m_Name
       value: IA_LENTILLE_3D_Nicolas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2751441342100284861, guid: 062798e36bc219540983b8405b322c90, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3270956924937862919, guid: 062798e36bc219540983b8405b322c90, type: 3}
       propertyPath: m_RootOrder
@@ -584,6 +641,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_CANON-BASE_3D_Lucas (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 3506124229303693538, guid: 04722f72270403643bd1a53949a80889, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4315453145673706072, guid: 04722f72270403643bd1a53949a80889, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -642,14 +703,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04722f72270403643bd1a53949a80889, type: 3}
---- !u!1 &2649957483553179097 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3506124229303693538, guid: 04722f72270403643bd1a53949a80889, type: 3}
-  m_PrefabInstance: {fileID: 1472337481647666491}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3426494835784359779 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4315453145673706072, guid: 04722f72270403643bd1a53949a80889, type: 3}
+  m_PrefabInstance: {fileID: 1472337481647666491}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2649957483553179097 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3506124229303693538, guid: 04722f72270403643bd1a53949a80889, type: 3}
   m_PrefabInstance: {fileID: 1472337481647666491}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &7601698523792461839
@@ -681,6 +742,10 @@ PrefabInstance:
     - target: {fileID: 7425622430426380290, guid: 4a803790be15998499f89eab832c004c, type: 3}
       propertyPath: m_Name
       value: IA_CROISSANT_EMISSIVE_3D_Nicolas (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7425622430426380290, guid: 4a803790be15998499f89eab832c004c, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7802148729641558712, guid: 4a803790be15998499f89eab832c004c, type: 3}
       propertyPath: m_RootOrder
@@ -816,6 +881,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_AILE_REACTEUR_EMISSIVE_3D_Nicolas (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 7651181457196300986, guid: 051321069e3f7a24fb5f41d29cc27ecc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8155606124361554799, guid: 051321069e3f7a24fb5f41d29cc27ecc, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -894,6 +963,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_AILE_REACTEUR_EMISSIVE_3D_Nicolas (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7651181457196300986, guid: 051321069e3f7a24fb5f41d29cc27ecc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8155606124361554799, guid: 051321069e3f7a24fb5f41d29cc27ecc, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -915,6 +988,10 @@ PrefabInstance:
     - target: {fileID: 2694177179941902249, guid: df0d0031b143bfb4490d024bf5129749, type: 3}
       propertyPath: m_Name
       value: IA_AILE_REACTEUR_3D_Nicolas (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2694177179941902249, guid: df0d0031b143bfb4490d024bf5129749, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3326035260270365971, guid: df0d0031b143bfb4490d024bf5129749, type: 3}
       propertyPath: m_RootOrder
@@ -1050,6 +1127,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_AILE_MOBILE_3D_Nicolas 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5570084907895875108, guid: 6c7ffb62e469b4b4e909794e9115b467, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6218370227186059249, guid: 6c7ffb62e469b4b4e909794e9115b467, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1075,6 +1156,10 @@ PrefabInstance:
     - target: {fileID: 3917459865919112702, guid: bd33423953028b947b1f944badaa1db6, type: 3}
       propertyPath: m_Name
       value: IA_CANON-BASE-EMISSIVE_3D_Lucas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917459865919112702, guid: bd33423953028b947b1f944badaa1db6, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4401789603208830788, guid: bd33423953028b947b1f944badaa1db6, type: 3}
       propertyPath: m_RootOrder
@@ -1148,6 +1233,10 @@ PrefabInstance:
     - target: {fileID: 3814612268484860346, guid: 65b99376ab11aa64ba5109e342b9aa02, type: 3}
       propertyPath: m_Name
       value: IA_SPHERE_3D_Lucas (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814612268484860346, guid: 65b99376ab11aa64ba5109e342b9aa02, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4592520471380181760, guid: 65b99376ab11aa64ba5109e342b9aa02, type: 3}
       propertyPath: m_RootOrder
@@ -1227,6 +1316,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_CANON-BASE-EMISSIVE_3D_Lucas (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3917459865919112702, guid: bd33423953028b947b1f944badaa1db6, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4401789603208830788, guid: bd33423953028b947b1f944badaa1db6, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1299,6 +1392,10 @@ PrefabInstance:
     - target: {fileID: 3506124229303693538, guid: 04722f72270403643bd1a53949a80889, type: 3}
       propertyPath: m_Name
       value: IA_CANON-BASE_3D_Lucas (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3506124229303693538, guid: 04722f72270403643bd1a53949a80889, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4315453145673706072, guid: 04722f72270403643bd1a53949a80889, type: 3}
       propertyPath: m_RootOrder
@@ -1401,6 +1498,10 @@ PrefabInstance:
     - target: {fileID: 3841211252557412714, guid: 5e1338f0466880d4fa2098f30fe51fc0, type: 3}
       propertyPath: m_Name
       value: IA_PISTON_3D_Nicolas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3841211252557412714, guid: 5e1338f0466880d4fa2098f30fe51fc0, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4469094636653814736, guid: 5e1338f0466880d4fa2098f30fe51fc0, type: 3}
       propertyPath: m_RootOrder
@@ -1527,6 +1628,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_AILE_REACTEUR_EMISSIVE_3D_Nicolas (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7651181457196300986, guid: 051321069e3f7a24fb5f41d29cc27ecc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8155606124361554799, guid: 051321069e3f7a24fb5f41d29cc27ecc, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1552,6 +1657,10 @@ PrefabInstance:
     - target: {fileID: 3841211252557412714, guid: 5e1338f0466880d4fa2098f30fe51fc0, type: 3}
       propertyPath: m_Name
       value: IA_PISTON_3D_Nicolas (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3841211252557412714, guid: 5e1338f0466880d4fa2098f30fe51fc0, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4469094636653814736, guid: 5e1338f0466880d4fa2098f30fe51fc0, type: 3}
       propertyPath: m_RootOrder
@@ -1678,6 +1787,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_AILE_MOBILE_3D_Nicolas 1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5570084907895875108, guid: 6c7ffb62e469b4b4e909794e9115b467, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6218370227186059249, guid: 6c7ffb62e469b4b4e909794e9115b467, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1699,6 +1812,10 @@ PrefabInstance:
     - target: {fileID: 7425622430426380290, guid: 4a803790be15998499f89eab832c004c, type: 3}
       propertyPath: m_Name
       value: IA_CROISSANT_EMISSIVE_3D_Nicolas (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7425622430426380290, guid: 4a803790be15998499f89eab832c004c, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7802148729641558712, guid: 4a803790be15998499f89eab832c004c, type: 3}
       propertyPath: m_RootOrder
@@ -1781,6 +1898,10 @@ PrefabInstance:
     - target: {fileID: 3506889833275656494, guid: 4c1a104c3c475814ea51659936dfca8f, type: 3}
       propertyPath: m_Name
       value: IA_CROISSANT_3D_Nicolas (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3506889833275656494, guid: 4c1a104c3c475814ea51659936dfca8f, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4314775090322690964, guid: 4c1a104c3c475814ea51659936dfca8f, type: 3}
       propertyPath: m_RootOrder
@@ -1916,6 +2037,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_AILE_MOBILE_EMISSIVE_3D_Nicolas (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1967528450788604549, guid: 887836b7a8241324eb3f0969d5c7eb13, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 887836b7a8241324eb3f0969d5c7eb13, type: 3}
 --- !u!4 &7238404937237203915 stripped
@@ -1989,6 +2114,10 @@ PrefabInstance:
     - target: {fileID: 7651181457196300986, guid: 051321069e3f7a24fb5f41d29cc27ecc, type: 3}
       propertyPath: m_Name
       value: IA_AILE_REACTEUR_EMISSIVE_3D_Nicolas (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7651181457196300986, guid: 051321069e3f7a24fb5f41d29cc27ecc, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8155606124361554799, guid: 051321069e3f7a24fb5f41d29cc27ecc, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2071,6 +2200,10 @@ PrefabInstance:
     - target: {fileID: 1967528450788604549, guid: 887836b7a8241324eb3f0969d5c7eb13, type: 3}
       propertyPath: m_Name
       value: IA_AILE_MOBILE_EMISSIVE_3D_Nicolas (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1967528450788604549, guid: 887836b7a8241324eb3f0969d5c7eb13, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 887836b7a8241324eb3f0969d5c7eb13, type: 3}

@@ -9,7 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7163810278859900523}
-  m_Layer: 0
+  - component: {fileID: 916357652}
+  - component: {fileID: 916357653}
+  m_Layer: 8
   m_Name: IA_Teleporter-G34
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,13 +27,44 @@ Transform:
   m_GameObject: {fileID: 7163810278859900522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 95.16}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4.994632, y: 4.994632, z: 4.994632}
   m_Children:
   - {fileID: 8143819878748059697}
   - {fileID: 6148571293973377385}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &916357652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7163810278859900522}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2fe5546f775c47d2820aa5e8a715f53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
+    _objectReferences:
+    - {fileID: 11400000, guid: 8a93db7b278a21b4d93be308cf01ee15, type: 2}
+--- !u!114 &916357653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7163810278859900522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"collection":{"$content":[],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
 --- !u!1 &8046699636202056799
 GameObject:
   m_ObjectHideFlags: 0
@@ -41,7 +74,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7268895573580117733}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: IA_ANNEAU_3D_Lucas (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,14 +88,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8046699636202056799}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -0.022524267, y: -0.0004466529, z: 0}
   m_LocalScale: {x: 0.6796117, y: 0.6796117, z: 0.6796117}
   m_Children:
   - {fileID: 6458712429037425853}
   m_Father: {fileID: 5495820597512444521}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &8813396744042357387
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8143819878748059697}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: IA_ANNEAU_3D_Lucas (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,6 +194,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_REACTEUR_EMISSIVE_3D_Enora 1 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5396746109385523186, guid: 9ef10d46eb7fc224182a9201a6c679fb, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5901381883975605799, guid: 9ef10d46eb7fc224182a9201a6c679fb, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -181,6 +218,10 @@ PrefabInstance:
     - target: {fileID: 3841211252557412714, guid: 5e1338f0466880d4fa2098f30fe51fc0, type: 3}
       propertyPath: m_Name
       value: IA_PISTON_3D_Nicolas (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3841211252557412714, guid: 5e1338f0466880d4fa2098f30fe51fc0, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4469094636653814736, guid: 5e1338f0466880d4fa2098f30fe51fc0, type: 3}
       propertyPath: m_RootOrder
@@ -307,6 +348,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_REACTEUR_EMISSIVE_3D_Enora 1 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 5396746109385523186, guid: 9ef10d46eb7fc224182a9201a6c679fb, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5901381883975605799, guid: 9ef10d46eb7fc224182a9201a6c679fb, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -323,6 +368,10 @@ PrefabInstance:
     - target: {fileID: 4983398515324972082, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
       propertyPath: m_Name
       value: IA_REACTEUR_3D_Nicolas (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983398515324972082, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5648435492892915336, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
       propertyPath: m_RootOrder
@@ -401,6 +450,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_ANNEAU-EMISSIVE_3D_Lucas (2) 1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1529158608129452786, guid: 58d3bf79661572d4a8bb9867d7faea4d, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2194230528934752328, guid: 58d3bf79661572d4a8bb9867d7faea4d, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -474,6 +527,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_ANNEAU-EMISSIVE_3D_Lucas (2) 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1529158608129452786, guid: 58d3bf79661572d4a8bb9867d7faea4d, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2194230528934752328, guid: 58d3bf79661572d4a8bb9867d7faea4d, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -542,6 +599,10 @@ PrefabInstance:
     - target: {fileID: 4983398515324972082, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
       propertyPath: m_Name
       value: IA_REACTEUR_3D_Nicolas (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983398515324972082, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5648435492892915336, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
       propertyPath: m_RootOrder
@@ -672,6 +733,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_ANNEAU_3D_Lucas (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 8050700450243239867, guid: a8a0d147a289ff74fa8426f8f34664b1, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8410798960125214318, guid: a8a0d147a289ff74fa8426f8f34664b1, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -774,6 +839,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_REACTEUR_EMISSIVE_3D_Enora 1 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5396746109385523186, guid: 9ef10d46eb7fc224182a9201a6c679fb, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5901381883975605799, guid: 9ef10d46eb7fc224182a9201a6c679fb, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -847,6 +916,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_REACTEUR_EMISSIVE_3D_Enora 1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5396746109385523186, guid: 9ef10d46eb7fc224182a9201a6c679fb, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5901381883975605799, guid: 9ef10d46eb7fc224182a9201a6c679fb, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -863,6 +936,10 @@ PrefabInstance:
     - target: {fileID: 4983398515324972082, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
       propertyPath: m_Name
       value: IA_REACTEUR_3D_Nicolas (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983398515324972082, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5648435492892915336, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
       propertyPath: m_RootOrder
@@ -937,6 +1014,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_ANNEAU-EMISSIVE_3D_Lucas (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1529158608129452786, guid: 58d3bf79661572d4a8bb9867d7faea4d, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2194230528934752328, guid: 58d3bf79661572d4a8bb9867d7faea4d, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1005,6 +1086,10 @@ PrefabInstance:
     - target: {fileID: 4983398515324972082, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
       propertyPath: m_Name
       value: IA_REACTEUR_3D_Nicolas (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983398515324972082, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5648435492892915336, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
       propertyPath: m_RootOrder
@@ -1135,6 +1220,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_REACTEUR_EMISSIVE_3D_Enora 1 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5396746109385523186, guid: 9ef10d46eb7fc224182a9201a6c679fb, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5901381883975605799, guid: 9ef10d46eb7fc224182a9201a6c679fb, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1208,20 +1297,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_ANNEAU_3D_Lucas (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 8050700450243239867, guid: a8a0d147a289ff74fa8426f8f34664b1, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8410798960125214318, guid: a8a0d147a289ff74fa8426f8f34664b1, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 832ee5f89da56284790fa3db18416dca, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8a0d147a289ff74fa8426f8f34664b1, type: 3}
---- !u!4 &6458712429037425853 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7273882718321181953, guid: a8a0d147a289ff74fa8426f8f34664b1, type: 3}
-  m_PrefabInstance: {fileID: 4419141153527304636}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5974627509442792967 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8050700450243239867, guid: a8a0d147a289ff74fa8426f8f34664b1, type: 3}
+  m_PrefabInstance: {fileID: 4419141153527304636}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6458712429037425853 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7273882718321181953, guid: a8a0d147a289ff74fa8426f8f34664b1, type: 3}
   m_PrefabInstance: {fileID: 4419141153527304636}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &6628760769351261923
@@ -1234,7 +1327,7 @@ Animator:
   m_GameObject: {fileID: 5974627509442792967}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 69690c4d46bd1104a8199fb4448d4c22, type: 2}
+  m_Controller: {fileID: 9100000, guid: 60fad2ade45076d42b6ca91a2198883c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1314,6 +1407,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_TOIT_CIRCULAIRE_3D_Nicolas (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2019521317656480440, guid: 55fd935e32ab07348b67b55cc59ad617, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55fd935e32ab07348b67b55cc59ad617, type: 3}
 --- !u!1001 &4644559568808384036
@@ -1386,6 +1483,10 @@ PrefabInstance:
     - target: {fileID: 2191854433618705911, guid: 7940f559b882a8a408c6ce79a5c511e5, type: 3}
       propertyPath: m_Name
       value: IA_PATATE1_3D_NICOLAS
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191854433618705911, guid: 7940f559b882a8a408c6ce79a5c511e5, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7940f559b882a8a408c6ce79a5c511e5, type: 3}
@@ -1461,6 +1562,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_REACTEUR_EMISSIVE_3D_Enora 1 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 5396746109385523186, guid: 9ef10d46eb7fc224182a9201a6c679fb, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5901381883975605799, guid: 9ef10d46eb7fc224182a9201a6c679fb, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1477,6 +1582,10 @@ PrefabInstance:
     - target: {fileID: 4983398515324972082, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
       propertyPath: m_Name
       value: IA_REACTEUR_3D_Nicolas (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983398515324972082, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5648435492892915336, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
       propertyPath: m_RootOrder
@@ -1550,6 +1659,10 @@ PrefabInstance:
     - target: {fileID: 2710056409651371680, guid: 0085f0bb836f7cd40b681008932ef440, type: 3}
       propertyPath: m_Name
       value: IA_PATATE5_3D_NICOLAS (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2710056409651371680, guid: 0085f0bb836f7cd40b681008932ef440, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3375409844356514842, guid: 0085f0bb836f7cd40b681008932ef440, type: 3}
       propertyPath: m_RootOrder
@@ -1628,6 +1741,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_PISTON_3D_Nicolas (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3841211252557412714, guid: 5e1338f0466880d4fa2098f30fe51fc0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4469094636653814736, guid: 5e1338f0466880d4fa2098f30fe51fc0, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1696,6 +1813,10 @@ PrefabInstance:
     - target: {fileID: 4983398515324972082, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
       propertyPath: m_Name
       value: IA_REACTEUR_3D_Nicolas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983398515324972082, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5648435492892915336, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
       propertyPath: m_RootOrder
@@ -1830,6 +1951,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_TOIT_CIRCULAIRE_3D_Nicolas (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2019521317656480440, guid: 55fd935e32ab07348b67b55cc59ad617, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55fd935e32ab07348b67b55cc59ad617, type: 3}
 --- !u!1001 &8405562304949733527
@@ -1846,6 +1971,10 @@ PrefabInstance:
     - target: {fileID: 3841211252557412714, guid: 5e1338f0466880d4fa2098f30fe51fc0, type: 3}
       propertyPath: m_Name
       value: IA_PISTON_3D_Nicolas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3841211252557412714, guid: 5e1338f0466880d4fa2098f30fe51fc0, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4469094636653814736, guid: 5e1338f0466880d4fa2098f30fe51fc0, type: 3}
       propertyPath: m_RootOrder
@@ -1915,6 +2044,10 @@ PrefabInstance:
     - target: {fileID: 4983398515324972082, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
       propertyPath: m_Name
       value: IA_REACTEUR_3D_Nicolas (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983398515324972082, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5648435492892915336, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
       propertyPath: m_RootOrder
@@ -2045,6 +2178,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IA_REACTEUR_EMISSIVE_3D_Enora 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5396746109385523186, guid: 9ef10d46eb7fc224182a9201a6c679fb, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5901381883975605799, guid: 9ef10d46eb7fc224182a9201a6c679fb, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -2061,6 +2198,10 @@ PrefabInstance:
     - target: {fileID: 4983398515324972082, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
       propertyPath: m_Name
       value: IA_REACTEUR_3D_Nicolas (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983398515324972082, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5648435492892915336, guid: acae1a7f90566884db6563fde4c5154f, type: 3}
       propertyPath: m_RootOrder
@@ -2190,6 +2331,10 @@ PrefabInstance:
     - target: {fileID: 5396746109385523186, guid: 9ef10d46eb7fc224182a9201a6c679fb, type: 3}
       propertyPath: m_Name
       value: IA_REACTEUR_EMISSIVE_3D_Enora 1 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5396746109385523186, guid: 9ef10d46eb7fc224182a9201a6c679fb, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5901381883975605799, guid: 9ef10d46eb7fc224182a9201a6c679fb, type: 3}
       propertyPath: m_Materials.Array.data[0]
