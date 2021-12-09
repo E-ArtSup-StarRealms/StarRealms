@@ -346,7 +346,7 @@
     },
     {
       "name": "Arthropod Crusher",
-      "cost": 5,
+      "cost": 4,
       "faction": "Vert",
       "shipOrBase": false,
       "isTaunt": false,

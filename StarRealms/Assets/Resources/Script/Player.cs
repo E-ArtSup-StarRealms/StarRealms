@@ -101,7 +101,7 @@ namespace Resources.Script
                 card.objectToMove = objectDiscardPile.transform.GetChild(0).gameObject;
             }
             else
-                Debug.Log("Vous n'avez pas assez d'argent");
+                Debug.Log("You do not have enough money");
         }
         public void PlayCard(Card card)
         {
@@ -118,7 +118,6 @@ namespace Resources.Script
                     canPlay = false;
                 }
             }
-
             if (canPlay)
             {
                 int nbCards = hand.Count;
@@ -131,7 +130,8 @@ namespace Resources.Script
         public void EndTurn(bool bypass)
         {
             handNumber = 0;
-            if (money == 0 && totalPower == 0 || bypass)
+            boardNumber = 0;
+            if (!CanPurchase() && totalPower == 0 && hand.Count == 0 || bypass)
             {
                 int nbCard = board.Count;
                 for (int i = 0; i < nbCard; i++)
@@ -143,6 +143,7 @@ namespace Resources.Script
                         board[0].gameObject.GetComponent<BoxCollider>().enabled = true;
                         board[0].transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
                         board[0].objectToMove = objectDiscardPile.transform.GetChild(0).gameObject;
+                        board[0].isUsed = false;
                         discardPile.Add(board[0]);
                         board.RemoveAt(0);
                     }
@@ -158,13 +159,26 @@ namespace Resources.Script
                 }
                 foreach (ShipManager sm in objectBoard.GetComponentsInChildren<ShipManager>())
                 {
-                    sm.objectToMove.SetActive(false);
-                    Destroy(sm.gameObject);
+                    if (discardPile.Contains(sm.hisCard))
+                    {
+                        sm.objectToMove.SetActive(false);
+                        Destroy(sm.gameObject);
+                    }
                 }
                 GameManager.EndTurn();
+            }else if( hand.Count > 0 )
+            {
+                GameManager.PopUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You still have cards in your hand.\nAre you sure you want to skip your turn?");
             }
-            else
-                GameManager.PopUpEndTurn.GetComponent<PopUpEndTurn>().Activate();
+            else if( CanPurchase() )
+            {
+                GameManager.PopUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You can at least buy one more ship/base.\nAre you sure you want to skip your turn?");
+            }
+            else if( totalPower!=0 )
+            {
+                GameManager.PopUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You can still attack.\nAre you sure you want to skip your turn?");
+            }
+                
         }
         public void Attack(GameObject target)
         {
@@ -178,10 +192,10 @@ namespace Resources.Script
                     totalPower = 0;
                     objectInfo.transform.GetChild(1).GetChild(0).GetComponent<Text>().text = totalPower+" P";
                     if (_enemy.hp <= 0)
-                        Debug.Log("You Win");
+                        GameManager.PopUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You Win !");
                 }
                 else
-                    Debug.Log("Vous devez d'abord détruire la base taunt avant d'attaquer le joueur");
+                    GameManager.PopUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You must first destroy the taunt base before attacking the player");
             }
             else
             {
@@ -192,7 +206,7 @@ namespace Resources.Script
                 }
                 else
                 {
-                    Debug.Log("Vous devez d'abord détruire la base taunt");
+                    GameManager.PopUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You must first destroy the taunt base");
                 }
             }
         }
@@ -256,7 +270,7 @@ namespace Resources.Script
                 objectInfo.transform.GetChild(1).GetChild(0).GetComponent<Text>().text = totalPower+" P";
             }
             else
-                Debug.Log("Vous n'avez pas assez d'attaque");
+                Debug.Log("You don't have enough power");
         }
         public bool CanAttackPlayer()
         {
@@ -280,6 +294,24 @@ namespace Resources.Script
                 discardPile.Add(card);
             }
             _shop.Refill(card);
+        }
+        public bool CanPurchase()
+        {
+            foreach (Card c in _shop.display)
+            {
+                if (c.cost <= money)
+                {
+                    return true ;
+                }
+            }
+            if (_shop.explorer.Count>0)
+            {
+                if (_shop.explorer[0].cost <= money)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

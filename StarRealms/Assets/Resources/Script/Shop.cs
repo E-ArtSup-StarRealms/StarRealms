@@ -15,12 +15,7 @@ namespace Resources.Script
             if (!chosenCard.name.Equals("Explorer"))
             {
                 display.Insert(display.IndexOf(chosenCard),GameDeck[0]);
-                foreach (Card c in display)
-                {
-                    Debug.Log(c.name);
-                }
                 GameDeck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).transform.GetChild(display.IndexOf(GameDeck[0])).gameObject;
-                //GameDeck[0].objectToMove = GameObject.Find("slot (1"+display.IndexOf(chosenCard)+")");
                 GameDeck[0].gameObject.SetActive(true);
                 display.Remove(chosenCard);
                 GameDeck.Remove(GameDeck[0]);

@@ -23,5 +23,10 @@ namespace Resources.Script
                 _currentTime = 0;
             }
         }
+
+        private void OnMouseDown()
+        {
+            hisCard.CheckCondition(hisCard.GetNextCond(true));
+        }
     }
 }
