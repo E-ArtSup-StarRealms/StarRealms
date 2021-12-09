@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4239763706394411474}
   - component: {fileID: 1369153984513416804}
   m_Layer: 0
-  m_Name: newCard
+  m_Name: Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,8 +44,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8486718, y: 1.1290915, z: 0.026316509}
-  m_Center: {x: -0.0044508576, y: 0.0022188425, z: -0.0081771985}
+  m_Size: {x: 0.8486718, y: 1.1290915, z: 0.050146487}
+  m_Center: {x: -0.0044508493, y: 0.0022188255, z: 0.010715714}
 --- !u!114 &1369153984513416804
 MonoBehaviour:
   m_ObjectHideFlags: 0

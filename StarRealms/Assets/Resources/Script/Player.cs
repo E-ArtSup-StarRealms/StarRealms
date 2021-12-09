@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Debug = UnityEngine.Debug;
 
 
 namespace Resources.Script
@@ -10,14 +9,13 @@ namespace Resources.Script
     {    
         //Variables de classe (attributs de la classe)
         public int hp = 50;
-        public int money  = 4000000;
+        public int money;
         public int totalPower;
         public int toDiscard;
         public List<Card> deck = new List<Card>();
         public List<Card> discardPile = new List<Card>();
         public List<Card> hand = new List<Card>();
         public List<Card> board = new List<Card>();
-        public Dictionary<Faction, int> DicoFacThisTurn;
         public bool cardOnTop;
         public bool freeShip;
     
@@ -32,7 +30,8 @@ namespace Resources.Script
         public GameObject objectHand;
         public GameObject objectBoard;
         public GameObject objectInfo;
-        public static  int HandNumber;
+        public int handNumber;
+        public int boardNumber = 0;
 
         void Start()
         {
@@ -40,7 +39,7 @@ namespace Resources.Script
             _enemy = enemyObject.GetComponent<Player>();
             objectInfo.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = hp + "\nHP";
         }
-        void Update()
+        /*void Update()
         {
             if(gameObject.name == "Player")
             {
@@ -53,13 +52,13 @@ namespace Resources.Script
                 if (Input.GetKeyUp(KeyCode.A))
                     PlayAll();
                 if (Input.GetKeyUp(KeyCode.E))
-                    EndTurn();
+                    EndTurn(false);
                 if (Input.GetKeyUp(KeyCode.F))
                     Attack(enemyObject);
                 if (Input.GetKeyUp(KeyCode.L))
                     LookDeck();
             }
-        }
+        }*/
         public void Draw(int nb)
         {
             for (int i = 0; i < nb; i++)
@@ -70,10 +69,10 @@ namespace Resources.Script
                     {
                         RefillDeck();
                         deck[0].gameObject.transform.SetParent(objectHand.transform);
-                        deck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(HandNumber).gameObject;
+                        deck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(handNumber).gameObject;
                         deck[0].objectToMove.SetActive(true);
                         deck[0].gameObject.SetActive(true);
-                        HandNumber++;
+                        handNumber++;
                         hand.Add(deck[0]);
                         deck.RemoveAt(0);
                     }
@@ -81,16 +80,15 @@ namespace Resources.Script
                 else
                 {
                     deck[0].gameObject.transform.SetParent(objectHand.transform);
-                    deck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(HandNumber).gameObject;
+                    deck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(handNumber).gameObject;
                     deck[0].objectToMove.SetActive(true);
                     deck[0].gameObject.SetActive(true);
-                    HandNumber++;
+                    handNumber++;
                     hand.Add(deck[0]);
                     deck.RemoveAt(0);
                 }
             }
         }
-
         public void Buy(Card card)
         {
             if (freeShip)
@@ -99,17 +97,17 @@ namespace Resources.Script
             {
                 TakeCardFromShop(card);
                 money -= card.cost;
+                objectInfo.transform.GetChild(2).GetChild(0).GetComponent<Text>().text = money+" $";
+                card.objectToMove = objectDiscardPile.transform.GetChild(0).gameObject;
             }
             else
                 Debug.Log("Vous n'avez pas assez d'argent");
         }
-
         public void PlayCard(Card card)
         {
             hand.Remove(card);
             board.Add(card);
         }
-
         public void PlayAll()
         {
             bool canPlay = true;
@@ -130,10 +128,10 @@ namespace Resources.Script
                 }
             }
         }
-        public void EndTurn()
+        public void EndTurn(bool bypass)
         {
-            HandNumber = 0;
-            if (money == 0 && totalPower == 0)
+            handNumber = 0;
+            if (money == 0 && totalPower == 0 || bypass)
             {
                 int nbCard = board.Count;
                 for (int i = 0; i < nbCard; i++)
@@ -142,6 +140,8 @@ namespace Resources.Script
                     {
                         board[0].gameObject.transform.SetParent(objectDiscardPile.transform);
                         board[0].objectToMove.SetActive(false);
+                        board[0].gameObject.GetComponent<BoxCollider>().enabled = true;
+                        board[0].transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
                         board[0].objectToMove = objectDiscardPile.transform.GetChild(0).gameObject;
                         discardPile.Add(board[0]);
                         board.RemoveAt(0);
@@ -156,25 +156,25 @@ namespace Resources.Script
                     discardPile.Add(hand[0]);
                     hand.RemoveAt(0);
                 }
+                foreach (ShipManager sm in objectBoard.GetComponentsInChildren<ShipManager>())
+                {
+                    sm.objectToMove.SetActive(false);
+                    Destroy(sm.gameObject);
+                }
                 GameManager.EndTurn();
-                
-                Debug.Log("Changement de tour");
-                //Appel de la fonction de changement de tour dans le GameManeger
             }
             else
-                Debug.Log("Vous avez de l'argent ou des points d'attaque inutilisés");
-            // LANCER LA POPUP
-            
+                GameManager.PopUpEndTurn.GetComponent<PopUpEndTurn>().Activate();
         }
         public void Attack(GameObject target)
         {
             if (target.name == enemyObject.name)
             {
-                Debug.Log("ennemi");
                 if (CanAttackPlayer())
                 {
                     _enemy.hp -= totalPower;
                     _enemy.objectInfo.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = _enemy.hp+"\nHP";
+                    objectInfo.transform.GetChild(3).GetChild(0).GetComponent<Text>().text = _enemy.hp+"\nHP";
                     totalPower = 0;
                     objectInfo.transform.GetChild(1).GetChild(0).GetComponent<Text>().text = totalPower+" P";
                     if (_enemy.hp <= 0)
@@ -196,7 +196,6 @@ namespace Resources.Script
                 }
             }
         }
-        //public void Discard(int nb){ } //A faire une fois qu'on aura l'UI
         public void LookDiscard()
         {
             foreach (Card card in discardPile)
@@ -222,7 +221,6 @@ namespace Resources.Script
             deck = new List<Card>(discardPile);
             discardPile.Clear();
         }
-    
         public void Shuffle()
         {
             int nbCard = discardPile.Count;
@@ -236,9 +234,19 @@ namespace Resources.Script
                 objectDiscardPile.transform.GetChild(rnd).SetParent(objectDiscardPile.transform);
             }
         }
-    
-        //Méthodes utiles pour la classe
-    
+        public void ShuffleDeck()
+        {
+            int nbCard = deck.Count;
+            List<Card> tempList = new List<Card>(deck);
+            deck.Clear();
+            for (int i = 0; i < nbCard; i++)
+            {
+                int rnd = Random.Range(0, nbCard - i);
+                deck.Add(tempList[rnd]);
+                tempList.RemoveAt(rnd);
+                objectDeck.transform.GetChild(rnd).SetParent(objectDeck.transform);
+            }
+        }
         public void AttackBase(Card targetCard, GameObject target)
         {
             if(targetCard.baseLife <= totalPower)
@@ -259,7 +267,6 @@ namespace Resources.Script
             }
             return true;
         }
-
         public void TakeCardFromShop(Card card)
         {
             if (cardOnTop)

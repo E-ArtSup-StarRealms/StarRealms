@@ -4,9 +4,11 @@ namespace Resources.Script
 {
     public class GameManager : MonoBehaviour
     {
-        public static GameObject PopUp;
+        public static GameObject PopUpPlayerChoice;
         public static GameObject PopUpOr;
         public static GameObject PopUpAutoScrap;
+        public static GameObject PopUpEndTurn;
+        
         public static Player Player1 ;
         public static Player Player2;
         public static Player CurrentPlayer;
@@ -17,8 +19,11 @@ namespace Resources.Script
 
         public static GameObject camP1;
         public static GameObject camP2;
-        public static Vector3 pos1 = new Vector3(-2.8599999f, 0.689999998f, -8.03999996f);
-        public static Vector3 pos2 = new Vector3(0.0801279545f, 0.689999998f, 66.2728653f);
+        public static Vector3 pos1 = new Vector3(-0.28f, 0.5881766f, -10.71f);
+        public static Vector3 pos2 = new Vector3(-0.11f, 0.72f, 14f);
+        /*rotation : 11.687, -4.918, -7.369
+          position : -1.299936, 0.4832786, 1.042565
+         */
         public static GameObject shopObject;
 
         private void Awake()
@@ -27,13 +32,15 @@ namespace Resources.Script
             camP1 = GameObject.Find("CM vcam1");
             camP2 = GameObject.Find("CM vcam1 (1)");
             camP1.SetActive(false);
-            PopUp = GameObject.Find("PopUp");
+            PopUpPlayerChoice = GameObject.Find("PopUpPlayerChoice");
             PopUpOr = GameObject.Find("PopUpOr");
             PopUpAutoScrap = GameObject.Find("PopUpAutoScrap");
+            PopUpEndTurn = GameObject.Find("PopUpEndTurn");
             
-            PopUp.SetActive(false);
+            PopUpPlayerChoice.SetActive(false);
             PopUpAutoScrap.SetActive(false);
             PopUpOr.SetActive(false);
+            PopUpEndTurn.SetActive(false);
 
             Player1 = GameObject.Find("Player1").GetComponent<Player>();
             Player2 = GameObject.Find("Player2").GetComponent<Player>();
@@ -72,17 +79,17 @@ namespace Resources.Script
            //echange de borad (visuelle)
          if(camP2.activeSelf == false)
             {
-                GameManager.camP2.SetActive(true);
+                camP2.SetActive(true);
                 shopObject.transform.position = pos1;
                 shopObject.transform.eulerAngles = new Vector3(shopObject.transform.eulerAngles.x, shopObject.transform.eulerAngles.y + 180 , shopObject.transform.eulerAngles.z);
-                GameManager.camP1.SetActive(false);
+                camP1.SetActive(false);
             }
             else
             {
-                GameManager.camP1.SetActive(true);
+                camP1.SetActive(true);
                 shopObject.transform.position = pos2;
                 shopObject.transform.eulerAngles = new Vector3(shopObject.transform.eulerAngles.x, shopObject.transform.eulerAngles.y + 180, shopObject.transform.eulerAngles.z);
-                GameManager.camP2.SetActive(false);
+                camP2.SetActive(false);
             }
 
             //switche du current player et des hp de ce dernier

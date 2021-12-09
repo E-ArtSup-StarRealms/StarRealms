@@ -56,12 +56,12 @@ namespace Resources.Script
                     Object finalObject;
                     if (!c.shipOrBase)
                     {
-                        finalObject = Instantiate(UnityEngine.Resources.Load("Prefab/newCard"),
+                        finalObject = Instantiate(UnityEngine.Resources.Load("Prefab/Card"),
                             GameObject.Find("GameDeck").transform);
                     }
                     else
                     {
-                        finalObject = Instantiate(UnityEngine.Resources.Load("Prefab/newCard"),
+                        finalObject = Instantiate(UnityEngine.Resources.Load("Prefab/Card"),
                             GameObject.Find("GameDeck").transform);
                     }
 
@@ -208,32 +208,51 @@ namespace Resources.Script
                         Load("Materiau/Tmp/Vaisseaux/"+finalCard.faction+"/"+finalObject.name);
                     finalCard.model3D = UnityEngine.Resources.
                         Load("Prefab/Tmp_Vaisseaux/"+finalCard.faction+"/"+finalObject.name);
-                    finalCard.gameObject.SetActive(false);
                     switch (finalCard.name)
                     {
                         case "Scout":
-                            if(GameManager.Player1.deck.Count<8)
+                            if (GameManager.Player1.deck.Count < 8)
+                            {
                                 GameManager.Player1.deck.Add(finalCard);
+                                finalCard.objectToMove = GameManager.Player1.objectDeck;
+                                finalCard.transform.SetParent(GameManager.Player1.objectDeck.transform);
+                            }
                             else
+                            {
                                 GameManager.Player2.deck.Add(finalCard);
+                                finalCard.objectToMove = GameManager.Player2.objectDeck;
+                                finalCard.transform.SetParent(GameManager.Player2.objectDeck.transform);
+                            }
                             break;
                         case "Viper":
-                            if(GameManager.Player1.deck.Count<10)
+                            if (GameManager.Player1.deck.Count < 10)
+                            {
                                 GameManager.Player1.deck.Add(finalCard);
+                                finalCard.objectToMove = GameManager.Player1.objectDeck;
+                                finalCard.transform.SetParent(GameManager.Player1.objectDeck.transform);
+                            }
                             else
+                            {
                                 GameManager.Player2.deck.Add(finalCard);
+                                finalCard.objectToMove = GameManager.Player2.objectDeck;
+                                finalCard.transform.SetParent(GameManager.Player2.objectDeck.transform);
+                            }
                             break;
                         case "Explorer":
                             GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().explorer.Add(finalCard);
+                            finalCard.objectToMove = GameObject.Find("slot Explorer");
                             break;
                         default:
                             Shop.GameDeck.Add(finalCard);
+                            finalCard.gameObject.SetActive(false);
                             break;
                     }
                 }
                 //posX -= 0.85f;
             }
             Shop.ShuffleGameDeck();
+            GameManager.Player1.ShuffleDeck();
+            GameManager.Player2.ShuffleDeck();
             GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().Startfill();
             GameManager.BeginTurn();
         }

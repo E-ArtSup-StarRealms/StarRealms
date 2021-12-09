@@ -34,83 +34,24 @@ namespace Resources.Script
         
         void Update()
         {
-            if (! draged)
+            if (! draged && gameObject.activeSelf)
             {
-                if (GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().display.Contains(this) && objectToMove != null)
+                if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
                 {
-                    if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
-                    {
-                        _currentTime += Time.deltaTime;
-                        float percent = _currentTime / timer;
-                        transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position, percent);
-                        transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
-                    }
-                    else
-                    {
-                        _currentTime = 0;
-                    }
+                    _currentTime += Time.deltaTime;
+                    float percent = _currentTime / timer;
+                    transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position, percent);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
                 }
-                if (GameManager.Player1.GetComponent<Player>().hand.Contains(this))
+                else
                 {
-                    if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
-                    {
-                        _currentTime += Time.deltaTime;
-                        float percent = _currentTime / timer;
-                        transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position, percent);
-                        transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
-                    }
-                    else
-                    {
-                        _currentTime = 0;
-                    }
-                }
-                if (GameManager.Player2.GetComponent<Player>().hand.Contains(this))
-                {
-                    if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
-                    {
-                        _currentTime += Time.deltaTime;
-                        float percent = _currentTime / timer;
-                        transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position, percent);
-                        transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
-                    }
-                    else
-                    {
-                        _currentTime = 0;
-                    }
-                }
-                if (GameManager.Player1.GetComponent<Player>().discardPile.Contains(this))
-                {
-                    if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
-                    {
-                        _currentTime += Time.deltaTime;
-                        float percent = _currentTime / timer;
-                        transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position, percent);
-                        transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
-                    }
-                    else
-                    {
-                        _currentTime = 0;
-                    }
-                }
-                if (GameManager.Player2.GetComponent<Player>().discardPile.Contains(this))
-                {
-                    if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
-                    {
-                        _currentTime += Time.deltaTime;
-                        float percent = _currentTime / timer;
-                        transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position, percent);
-                        transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
-                    }
-                    else
-                    {
-                        _currentTime = 0;
-                    }
+                    _currentTime = 0;
                 }
             }
         }
         private void OnMouseDown()
         {
-            if (!GameManager.PopUp.activeSelf && !isUsed && GameManager.CurrentPlayer.board.Contains(this))
+            if (!isUsed && GameManager.CurrentPlayer.board.Contains(this))
             {
                 if(HaveIThisCondition(Condition.AutoScrap))
                 {
@@ -123,9 +64,10 @@ namespace Resources.Script
                         Activate(this,Actions[GetListCondsFromCondition(Condition.Or)]);
                 }
             }
-            if (!GameManager.PopUp.activeSelf && !isUsed && GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().display.Contains(this))
+            if (GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().display.Contains(this) ||
+                GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().explorer.Contains(this))
             { 
-               GameManager.CurrentPlayer.Buy(this);
+                GameManager.CurrentPlayer.Buy(this);
             }
         }
         private void OnMouseUp()
@@ -137,10 +79,10 @@ namespace Resources.Script
                     vaisseauBoard = Instantiate(model3D, new Vector3(),new Quaternion());
                     vaisseauBoard.GetComponent<ShipManager>().objectToMove = 
                         GameManager.CurrentPlayer.objectBoard.transform.GetChild(0).transform.GetChild(0)
-                            .transform.GetChild(ShipManager.BoardNumber).gameObject;
+                            .transform.GetChild(GameManager.CurrentPlayer.boardNumber).gameObject;
                     vaisseauBoard.GetComponent<ShipManager>().objectToMove.SetActive(true);
                     vaisseauBoard.GetComponent<Transform>().SetParent(vaisseauBoard.GetComponent<ShipManager>().objectToMove.transform);
-                    ShipManager.BoardNumber++;
+                    GameManager.CurrentPlayer.boardNumber++;
                     vaisseauBoard.GetComponent<ShipManager>().hisCard = this;
                     GameManager.CurrentPlayer.PlayCard(this);
                     objectToMove.SetActive(false);
@@ -169,7 +111,7 @@ namespace Resources.Script
         }
         private void OnMouseDrag()
         {
-            if (!GameManager.PopUp.activeSelf && !isUsed && GameManager.CurrentPlayer.hand.Contains(this))
+            if (!GameManager.PopUpPlayerChoice.activeSelf && !isUsed && GameManager.CurrentPlayer.hand.Contains(this))
             {
                 draged = true;
                 Vector3 position = transform.position;
@@ -278,7 +220,7 @@ namespace Resources.Script
                 switch (e.Key)
                 {
                     case Effect.Copy:
-                        GameManager.PopUp.GetComponent<PopUpManager>().Activate(this,Zone.Board,e.Key,e.Value);
+                        GameManager.PopUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.Board,e.Key,e.Value);
                         break;
                     case Effect.D:
                         AddValue(Effect.D,e.Value);
@@ -286,7 +228,7 @@ namespace Resources.Script
                             .text = GameManager.CurrentPlayer.totalPower + " P";
                         break;
                     case Effect.Discard:
-                        GameManager.PopUp.GetComponent<PopUpManager>().Activate(this,Zone.Hand,e.Key,e.Value);
+                        GameManager.PopUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.Hand,e.Key,e.Value);
                         break;
                     case Effect.Draw:
                         GameManager.CurrentPlayer.Draw(e.Value);
@@ -302,7 +244,7 @@ namespace Resources.Script
                             .text = GameManager.CurrentPlayer.hp + "\nHP";
                         break;
                     case Effect.Hinder:
-                        GameManager.PopUp.GetComponent<PopUpManager>().Activate(this,Zone.Display,e.Key,e.Value);
+                        GameManager.PopUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.Display,e.Key,e.Value);
                         break;
                     case Effect.Requisition:
                         Requisition();
@@ -311,16 +253,16 @@ namespace Resources.Script
                         TargetDiscard();
                         break;
                     case Effect.Scrap:
-                        GameManager.PopUp.GetComponent<PopUpManager>().Activate(this,Zone.HandAndDiscardPile,e.Key,e.Value);
+                        GameManager.PopUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.HandAndDiscardPile,e.Key,e.Value);
                         break;
                     case Effect.Wormhole:
                         GameManager.CurrentPlayer.cardOnTop = true;
                         break;
                     case Effect.BaseDestruction:
-                        GameManager.PopUp.GetComponent<PopUpManager>().Activate(this,Zone.EnnemyBoardBase,e.Key,e.Value);
+                        GameManager.PopUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.EnnemyBoardBase,e.Key,e.Value);
                         break;
                     case Effect.DiscardToDraw:
-                        GameManager.PopUp.GetComponent<PopUpManager>().Activate(this,Zone.Hand,e.Key,e.Value);
+                        GameManager.PopUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.Hand,e.Key,e.Value);
                         break;
                     case Effect.AllShipOneMoreDamage:
                         foreach (Card card in GameManager.CurrentPlayer.board)

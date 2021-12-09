@@ -8,12 +8,19 @@ namespace Resources.Script
         public List<Card> explorer;
         public List<Card> display = new List<Card>();
         public static readonly List<Card> GameDeck = new List<Card>();
+        public GameObject objectGameDeck;
         
         public void Refill(Card chosenCard)
         {
-            display.Remove(chosenCard);
-            display.Add(GameDeck[0]);
-            GameDeck.RemoveAt(0);
+            if (!explorer.Contains(chosenCard))
+            {
+                display.Add(GameDeck[0]);
+                GameDeck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).transform
+                    .GetChild(display.IndexOf(chosenCard)).gameObject;
+                GameDeck[0].gameObject.SetActive(true);
+                display.Remove(chosenCard);
+                GameDeck.Remove(GameDeck[0]);
+            }
         }
         public void Startfill()
         {
@@ -37,6 +44,5 @@ namespace Resources.Script
                 tempList.RemoveAt(rnd);
             }
         }
-        
     }
 }
