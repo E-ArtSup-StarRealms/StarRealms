@@ -115,7 +115,16 @@ namespace Resources.Script
             {
                 draged = true;
                 Vector3 position = transform.position;
-                position = new Vector3(position.x + Input.GetAxis("Mouse X") / 4, position.y + Input.GetAxis("Mouse Y") / 4.5f, position.z);
+                int signe = 1;
+                if (GameManager.CurrentPlayer == GameManager.Player1)
+                {
+                    signe = 1;
+                }
+                else
+                {
+                    signe = -1;
+                }
+                position = new Vector3(position.x + signe * Input.GetAxis("Mouse X") / 4, position.y + Input.GetAxis("Mouse Y") / 4.5f, position.z);
                 transform.position = position;
             }
         }
