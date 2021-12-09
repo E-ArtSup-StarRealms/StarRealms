@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Resources.Script
 {
@@ -29,7 +30,7 @@ namespace Resources.Script
         
         private int _rankCond;
         private float _currentTime;
-        private bool overBoard;
+        private bool _overBoard;
         
         void Update()
         {
@@ -63,8 +64,6 @@ namespace Resources.Script
                         _currentTime = 0;
                     }
                 }
-
-
                 if (GameManager.Player2.GetComponent<Player>().hand.Contains(this))
                 {
                     if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
@@ -79,8 +78,6 @@ namespace Resources.Script
                         _currentTime = 0;
                     }
                 }
-
-
                 if (GameManager.Player1.GetComponent<Player>().discardPile.Contains(this))
                 {
                     if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
@@ -95,7 +92,6 @@ namespace Resources.Script
                         _currentTime = 0;
                     }
                 }
-
                 if (GameManager.Player2.GetComponent<Player>().discardPile.Contains(this))
                 {
                     if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
@@ -111,10 +107,6 @@ namespace Resources.Script
                     }
                 }
             }
-          
-
-
-
         }
         private void OnMouseDown()
         {
@@ -131,20 +123,16 @@ namespace Resources.Script
                         Activate(this,Actions[GetListCondsFromCondition(Condition.Or)]);
                 }
             }
-                
             if (!GameManager.PopUp.activeSelf && !isUsed && GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().display.Contains(this))
             { 
                GameManager.CurrentPlayer.Buy(this);
             }
-
-
-           
         }
         private void OnMouseUp()
         {
             if (draged)
             {
-                if (overBoard)
+                if (_overBoard)
                 {
                     vaisseauBoard = Instantiate(model3D, new Vector3(),new Quaternion());
                     vaisseauBoard.GetComponent<ShipManager>().objectToMove = 
@@ -154,12 +142,12 @@ namespace Resources.Script
                     vaisseauBoard.GetComponent<Transform>().SetParent(vaisseauBoard.GetComponent<ShipManager>().objectToMove.transform);
                     ShipManager.BoardNumber++;
                     vaisseauBoard.GetComponent<ShipManager>().hisCard = this;
-                    GameManager.CurrentPlayer.board.Add(this);
-                    GameManager.CurrentPlayer.hand.Remove(this);
+                    GameManager.CurrentPlayer.PlayCard(this);
                     objectToMove.SetActive(false);
                     gameObject.GetComponent<BoxCollider>().enabled = false;
                     transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
                     transform.SetParent(vaisseauBoard.GetComponent<ShipManager>().objectToMove.transform);
+                    PlaySelf();
                 }
                 draged = false;
             }
@@ -169,17 +157,16 @@ namespace Resources.Script
         {
             if (other.gameObject.CompareTag("board"))
             {
-                overBoard = true;
+                _overBoard = true;
             }
         }
         private void OnTriggerExit(Collider other)
         {
             if (other.gameObject.CompareTag("board"))
             {
-                overBoard = false;
+                _overBoard = false;
             }
         }
-        
         private void OnMouseDrag()
         {
             if (!GameManager.PopUp.activeSelf && !isUsed && GameManager.CurrentPlayer.hand.Contains(this))
@@ -243,11 +230,7 @@ namespace Resources.Script
         public void PlaySelf()
         {
             _rankCond = 0;
-            if (!shipOrBase && HaveIDamage(this))
-            {
-                AddValue(Effect.D,1);
-            }
-            GameManager.CurrentPlayer.PlayCard(this);
+            CheckCondition(GetNextCond(false));
         }
         public void CancelPlay()
         {
@@ -299,6 +282,8 @@ namespace Resources.Script
                         break;
                     case Effect.D:
                         AddValue(Effect.D,e.Value);
+                        GameManager.CurrentPlayer.objectInfo.transform.GetChild(1).GetChild(0).GetComponent<Text>()
+                            .text = GameManager.CurrentPlayer.totalPower + " P";
                         break;
                     case Effect.Discard:
                         GameManager.PopUp.GetComponent<PopUpManager>().Activate(this,Zone.Hand,e.Key,e.Value);
@@ -308,9 +293,13 @@ namespace Resources.Script
                         break;
                     case Effect.G:
                         AddValue(Effect.G,e.Value);
+                        GameManager.CurrentPlayer.objectInfo.transform.GetChild(2).GetChild(0).GetComponent<Text>()
+                            .text = GameManager.CurrentPlayer.money + " $";
                         break;
                     case Effect.H:
                         AddValue(Effect.H,e.Value);
+                        GameManager.CurrentPlayer.objectInfo.transform.GetChild(0).GetChild(0).GetComponent<Text>()
+                            .text = GameManager.CurrentPlayer.hp + "\nHP";
                         break;
                     case Effect.Hinder:
                         GameManager.PopUp.GetComponent<PopUpManager>().Activate(this,Zone.Display,e.Key,e.Value);

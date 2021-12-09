@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 
 
@@ -30,14 +31,15 @@ namespace Resources.Script
         public GameObject objectDiscardPile;
         public GameObject objectHand;
         public GameObject objectBoard;
+        public GameObject objectInfo;
         public static  int HandNumber;
 
         void Start()
         {
             _shop = shopObject.GetComponent<Shop>();
             _enemy = enemyObject.GetComponent<Player>();
+            objectInfo.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = hp + "\nHP";
         }
-    
         void Update()
         {
             if(gameObject.name == "Player")
@@ -56,11 +58,8 @@ namespace Resources.Script
                     Attack(enemyObject);
                 if (Input.GetKeyUp(KeyCode.L))
                     LookDeck();
-
             }
         }
-
-    
         public void Draw(int nb)
         {
             for (int i = 0; i < nb; i++)
@@ -107,7 +106,6 @@ namespace Resources.Script
 
         public void PlayCard(Card card)
         {
-            card.gameObject.transform.SetParent(objectBoard.transform);
             hand.Remove(card);
             board.Add(card);
         }
@@ -132,7 +130,6 @@ namespace Resources.Script
                 }
             }
         }
-
         public void EndTurn()
         {
             HandNumber = 0;
@@ -169,7 +166,6 @@ namespace Resources.Script
             // LANCER LA POPUP
             
         }
-
         public void Attack(GameObject target)
         {
             if (target.name == enemyObject.name)
@@ -178,7 +174,9 @@ namespace Resources.Script
                 if (CanAttackPlayer())
                 {
                     _enemy.hp -= totalPower;
+                    _enemy.objectInfo.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = _enemy.hp+"\nHP";
                     totalPower = 0;
+                    objectInfo.transform.GetChild(1).GetChild(0).GetComponent<Text>().text = totalPower+" P";
                     if (_enemy.hp <= 0)
                         Debug.Log("You Win");
                 }
@@ -198,9 +196,7 @@ namespace Resources.Script
                 }
             }
         }
-
         //public void Discard(int nb){ } //A faire une fois qu'on aura l'UI
-
         public void LookDiscard()
         {
             foreach (Card card in discardPile)
@@ -208,7 +204,6 @@ namespace Resources.Script
                 Debug.Log(card);
             }
         }
-
         public void LookDeck()
         {
             foreach (Card card in deck)
@@ -216,11 +211,8 @@ namespace Resources.Script
                 Debug.Log(card);
             }
         }
-
         public void RefillDeck()
         {
-            
-
             Shuffle();
             for (int i = 1 ; i < discardPile.Count; i++)
             {
@@ -253,6 +245,7 @@ namespace Resources.Script
             {
                 Destroy(target);
                 totalPower -= targetCard.baseLife;
+                objectInfo.transform.GetChild(1).GetChild(0).GetComponent<Text>().text = totalPower+" P";
             }
             else
                 Debug.Log("Vous n'avez pas assez d'attaque");
