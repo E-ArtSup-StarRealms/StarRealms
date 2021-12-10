@@ -191,7 +191,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6126737480767577538}
   serializedVersion: 8
-  lengthInSec: 1.47
+  lengthInSec: 0.47
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -266,7 +266,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 6.68
+      scalar: 5.16
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -435,14 +435,14 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.05
-      minScalar: 0.13
+      scalar: 0
+      minScalar: 0.03
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: 0
-          value: 1
+          time: 0.15872906
+          value: 0.18461609
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -451,7 +451,7 @@ ParticleSystem:
           outWeight: 0.33333334
         - serializedVersion: 3
           time: 1
-          value: 1
+          value: 0
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -465,17 +465,8 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: 0
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
           time: 1
-          value: 1
+          value: 0
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -1017,7 +1008,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4.2
+      scalar: 0.29
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -2892,7 +2883,7 @@ ParticleSystem:
     strength:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.34
+      scalar: 0.33
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -3049,11 +3040,11 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     separateAxes: 0
-    frequency: 3.23
+    frequency: 3.38
     damping: 1
     octaves: 2
-    octaveMultiplier: 0.43
-    octaveScale: 2
+    octaveMultiplier: 0.9
+    octaveScale: 1
     quality: 2
     scrollSpeed:
       serializedVersion: 2
@@ -4993,7 +4984,7 @@ ParticleSystemRenderer:
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
-  m_MaxParticleSize: 0.5
+  m_MaxParticleSize: 0.02
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2
