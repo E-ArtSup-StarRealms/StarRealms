@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using UnityEngine;
 
 namespace Resources.Script
@@ -27,7 +28,7 @@ namespace Resources.Script
 
         private void OnMouseOver()
         {
-            Debug.Log("test");
+            
         }
 
         private void OnMouseDown()
