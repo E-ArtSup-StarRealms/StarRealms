@@ -20,7 +20,7 @@ namespace Resources.Script
         public static GameObject camP1;
         public static GameObject camP2;
         public static Vector3 pos1 = new Vector3(-0.28f, 0.5881766f, -10.71f);
-        public static Vector3 pos2 = new Vector3(-0.11f, 0.72f, 14f);
+        public static Vector3 pos2 = new Vector3(0.77f, 0.72f, 13.54f);
         /*rotation : 11.687, -4.918, -7.369
           position : -1.299936, 0.4832786, 1.042565
          */

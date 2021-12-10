@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -93,6 +94,7 @@ namespace Resources.Script
                 }
                 draged = false;
             }
+            GameManager.CurrentPlayer.objectBoard.transform.GetChild(1).gameObject.SetActive(false);
           
         }
         private void OnTriggerEnter(Collider other)
@@ -111,6 +113,7 @@ namespace Resources.Script
         }
         private void OnMouseDrag()
         {
+            GameManager.CurrentPlayer.objectBoard.transform.GetChild(1).gameObject.SetActive(true);
             if (!GameManager.PopUpPlayerChoice.activeSelf && !isUsed && GameManager.CurrentPlayer.hand.Contains(this))
             {
                 draged = true;
@@ -185,7 +188,15 @@ namespace Resources.Script
         }
         public void CancelPlay()
         {
-
+            gameObject.transform.SetParent(GameManager.CurrentPlayer.transform);
+            FindMyShip().objectToMove.SetActive(false);
+            Destroy(FindMyShip().gameObject);
+            objectToMove = transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(GameManager.CurrentPlayer.handNumber).gameObject;
+            gameObject.GetComponent<BoxCollider>().enabled = true;
+            transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
+            GameManager.CurrentPlayer.handNumber++;
+            GameManager.CurrentPlayer.hand.Add(this);
+            GameManager.CurrentPlayer.board.Remove(this);
         }
         public void CheckCondition(List<Condition> conds)
         {
@@ -251,6 +262,10 @@ namespace Resources.Script
                         AddValue(Effect.H,e.Value);
                         GameManager.CurrentPlayer.objectInfo.transform.GetChild(0).GetChild(0).GetComponent<Text>()
                             .text = GameManager.CurrentPlayer.hp + "\nHP";
+                        if(GameManager.CurrentPlayer == GameManager.Player1)
+                            GameManager.Player2.objectInfo.transform.GetChild(3).GetChild(0).GetComponent<Text>().text = GameManager.Player1.hp+"\nHP";
+                        else
+                            GameManager.Player1.objectInfo.transform.GetChild(3).GetChild(0).GetComponent<Text>().text = GameManager.Player2.hp+"\nHP";
                         break;
                     case Effect.Hinder:
                         GameManager.PopUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.Display,e.Key,e.Value);
@@ -297,7 +312,7 @@ namespace Resources.Script
         {
             foreach (Card c in GameManager.CurrentPlayer.board)
             {
-                if (c.faction == faction || c.faction == Faction.All)
+                if ((c.faction == faction || c.faction == Faction.All) && c != this)
                 {
                     return true;
                 }
@@ -478,6 +493,19 @@ namespace Resources.Script
                 }
             }
             return new List<Condition>();
+        }
+        public ShipManager FindMyShip()
+        {
+            ShipManager monShip = null;
+            List<ShipManager> lesShips = GameManager.CurrentPlayer.objectBoard.GetComponentsInChildren<ShipManager>().ToList();
+            foreach (ShipManager sm in lesShips)
+            {
+                if (sm.hisCard == this)
+                {
+                    monShip = sm;
+                }
+            }
+            return monShip;
         }
     }
 }

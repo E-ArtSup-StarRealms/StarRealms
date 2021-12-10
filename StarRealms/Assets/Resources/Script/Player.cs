@@ -38,6 +38,7 @@ namespace Resources.Script
             _shop = shopObject.GetComponent<Shop>();
             _enemy = enemyObject.GetComponent<Player>();
             objectInfo.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = hp + "\nHP";
+            objectBoard.transform.GetChild(1).gameObject.SetActive(false);
         }
         /*void Update()
         {

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Resources.Script
@@ -22,6 +23,11 @@ namespace Resources.Script
             {
                 _currentTime = 0;
             }
+        }
+
+        private void OnMouseOver()
+        {
+            Debug.Log("test");
         }
 
         private void OnMouseDown()
