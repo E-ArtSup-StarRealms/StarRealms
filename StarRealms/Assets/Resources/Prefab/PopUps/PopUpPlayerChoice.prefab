@@ -1014,7 +1014,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4416330860122551533}
         m_TargetAssemblyTypeName: Resources.Script.PopUpManager, Assembly-CSharp
-        m_MethodName: Validate
+        m_MethodName: Cancel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

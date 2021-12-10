@@ -33,7 +33,7 @@ namespace Resources.Script
             PopUpOr = GameObject.Find("PopUpOr");
             PopUpAutoScrap = GameObject.Find("PopUpAutoScrap");
             PopUpEndTurn = GameObject.Find("PopUpEndTurn");
-            
+
             PopUpPlayerChoice.SetActive(false);
             PopUpAutoScrap.SetActive(false);
             PopUpOr.SetActive(false);
@@ -100,6 +100,14 @@ namespace Resources.Script
                 CurrentPlayer = Player1;
             }
             BeginTurn();
+        }
+
+        public static bool IsPopUpActivated()
+        {
+            return PopUpPlayerChoice.activeSelf ||
+                   PopUpAutoScrap.activeSelf ||
+                   PopUpOr.activeSelf ||
+                   PopUpEndTurn.activeSelf;
         }
     }
 }

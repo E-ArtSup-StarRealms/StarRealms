@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Resources.Script
 {
@@ -33,7 +34,24 @@ namespace Resources.Script
 
         private void OnMouseDown()
         {
-            hisCard.CheckCondition(hisCard.GetNextCond(true));
+            if (!hisCard.isUsed && GameManager.CurrentPlayer.board.Contains(hisCard))
+            {
+                if(hisCard.HaveIThisCondition(Condition.AutoScrap))
+                {
+                    GameManager.PopUpAutoScrap.GetComponent<PopUpAutoScrap>().
+                        Activate(hisCard,hisCard.Actions[hisCard.GetListCondsFromCondition(Condition.AutoScrap)],
+                            hisCard.GetListCondsFromCondition(Condition.AutoScrap).Contains(Condition.Or));
+                } else if (hisCard.HaveIThisCondition(Condition.Or))
+                {
+                    GameManager.PopUpOr.GetComponent<PopUpOrManager>().
+                        Activate(hisCard,hisCard.Actions[hisCard.GetListCondsFromCondition(Condition.Or)]);
+                }
+            }
+        }
+
+        public void Destruction()
+        {
+            Destroy(gameObject);
         }
     }
 }

@@ -10,15 +10,22 @@ namespace Resources.Script
         public Zone zoneApplied;
         public Effect effectApplied;
         public int nbToSelect;
-        public readonly List<Card> LesCartes = new List<Card>();
+        public List<Card> LesCartes = new List<Card>();
         public void Activate(Card c,Zone zone,Effect e, int nbSelect)
         {
+            LesCartes.Clear();
             gameObject.SetActive(true);
+            GameObject.Find("Text_Validate").GetComponent<Text>().text = "No Card";
             cardFrom = c;
             zoneApplied = zone;
             effectApplied = e;
             nbToSelect = nbSelect;
             SetUp();
+        }
+
+        public void onEnable()
+        {
+            GameObject.Find("Text_Validate").GetComponent<Text>().text = "No Card";
         }
         public void SetUp()
         {
@@ -26,6 +33,7 @@ namespace Resources.Script
         }
         public void Validate()
         {
+            
             switch (effectApplied)
             {
                 case Effect.Copy:
@@ -51,7 +59,7 @@ namespace Resources.Script
         }
         public void Cancel()
         {
-            cardFrom.CancelPlay();
+            //cardFrom.CancelPlay();
             gameObject.SetActive(false);
         }
         void Update()

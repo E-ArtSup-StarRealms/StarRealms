@@ -3,6 +3,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Cache = UnityEngine.Cache;
 
 namespace Resources.Script
 {
@@ -28,6 +29,7 @@ namespace Resources.Script
         public bool draged;
         public Object model3D;
         public Object vaisseauBoard;
+        public int handPos;
         
         private int _rankCond;
         private float _currentTime;
@@ -52,21 +54,9 @@ namespace Resources.Script
         }
         private void OnMouseDown()
         {
-            if (!isUsed && GameManager.CurrentPlayer.board.Contains(this))
-            {
-                if(HaveIThisCondition(Condition.AutoScrap))
-                {
-                    GameManager.PopUpAutoScrap.GetComponent<PopUpAutoScrap>().
-                        Activate(this,Actions[GetListCondsFromCondition(Condition.AutoScrap)],
-                            GetListCondsFromCondition(Condition.AutoScrap).Contains(Condition.Or));
-                } else if (HaveIThisCondition(Condition.Or))
-                {
-                    GameManager.PopUpOr.GetComponent<PopUpOrManager>().
-                        Activate(this,Actions[GetListCondsFromCondition(Condition.Or)]);
-                }
-            }
-            if (GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().display.Contains(this) ||
-                GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().explorer.Contains(this))
+            if ((ContainsWithId(GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().display) ||
+                ContainsWithId(GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().explorer)) &&
+                !GameManager.IsPopUpActivated())
             { 
                 GameManager.CurrentPlayer.Buy(this);
             }
@@ -162,10 +152,7 @@ namespace Resources.Script
                             firstCond = conds.Key;
                             _rankCond++;
                         }
-                        if (_rankCond == Actions.Keys.Count)
-                        {
-                            isUsed = true;
-                        }
+                        
                         return firstCond;
                     }
                     else
@@ -188,15 +175,17 @@ namespace Resources.Script
         }
         public void CancelPlay()
         {
-            gameObject.transform.SetParent(GameManager.CurrentPlayer.transform);
-            FindMyShip().objectToMove.SetActive(false);
-            Destroy(FindMyShip().gameObject);
-            objectToMove = transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(GameManager.CurrentPlayer.handNumber).gameObject;
+            /*gameObject.transform.SetParent(GameManager.CurrentPlayer.objectHand.transform);
+            ShipManager ship = FindMyShip();
+            ship.objectToMove.SetActive(false);
+            ship.Destruction();
+            objectToMove = GameManager.CurrentPlayer.objectHand.transform.GetChild(0).transform.GetChild(0).transform.GetChild(handPos).gameObject;
+            objectToMove.SetActive(true);
             gameObject.GetComponent<BoxCollider>().enabled = true;
             transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
             GameManager.CurrentPlayer.handNumber++;
             GameManager.CurrentPlayer.hand.Add(this);
-            GameManager.CurrentPlayer.board.Remove(this);
+            GameManager.CurrentPlayer.board.Remove(this);*/
         }
         public void CheckCondition(List<Condition> conds)
         {
@@ -302,7 +291,14 @@ namespace Resources.Script
                         break;
                 }
             }
-            CheckCondition(GetNextCond(false));
+            if (_rankCond == Actions.Keys.Count)
+            {
+                isUsed = true;
+            }
+            else
+            {
+                CheckCondition(GetNextCond(false));
+            }
         }
         public void DiscardToDraw(int nbDiscard)
         {
@@ -360,8 +356,8 @@ namespace Resources.Script
                         GameManager.CurrentPlayer.discardPile.Remove(c);
                     } else if (GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().display.Contains(c))
                     {
-                        GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().display.Remove(c);
                         GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().Refill(c);
+                        GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().display.Remove(c);
                     }
                     Destroy(c.gameObject);
                 }
@@ -500,12 +496,23 @@ namespace Resources.Script
             List<ShipManager> lesShips = GameManager.CurrentPlayer.objectBoard.GetComponentsInChildren<ShipManager>().ToList();
             foreach (ShipManager sm in lesShips)
             {
-                if (sm.hisCard == this)
+                if (sm.hisCard.id == id)
                 {
                     monShip = sm;
                 }
             }
+            Debug.Log(monShip.name);
             return monShip;
+        }
+
+        public bool ContainsWithId(List<Card> listCard)
+        {
+            foreach (Card card in listCard)
+            {
+                if (card.id == id)
+                    return true;
+            }
+            return false;
         }
     }
 }

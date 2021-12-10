@@ -13,6 +13,8 @@ namespace Resources.Script
         
         public void Activate(Card c, Dictionary<Effect,int> lesEffets)
         {
+            choix1.Clear();
+            choix2.Clear();
             gameObject.SetActive(true);
             cardFrom = c;
             choix1.Add(lesEffets.Keys.ToList()[0],lesEffets.Values.ToList()[0]);

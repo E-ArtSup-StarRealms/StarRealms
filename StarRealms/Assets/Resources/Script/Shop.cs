@@ -20,6 +20,10 @@ namespace Resources.Script
                 display.Remove(chosenCard);
                 GameDeck.Remove(GameDeck[0]);
             }
+            else
+            {
+                explorer.Remove(chosenCard);
+            }
         }
         public void Startfill()
         {
