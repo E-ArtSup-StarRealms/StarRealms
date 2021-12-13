@@ -8,7 +8,15 @@ public class Mask : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for(int i = 0; i < Object.Length; i++)
+        //Debug.Log((this.GetComponent<Transform>().parent.parent.childCount) - 1);
+        for (int j =0; j < ((this.GetComponent<Transform>().parent.parent.childCount) - 1);j++)
+        {
+            //Debug.Log(this.GetComponent<Transform>().parent.parent.GetChild(j).gameObject);
+            Object[j] = this.GetComponent<Transform>().parent.parent.GetChild(j).gameObject;
+            //Debug.Log(Object[j]);
+        }
+       
+        for(int i = 0; i < ((this.GetComponent<Transform>().parent.parent.childCount) - 1) ; i++)
         {
             Object[i].GetComponent<MeshRenderer>().material.renderQueue = 3002;
         }
