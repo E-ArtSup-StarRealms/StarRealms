@@ -75,11 +75,11 @@ namespace Resources.Script
                     vaisseauBoard.GetComponent<Transform>().SetParent(vaisseauBoard.GetComponent<ShipManager>().objectToMove.transform);
                     GameManager.CurrentPlayer.boardNumber++;
                     vaisseauBoard.GetComponent<ShipManager>().hisCard = this;
-                    GameManager.CurrentPlayer.PlayCard(this);
-                    objectToMove.SetActive(false);
                     gameObject.GetComponent<BoxCollider>().enabled = false;
                     transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
                     transform.SetParent(vaisseauBoard.GetComponent<ShipManager>().objectToMove.transform);
+                    GameManager.CurrentPlayer.objectHand.transform.GetChild(0).transform.GetChild(0).GetComponent<ListNavigation>().Actualisation(objectToMove,this);
+                    GameManager.CurrentPlayer.PlayCard(this);
                     PlaySelf();
                 }
                 draged = false;

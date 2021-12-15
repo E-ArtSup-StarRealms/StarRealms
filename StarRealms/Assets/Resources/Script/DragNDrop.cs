@@ -32,7 +32,7 @@ public class DragNDrop : MonoBehaviour
 
         cardTopEngage = GameObject.Find("CardTopEngaged");
         hand = GameObject.Find("Hand");
-        parent = this.transform.parent.gameObject;
+        parent = transform.parent.gameObject;
      
         
         if(hand == parent)

@@ -70,11 +70,14 @@ namespace Resources.Script
                     {
                         RefillDeck();
                         deck[0].gameObject.transform.SetParent(objectHand.transform);
-                        deck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(handNumber).gameObject;
-                        deck[0].objectToMove.SetActive(true);
-                        deck[0].gameObject.SetActive(true);
+                        if (handNumber < transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<ListNavigation>().lesPositions.Count)
+                        {
+                            deck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(handNumber).gameObject;
+                            deck[0].objectToMove.SetActive(true);
+                            deck[0].gameObject.SetActive(true);
+                            transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<ListNavigation>().lesElements.Add(transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(handNumber).gameObject,deck[0]);
+                        }
                         deck[0].handPos = handNumber;
-                        //Debug.Log(deck[0].handPos);
                         handNumber++;
                         hand.Add(deck[0]);
                         deck.RemoveAt(0);
@@ -83,16 +86,21 @@ namespace Resources.Script
                 else
                 {
                     deck[0].gameObject.transform.SetParent(objectHand.transform);
-                    deck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(handNumber).gameObject;
-                    deck[0].objectToMove.SetActive(true);
-                    deck[0].gameObject.SetActive(true);
+
+                    if (handNumber < transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<ListNavigation>().lesPositions.Count)
+                    {
+                        deck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(handNumber).gameObject;
+                        deck[0].objectToMove.SetActive(true);
+                        deck[0].gameObject.SetActive(true);
+                        transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<ListNavigation>().lesElements.Add(transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(handNumber).gameObject,deck[0]);
+                    }
                     deck[0].handPos = handNumber;
-                    Debug.Log(deck[0].handPos);
                     handNumber++;
                     hand.Add(deck[0]);
                     deck.RemoveAt(0);
                 }
             }
+            transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<ListNavigation>().Initialisation();
         }
         public void Buy(Card card)
         {
@@ -110,6 +118,7 @@ namespace Resources.Script
         }
         public void PlayCard(Card card)
         {
+            handNumber--;
             hand.Remove(card);
             board.Add(card);
         }
