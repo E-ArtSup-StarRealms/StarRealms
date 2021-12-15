@@ -237,10 +237,13 @@ namespace Resources.Script
             Shuffle();
             for (int i = 1 ; i < discardPile.Count; i++)
             {
-                
                 objectDiscardPile.transform.GetChild(1).SetParent(objectDeck.transform);
             }
             deck = new List<Card>(discardPile);
+            foreach (Card c in deck)
+            {
+                c.objectToMove = objectDeck;
+            }
             discardPile.Clear();
         }
         public void Shuffle()

@@ -19,16 +19,16 @@ namespace Resources.Script
 
         public static GameObject camP1;
         public static GameObject camP2;
-        public static Vector3 pos1 = new Vector3(-0.88f, 0.82f, -10.55f);
-        public static Vector3 pos2 = new Vector3(0.77f, 0.72f, 13.54f);
+        public static Vector3 pos1 = new Vector3(-1.18f, 0.82f, -9.17f);
+        public static Vector3 pos2 = new Vector3(1.14f, 0.82f, 9.16f);
         public static GameObject shopObject;
 
         private void Awake()
         {
             shopObject = GameObject.Find("Shop");
             camP1 = GameObject.Find("CM vcam1");
-            camP2 = GameObject.Find("CM vcam1 (1)");
-            camP1.SetActive(false);
+            camP2 = GameObject.Find("CM vcam2");
+            camP2.SetActive(false);
             popUpPlayerChoice = GameObject.Find("PopUpPlayerChoice");
             popUpOr = GameObject.Find("PopUpOr");
             popUpAutoScrap = GameObject.Find("PopUpAutoScrap");
@@ -74,17 +74,17 @@ namespace Resources.Script
             currentPlayer.totalPower = 0;
 
            //echange de borad (visuelle)
-         if(camP2.activeSelf == false)
+            if(camP2.activeSelf == false)
             {
                 camP2.SetActive(true);
-                shopObject.transform.position = pos1;
+                shopObject.transform.position = pos2;
                 shopObject.transform.eulerAngles = new Vector3(shopObject.transform.eulerAngles.x, shopObject.transform.eulerAngles.y + 180 , shopObject.transform.eulerAngles.z);
                 camP1.SetActive(false);
             }
             else
             {
                 camP1.SetActive(true);
-                shopObject.transform.position = pos2;
+                shopObject.transform.position = pos1;
                 shopObject.transform.eulerAngles = new Vector3(shopObject.transform.eulerAngles.x, shopObject.transform.eulerAngles.y + 180, shopObject.transform.eulerAngles.z);
                 camP2.SetActive(false);
             }
