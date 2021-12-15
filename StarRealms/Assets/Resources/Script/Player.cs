@@ -18,6 +18,8 @@ namespace Resources.Script
         public List<Card> board = new List<Card>();
         public bool cardOnTop;
         public bool freeShip;
+        public ListNavigation panelHand;
+        public NavigationBoard panelBoard;
     
         //Variables utiles pour le code
         public List<Effect> priorityCheck;
@@ -31,7 +33,7 @@ namespace Resources.Script
         public GameObject objectBoard;
         public GameObject objectInfo;
         public int handNumber;
-        public int boardNumber = 0;
+        public int boardNumber;
 
         void Start()
         {
@@ -70,28 +72,28 @@ namespace Resources.Script
                     {
                         RefillDeck();
                         deck[0].gameObject.transform.SetParent(objectHand.transform);
-                        deck[0].objectToMove = Instantiate((GameObject) UnityEngine.Resources.Load("Prefab/Tmp/Image"),objectHand.transform);
+                        deck[0].objectToMove = Instantiate((GameObject) UnityEngine.Resources.Load("Prefab/Tmp/Image"),panelHand.transform);
                         deck[0].transform.SetParent(deck[0].objectToMove.transform);
                         deck[0].gameObject.SetActive(true);
                         deck[0].transform.localScale = new Vector3(182,121,97);
                         deck[0].handPos = handNumber;
                         handNumber++;
                         hand.Add(deck[0]);
-                        objectHand.transform.GetChild(0).GetChild(0).GetComponent<ListNavigation>().AddElement(deck[0]);
+                        panelHand.AddElement(deck[0]);
                         deck.RemoveAt(0);
                     }
                 }
                 else
                 {
                     deck[0].gameObject.transform.SetParent(objectHand.transform);
-                    deck[0].objectToMove = Instantiate((GameObject) UnityEngine.Resources.Load("Prefab/Tmp/Image"),objectHand.transform.GetChild(0).GetChild(0));
+                    deck[0].objectToMove = Instantiate((GameObject) UnityEngine.Resources.Load("Prefab/Tmp/Image"),panelHand.transform);
                     deck[0].transform.SetParent(deck[0].objectToMove.transform);
                     deck[0].gameObject.SetActive(true);
                     deck[0].transform.localScale = new Vector3(182,121,97);
                     deck[0].handPos = handNumber;
                     handNumber++;
                     hand.Add(deck[0]);
-                    objectHand.transform.GetChild(0).GetChild(0).GetComponent<ListNavigation>().AddElement(deck[0]);
+                    panelHand.AddElement(deck[0]);
                     deck.RemoveAt(0);
                 }
             }
@@ -173,6 +175,8 @@ namespace Resources.Script
                         Destroy(sm.gameObject);
                     }
                 }
+                panelHand.Reset();
+                panelBoard.Reset();
                 GameManager.EndTurn();
             }else if( hand.Count > 0 )
             {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -105,6 +106,16 @@ namespace Resources.Script
             {
                 btnPrevious.GetComponent<Button>().interactable = false;
             }
+        }
+        public void Reset()
+        {
+            foreach (GameObject go in lesElements)
+            {
+                Destroy(go);
+            }
+            lesElements.Clear();
+            firstCardHp = 0 ;
+            lastCardHp = 0 ;
         }
     }
 }

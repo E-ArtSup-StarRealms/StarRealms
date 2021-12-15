@@ -106,5 +106,15 @@ namespace Resources.Script
                 btnPrevious.GetComponent<Button>().interactable = false;
             }
         }
+        public void Reset()
+        {
+            foreach (GameObject go in lesElements)
+            {
+                Destroy(go);
+            }
+            lesElements.Clear();
+            firstCardBp = 0 ;
+            lastCardBp = 0 ;
+        }
     }
 }
