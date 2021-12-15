@@ -4,14 +4,14 @@ namespace Resources.Script
 {
     public class GameManager : MonoBehaviour
     {
-        public static GameObject PopUpPlayerChoice;
-        public static GameObject PopUpOr;
-        public static GameObject PopUpAutoScrap;
-        public static GameObject PopUpEndTurn;
+        public static GameObject popUpPlayerChoice;
+        public static GameObject popUpOr;
+        public static GameObject popUpAutoScrap;
+        public static GameObject popUpEndTurn;
         
-        public static Player Player1 ;
-        public static Player Player2;
-        public static Player CurrentPlayer;
+        public static Player player1 ;
+        public static Player player2;
+        public static Player currentPlayer;
 
         [SerializeField]
         private GameObject panelWin;
@@ -19,8 +19,11 @@ namespace Resources.Script
 
         public static GameObject camP1;
         public static GameObject camP2;
-        public static Vector3 pos1 = new Vector3(-0.28f, 0.5881766f, -10.71f);
+        public static Vector3 pos1 = new Vector3(-0.88f, 0.82f, -10.55f);
         public static Vector3 pos2 = new Vector3(0.77f, 0.72f, 13.54f);
+        // pos : -0.88 / 0.82 / -10.55
+        // rot : 17.389 / 0 / 0
+        // scale : 2 / 2 / 2
         public static GameObject shopObject;
 
         private void Awake()
@@ -29,19 +32,19 @@ namespace Resources.Script
             camP1 = GameObject.Find("CM vcam1");
             camP2 = GameObject.Find("CM vcam1 (1)");
             camP1.SetActive(false);
-            PopUpPlayerChoice = GameObject.Find("PopUpPlayerChoice");
-            PopUpOr = GameObject.Find("PopUpOr");
-            PopUpAutoScrap = GameObject.Find("PopUpAutoScrap");
-            PopUpEndTurn = GameObject.Find("PopUpEndTurn");
+            popUpPlayerChoice = GameObject.Find("PopUpPlayerChoice");
+            popUpOr = GameObject.Find("PopUpOr");
+            popUpAutoScrap = GameObject.Find("PopUpAutoScrap");
+            popUpEndTurn = GameObject.Find("PopUpEndTurn");
 
-            PopUpPlayerChoice.SetActive(false);
-            PopUpAutoScrap.SetActive(false);
-            PopUpOr.SetActive(false);
-            PopUpEndTurn.SetActive(false);
+            popUpPlayerChoice.SetActive(false);
+            popUpAutoScrap.SetActive(false);
+            popUpOr.SetActive(false);
+            popUpEndTurn.SetActive(false);
 
-            Player1 = GameObject.Find("Player1").GetComponent<Player>();
-            Player2 = GameObject.Find("Player2").GetComponent<Player>();
-            CurrentPlayer = Player1;
+            player1 = GameObject.Find("Player1").GetComponent<Player>();
+            player2 = GameObject.Find("Player2").GetComponent<Player>();
+            currentPlayer = player1;
         }
 
         private void Start()
@@ -58,20 +61,20 @@ namespace Resources.Script
             //pioche de debut de tour
             if(_firstRound)
             {
-                CurrentPlayer.Draw(3);
+                currentPlayer.Draw(3);
                 _firstRound = false;
             }
             else
             {
-                CurrentPlayer.Draw(5);
+                currentPlayer.Draw(5);
             }
         }
 
         public static void EndTurn()
         {
             //supression de la money et du power restan 
-            CurrentPlayer.money = 0;
-            CurrentPlayer.totalPower = 0;
+            currentPlayer.money = 0;
+            currentPlayer.totalPower = 0;
 
            //echange de borad (visuelle)
          if(camP2.activeSelf == false)
@@ -90,24 +93,24 @@ namespace Resources.Script
             }
 
             //switche du current player et des hp de ce dernier
-                if (CurrentPlayer == Player1)
+                if (currentPlayer == player1)
             {
              
-               CurrentPlayer = Player2;
+               currentPlayer = player2;
             }
             else
             {
-                CurrentPlayer = Player1;
+                currentPlayer = player1;
             }
             BeginTurn();
         }
 
         public static bool IsPopUpActivated()
         {
-            return PopUpPlayerChoice.activeSelf ||
-                   PopUpAutoScrap.activeSelf ||
-                   PopUpOr.activeSelf ||
-                   PopUpEndTurn.activeSelf;
+            return popUpPlayerChoice.activeSelf ||
+                   popUpAutoScrap.activeSelf ||
+                   popUpOr.activeSelf ||
+                   popUpEndTurn.activeSelf;
         }
     }
 }

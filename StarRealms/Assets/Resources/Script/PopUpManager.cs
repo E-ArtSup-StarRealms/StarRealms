@@ -80,7 +80,7 @@ namespace Resources.Script
                                     switch (zoneApplied)
                                     {
                                         case Zone.Board:
-                                            if (GameManager.CurrentPlayer.board.Contains(hit.transform.gameObject.GetComponent<Card>()))
+                                            if (GameManager.currentPlayer.board.Contains(hit.transform.gameObject.GetComponent<Card>()))
                                             {
                                                 if (LesCartes.Count < nbToSelect)
                                                     LesCartes.Add(hit.transform.gameObject.GetComponent<Card>());
@@ -92,7 +92,7 @@ namespace Resources.Script
                                             }
                                             break;
                                         case Zone.Hand:
-                                            if (GameManager.CurrentPlayer.hand.Contains(hit.transform.gameObject.GetComponent<Card>()))
+                                            if (GameManager.currentPlayer.hand.Contains(hit.transform.gameObject.GetComponent<Card>()))
                                             {
                                                 if (LesCartes.Count < nbToSelect)
                                                     LesCartes.Add(hit.transform.gameObject.GetComponent<Card>());
@@ -104,7 +104,7 @@ namespace Resources.Script
                                             }
                                             break;
                                         case Zone.Display:
-                                            if (GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().display.
+                                            if (GameManager.currentPlayer.shopObject.GetComponent<Shop>().display.
                                                 Contains(hit.transform.gameObject.GetComponent<Card>()))
                                             {
                                                 if (LesCartes.Count < nbToSelect)
@@ -117,7 +117,7 @@ namespace Resources.Script
                                             }
                                             break;
                                         case Zone.DiscardPile:
-                                            if (GameManager.CurrentPlayer.discardPile.Contains(hit.transform.gameObject.GetComponent<Card>()))
+                                            if (GameManager.currentPlayer.discardPile.Contains(hit.transform.gameObject.GetComponent<Card>()))
                                             {
                                                 if (LesCartes.Count < nbToSelect)
                                                     LesCartes.Add(hit.transform.gameObject.GetComponent<Card>());
@@ -129,8 +129,8 @@ namespace Resources.Script
                                             }
                                             break;
                                         case Zone.HandAndDiscardPile:
-                                            if (GameManager.CurrentPlayer.hand.Contains(hit.transform.gameObject.GetComponent<Card>()) ||
-                                                GameManager.CurrentPlayer.discardPile.Contains(hit.transform.gameObject.GetComponent<Card>()))
+                                            if (GameManager.currentPlayer.hand.Contains(hit.transform.gameObject.GetComponent<Card>()) ||
+                                                GameManager.currentPlayer.discardPile.Contains(hit.transform.gameObject.GetComponent<Card>()))
                                             {
                                                 if (LesCartes.Count < nbToSelect)
                                                     LesCartes.Add(hit.transform.gameObject.GetComponent<Card>());

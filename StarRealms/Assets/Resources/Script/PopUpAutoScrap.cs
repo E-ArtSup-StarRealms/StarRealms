@@ -52,7 +52,7 @@ namespace Resources.Script
         {
             if(isOr)
             {
-                GameManager.PopUpOr.GetComponent<PopUpOrManager>().
+                GameManager.popUpOr.GetComponent<PopUpOrManager>().
                     Activate(cardFrom,cardFrom.Actions[cardFrom.GetListCondsFromCondition(Condition.Or)]);
             }
             else

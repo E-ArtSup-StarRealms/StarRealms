@@ -13,7 +13,7 @@ namespace Resources.Script
         }
         public void Validate()
         {
-            GameManager.CurrentPlayer.EndTurn(true);
+            GameManager.currentPlayer.EndTurn(true);
             gameObject.SetActive(false);
         }
         

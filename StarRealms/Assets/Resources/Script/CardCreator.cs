@@ -53,21 +53,11 @@ namespace Resources.Script
 
                 for (int i = 0; i < c.nbExemplaire; i++)
                 {
-                    Object finalObject;
-                    if (!c.shipOrBase)
-                    {
-                        finalObject = Instantiate(UnityEngine.Resources.Load("Prefab/Card"),
-                            GameObject.Find("GameDeck").transform);
-                    }
-                    else
-                    {
-                        finalObject = Instantiate(UnityEngine.Resources.Load("Prefab/Card"),
-                            GameObject.Find("GameDeck").transform);
-                    }
-
+                    Object finalObject = Instantiate(UnityEngine.Resources.Load("Prefab/Card"),
+                        GameObject.Find("GameDeck").transform);
                     Vector3 where = new Vector3(posX, posY, 0);
                     finalObject.GetComponent<Transform>().position = where;
-                    finalObject.name = c.name;;
+                    finalObject.name = c.name;
                     Card finalCard = finalObject.GetComponent<Card>();
                     finalCard.SetId();
                     finalCard.name = c.name;
@@ -207,39 +197,39 @@ namespace Resources.Script
                         material = (Material) UnityEngine.Resources.
                         Load("Materiau/Tmp/Vaisseaux/"+finalCard.faction+"/"+finalObject.name);
                     finalCard.model3D = UnityEngine.Resources.
-                        Load("Prefab/Tmp_Vaisseaux/"+finalCard.faction+"/"+finalObject.name);
+                        Load("Prefab/Tmp/Vaisseaux/"+finalCard.faction+"/"+finalObject.name);
                     switch (finalCard.name)
                     {
                         case "Scout":
-                            if (GameManager.Player1.deck.Count < 8)
+                            if (GameManager.player1.deck.Count < 8)
                             {
-                                GameManager.Player1.deck.Add(finalCard);
-                                finalCard.objectToMove = GameManager.Player1.objectDeck;
-                                finalCard.transform.SetParent(GameManager.Player1.objectDeck.transform);
+                                GameManager.player1.deck.Add(finalCard);
+                                finalCard.objectToMove = GameManager.player1.objectDeck;
+                                finalCard.transform.SetParent(GameManager.player1.objectDeck.transform);
                             }
                             else
                             {
-                                GameManager.Player2.deck.Add(finalCard);
-                                finalCard.objectToMove = GameManager.Player2.objectDeck;
-                                finalCard.transform.SetParent(GameManager.Player2.objectDeck.transform);
+                                GameManager.player2.deck.Add(finalCard);
+                                finalCard.objectToMove = GameManager.player2.objectDeck;
+                                finalCard.transform.SetParent(GameManager.player2.objectDeck.transform);
                             }
                             break;
                         case "Viper":
-                            if (GameManager.Player1.deck.Count < 10)
+                            if (GameManager.player1.deck.Count < 10)
                             {
-                                GameManager.Player1.deck.Add(finalCard);
-                                finalCard.objectToMove = GameManager.Player1.objectDeck;
-                                finalCard.transform.SetParent(GameManager.Player1.objectDeck.transform);
+                                GameManager.player1.deck.Add(finalCard);
+                                finalCard.objectToMove = GameManager.player1.objectDeck;
+                                finalCard.transform.SetParent(GameManager.player1.objectDeck.transform);
                             }
                             else
                             {
-                                GameManager.Player2.deck.Add(finalCard);
-                                finalCard.objectToMove = GameManager.Player2.objectDeck;
-                                finalCard.transform.SetParent(GameManager.Player2.objectDeck.transform);
+                                GameManager.player2.deck.Add(finalCard);
+                                finalCard.objectToMove = GameManager.player2.objectDeck;
+                                finalCard.transform.SetParent(GameManager.player2.objectDeck.transform);
                             }
                             break;
                         case "Explorer":
-                            GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().explorer.Add(finalCard);
+                            GameManager.currentPlayer.shopObject.GetComponent<Shop>().explorer.Add(finalCard);
                             finalCard.objectToMove = GameObject.Find("slot Explorer");
                             break;
                         default:
@@ -251,9 +241,9 @@ namespace Resources.Script
                 //posX -= 0.85f;
             }
             Shop.ShuffleGameDeck();
-            GameManager.Player1.ShuffleDeck();
-            GameManager.Player2.ShuffleDeck();
-            GameManager.CurrentPlayer.shopObject.GetComponent<Shop>().Startfill();
+            GameManager.player1.ShuffleDeck();
+            GameManager.player2.ShuffleDeck();
+            GameManager.currentPlayer.shopObject.GetComponent<Shop>().Startfill();
             GameManager.BeginTurn();
         }
     }

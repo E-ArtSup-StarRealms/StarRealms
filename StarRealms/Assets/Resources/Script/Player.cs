@@ -70,13 +70,10 @@ namespace Resources.Script
                     {
                         RefillDeck();
                         deck[0].gameObject.transform.SetParent(objectHand.transform);
-                        if (handNumber < transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<ListNavigation>().lesPositions.Count)
-                        {
-                            deck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(handNumber).gameObject;
-                            deck[0].objectToMove.SetActive(true);
-                            deck[0].gameObject.SetActive(true);
-                            transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<ListNavigation>().lesElements.Add(transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(handNumber).gameObject,deck[0]);
-                        }
+                        deck[0].objectToMove = Instantiate((GameObject) UnityEngine.Resources.Load("Prefab/Tmp/Image"),objectHand.transform);
+                        deck[0].transform.SetParent(deck[0].objectToMove.transform);
+                        deck[0].gameObject.SetActive(true);
+                        deck[0].transform.localScale = new Vector3(182,121,97);
                         deck[0].handPos = handNumber;
                         handNumber++;
                         hand.Add(deck[0]);
@@ -86,21 +83,17 @@ namespace Resources.Script
                 else
                 {
                     deck[0].gameObject.transform.SetParent(objectHand.transform);
-
-                    if (handNumber < transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<ListNavigation>().lesPositions.Count)
-                    {
-                        deck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(handNumber).gameObject;
-                        deck[0].objectToMove.SetActive(true);
-                        deck[0].gameObject.SetActive(true);
-                        transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<ListNavigation>().lesElements.Add(transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(handNumber).gameObject,deck[0]);
-                    }
+                    deck[0].objectToMove = Instantiate((GameObject) UnityEngine.Resources.Load("Prefab/Tmp/Image"),objectHand.transform.GetChild(0).GetChild(0));
+                    deck[0].transform.SetParent(deck[0].objectToMove.transform);
+                    deck[0].gameObject.SetActive(true);
+                    deck[0].transform.localScale = new Vector3(182,121,97);
                     deck[0].handPos = handNumber;
                     handNumber++;
                     hand.Add(deck[0]);
+                    objectHand.transform.GetChild(0).GetChild(0).GetComponent<ListNavigation>().AddElement(deck[0]);
                     deck.RemoveAt(0);
                 }
             }
-            transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<ListNavigation>().Initialisation();
         }
         public void Buy(Card card)
         {
@@ -153,7 +146,7 @@ namespace Resources.Script
                     if (!board[0].shipOrBase)
                     {
                         board[0].gameObject.transform.SetParent(objectDiscardPile.transform);
-                        board[0].objectToMove.SetActive(false);
+                        board[0].objectToMove = objectDiscardPile;
                         board[0].gameObject.GetComponent<BoxCollider>().enabled = true;
                         board[0].transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
                         board[0].objectToMove = objectDiscardPile.transform.GetChild(0).gameObject;
@@ -175,22 +168,22 @@ namespace Resources.Script
                 {
                     if (discardPile.Contains(sm.hisCard))
                     {
-                        sm.objectToMove.SetActive(false);
+                        Destroy(sm.objectToMove);
                         Destroy(sm.gameObject);
                     }
                 }
                 GameManager.EndTurn();
             }else if( hand.Count > 0 )
             {
-                GameManager.PopUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You still have cards in your hand.\nAre you sure you want to skip your turn?");
+                GameManager.popUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You still have cards in your hand.\nAre you sure you want to skip your turn?");
             }
             else if( CanPurchase() )
             {
-                GameManager.PopUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You can at least buy one more ship/base.\nAre you sure you want to skip your turn?");
+                GameManager.popUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You can at least buy one more ship/base.\nAre you sure you want to skip your turn?");
             }
             else if( totalPower!=0 )
             {
-                GameManager.PopUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You can still attack.\nAre you sure you want to skip your turn?");
+                GameManager.popUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You can still attack.\nAre you sure you want to skip your turn?");
             }
                 
         }
@@ -206,10 +199,10 @@ namespace Resources.Script
                     totalPower = 0;
                     objectInfo.transform.GetChild(1).GetChild(0).GetComponent<Text>().text = totalPower+" P";
                     if (_enemy.hp <= 0)
-                        GameManager.PopUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You Win !");
+                        GameManager.popUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You Win !");
                 }
                 else
-                    GameManager.PopUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You must first destroy the taunt base before attacking the player");
+                    GameManager.popUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You must first destroy the taunt base before attacking the player");
             }
             else
             {
@@ -220,7 +213,7 @@ namespace Resources.Script
                 }
                 else
                 {
-                    GameManager.PopUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You must first destroy the taunt base");
+                    GameManager.popUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You must first destroy the taunt base");
                 }
             }
         }

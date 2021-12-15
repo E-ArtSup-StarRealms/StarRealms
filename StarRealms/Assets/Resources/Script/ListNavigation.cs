@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,163 +6,101 @@ namespace Resources.Script
 {
     public class ListNavigation : MonoBehaviour
     {
-        public List<GameObject> lesPositions = new List<GameObject>();
-        public Dictionary<GameObject, Card> lesElements = new Dictionary<GameObject, Card>();
-        public int firstPos;
-        public int finalPos;
-        
-        public void Initialisation()
+        public int firstCardHp;
+        public int lastCardHp;
+        public List<GameObject> lesElements = new List<GameObject>();
+        public void Initialize()
         {
-            firstPos = lesElements[lesPositions[0]].GetComponent<Card>().handPos;
-            foreach (GameObject pos in lesPositions)
+            lesElements.Clear();
+            firstCardHp = GameManager.currentPlayer.hand[0].handPos;
+            lastCardHp = GameManager.currentPlayer.hand[Mathf.Clamp(GameManager.currentPlayer.hand.Count - 1,0, 4)].handPos;
+            foreach (Card c in GameManager.currentPlayer.hand)
             {
-                if (pos.activeSelf)
-                {
-                    finalPos = lesElements[pos].GetComponent<Card>().handPos;
-                }
+                lesElements.Add(c.objectToMove);
             }
-            if (!lesPositions[lesPositions.Count - 1].activeSelf)
+        }
+        public void AddElement(Card c)
+        {
+            lesElements.Add(c.objectToMove);
+            if (lesElements.Count-firstCardHp > 5)
             {
-                GameObject.Find("Btn_Next").GetComponent<Button>().interactable = false;
-            } else if (finalPos == GameManager.CurrentPlayer.hand[GameManager.CurrentPlayer.hand.Count-1].handPos)
-            {
-                GameObject.Find("Btn_Next").GetComponent<Button>().interactable = false;
-            }
-            else
-            {
+                c.objectToMove.SetActive(false);
                 GameObject.Find("Btn_Next").GetComponent<Button>().interactable = true;
             }
-            if (firstPos == 0)
+            Initialize();
+        }
+        public void Next()
+        {
+            lesElements[firstCardHp].SetActive(false);
+            firstCardHp++;
+            lastCardHp++;
+            lesElements[lastCardHp].SetActive(true);
+            if (lastCardHp == GameManager.currentPlayer.hand.Count - 1)
             {
-                GameObject.Find("Btn_Previous").GetComponent<Button>().interactable = false;
+                GameObject.Find("Btn_Next").GetComponent<Button>().interactable = false;
             }
-            else
+            if (firstCardHp != 0)
             {
                 GameObject.Find("Btn_Previous").GetComponent<Button>().interactable = true;
             }
         }
-        public void Suivant()
+        public void Previous()
         {
-            if (GameManager.CurrentPlayer.hand.Count-lesElements[lesPositions[0]].handPos > 4)
+            lesElements[lastCardHp].SetActive(false);
+            lastCardHp--;
+            firstCardHp--;
+            lesElements[firstCardHp].SetActive(true);
+            if (firstCardHp == 0)
             {
-                Card oldCard;
-                GameObject oldPos = null;
-                GameObject myOldPos;
-                for (int i = 0; i < lesPositions.Count; i++)
-                {
-                    oldCard = lesElements[lesPositions[i]];
-                    lesElements.Remove(lesPositions[i]);
-                    lesElements.Add(lesPositions[i], findNextCard(oldCard.handPos));
-                    myOldPos = oldCard.objectToMove;
-                    if (oldPos != null)
-                    {
-                        oldCard.objectToMove = oldPos;
-                    }
-                    else
-                    {
-                        oldCard.objectToMove = GameObject.Find("Btn_Previous");
-                        oldCard.gameObject.SetActive(false);
-                    }
-                    oldPos = myOldPos;
-                }
-                lesElements[lesPositions[3]].gameObject.SetActive(true);
-                lesElements[lesPositions[3]].objectToMove = lesPositions[3];
-                Initialisation();
+                GameObject.Find("Btn_Previous").GetComponent<Button>().interactable = false;
+            }
+            if (lastCardHp != GameManager.currentPlayer.hand.Count - 1)
+            {
+                GameObject.Find("Btn_Next").GetComponent<Button>().interactable = true;
             }
         }
-        public void Precedent()
+        public void FillGap(Card card)
         {
-            if (lesElements[lesPositions[0]].handPos > 0)
+            lesElements.Remove(card.objectToMove);
+            Destroy(card.objectToMove);
+            int nbDisplay = 0;
+            foreach (Card c in GameManager.currentPlayer.hand)
             {
-                Card oldCard;
-                GameObject oldPos = null;
-                GameObject myOldPos;
-                for (int i = lesPositions.Count; i > 0; i--)
+                if (c.handPos > card.handPos)
                 {
-                    oldCard = lesElements[lesPositions[i-1]];
-                    lesElements.Remove(lesPositions[i-1]);
-                    lesElements.Add(lesPositions[i-1], findPreviousCard(oldCard.handPos));
-                    myOldPos = oldCard.objectToMove;
-                    if (oldPos != null)
+                    if (c.handPos == lastCardHp)
                     {
-                        oldCard.objectToMove = oldPos;
+                        lastCardHp--;
                     }
-                    else
+                    c.handPos--;
+                }
+            }
+            while (firstCardHp != 0 && lastCardHp-firstCardHp < 4)
+            {
+                firstCardHp--;
+                lesElements[firstCardHp].SetActive(true);
+            }
+            if(lastCardHp-firstCardHp < 4)
+                foreach (GameObject go in lesElements)
+                {
+                    if (go.activeSelf)
                     {
-                        oldCard.objectToMove = GameObject.Find("Btn_Next");
-                        oldCard.gameObject.SetActive(false);
+                        nbDisplay++;
                     }
-                    oldPos = myOldPos;
-                }
-                lesElements[lesPositions[0]].gameObject.SetActive(true);
-                lesElements[lesPositions[0]].objectToMove = lesPositions[0];
-                Initialisation();
-            }
-        }
-        public Card findNextCard(int handPos)
-        {
-            foreach (Card c in GameManager.CurrentPlayer.hand)
-            {
-                if (c.handPos == handPos + 1)
-                {
-                    return c;
-                }
-            }
-            foreach (Card c in GameManager.CurrentPlayer.hand)
-            {
-                if (c.handPos == handPos)
-                {
-                    return c;
-                }
-            }
-            return null;
-        }
-        public Card findPreviousCard(int handpos)
-        {
-            foreach (Card c in GameManager.CurrentPlayer.hand)
-            {
-                if (c.handPos == handpos - 1)
-                {
-                    return c;
-                }
-            }
-            foreach (Card c in GameManager.CurrentPlayer.hand)
-            {
-                if (c.handPos == handpos)
-                {
-                    return c;
-                }
-            }
-            return null;
-        }
-        public void Actualisation(GameObject pos, Card card)
-        {
-            if (firstPos == 0)
-            {
-                if (finalPos < 4)
-                {
-                    for (int i = card.handPos; i < GameManager.CurrentPlayer.hand.Count; i++)
+                    else if(nbDisplay < 5)
                     {
-                        findNextCard(i).objectToMove = lesPositions[i];
+                        go.SetActive(true);
+                        lastCardHp++;
+                        nbDisplay++;
                     }
-                    
-                    foreach (Card c in GameManager.CurrentPlayer.hand)
-                    {
-                        if (card.handPos < c.handPos)
-                        {
-                            c.handPos--;
-                        } 
-                    }
-                    for (int i = finalPos; i < lesPositions.Count; i++)
-                    {
-                        lesPositions[i].SetActive(false);
-                    }
-                    //Initialisation();
                 }
-            }
-            else
+            if (lastCardHp == GameManager.currentPlayer.hand.Count - 1)
             {
-                
+                GameObject.Find("Btn_Next").GetComponent<Button>().interactable = false;
+            }
+            if (firstCardHp == 0)
+            {
+                GameObject.Find("Btn_Previous").GetComponent<Button>().interactable = false;
             }
         }
     }

@@ -34,16 +34,16 @@ namespace Resources.Script
 
         private void OnMouseDown()
         {
-            if (!hisCard.isUsed && GameManager.CurrentPlayer.board.Contains(hisCard))
+            if (!hisCard.isUsed && GameManager.currentPlayer.board.Contains(hisCard))
             {
                 if(hisCard.HaveIThisCondition(Condition.AutoScrap))
                 {
-                    GameManager.PopUpAutoScrap.GetComponent<PopUpAutoScrap>().
+                    GameManager.popUpAutoScrap.GetComponent<PopUpAutoScrap>().
                         Activate(hisCard,hisCard.Actions[hisCard.GetListCondsFromCondition(Condition.AutoScrap)],
                             hisCard.GetListCondsFromCondition(Condition.AutoScrap).Contains(Condition.Or));
                 } else if (hisCard.HaveIThisCondition(Condition.Or))
                 {
-                    GameManager.PopUpOr.GetComponent<PopUpOrManager>().
+                    GameManager.popUpOr.GetComponent<PopUpOrManager>().
                         Activate(hisCard,hisCard.Actions[hisCard.GetListCondsFromCondition(Condition.Or)]);
                 }
             }
