@@ -70,14 +70,16 @@ namespace Resources.Script
                     vaisseauBoard = Instantiate(model3D, new Vector3(),new Quaternion());
                     vaisseauBoard.GetComponent<ShipManager>().objectToMove = Instantiate((GameObject) UnityEngine.Resources.Load("Prefab/Tmp/Image"),GameManager.currentPlayer.objectBoard.transform.GetChild(0).GetChild(0));
                     vaisseauBoard.GetComponent<Transform>().SetParent(vaisseauBoard.GetComponent<ShipManager>().objectToMove.transform);
-                    GameManager.currentPlayer.boardNumber++;
                     vaisseauBoard.GetComponent<ShipManager>().hisCard = this;
                     gameObject.GetComponent<BoxCollider>().enabled = false;
                     transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
                     transform.SetParent(vaisseauBoard.GetComponent<ShipManager>().objectToMove.transform);
                     GameManager.currentPlayer.PlayCard(this);
                     GameManager.currentPlayer.objectHand.transform.GetChild(0).GetChild(0).GetComponent<ListNavigation>().FillGap(this);
+                    handPos = GameManager.currentPlayer.boardNumber;
+                    GameManager.currentPlayer.boardNumber++;
                     objectToMove = vaisseauBoard.GetComponent<ShipManager>().objectToMove;
+                    GameManager.currentPlayer.objectBoard.transform.GetChild(0).GetChild(0).GetComponent<NavigationBoard>().AddElement(vaisseauBoard.GetComponent<ShipManager>());
                     PlaySelf();
                 }
                 draged = false;

@@ -213,6 +213,7 @@ namespace Resources.Script
                                 finalCard.objectToMove = GameManager.player2.objectDeck;
                                 finalCard.transform.SetParent(GameManager.player2.objectDeck.transform);
                             }
+                            finalCard.gameObject.SetActive(false);
                             break;
                         case "Viper":
                             if (GameManager.player1.deck.Count < 10)
@@ -227,6 +228,7 @@ namespace Resources.Script
                                 finalCard.objectToMove = GameManager.player2.objectDeck;
                                 finalCard.transform.SetParent(GameManager.player2.objectDeck.transform);
                             }
+                            finalCard.gameObject.SetActive(false);
                             break;
                         case "Explorer":
                             GameManager.currentPlayer.shopObject.GetComponent<Shop>().explorer.Add(finalCard);

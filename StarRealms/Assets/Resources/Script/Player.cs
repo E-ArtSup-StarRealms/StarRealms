@@ -77,6 +77,7 @@ namespace Resources.Script
                         deck[0].handPos = handNumber;
                         handNumber++;
                         hand.Add(deck[0]);
+                        objectHand.transform.GetChild(0).GetChild(0).GetComponent<ListNavigation>().AddElement(deck[0]);
                         deck.RemoveAt(0);
                     }
                 }
@@ -300,6 +301,7 @@ namespace Resources.Script
                 card.gameObject.transform.SetParent(objectDiscardPile.transform);
                 discardPile.Add(card);
             }
+            card.transform.localScale = new Vector3(0.7f,0.7f,1);
             _shop.Refill(card);
         }
         public bool CanPurchase()

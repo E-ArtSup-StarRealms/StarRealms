@@ -4,10 +4,10 @@ using UnityEngine.UI;
 
 namespace Resources.Script
 {
-    public class ListNavigation : MonoBehaviour
+    public class NavigationBoard : MonoBehaviour
     {
-        public int firstCardHp;
-        public int lastCardHp;
+        public int firstCardBp;
+        public int lastCardBp;
         public List<GameObject> lesElements = new List<GameObject>();
         public GameObject btnNext;
         public GameObject btnPrevious;
@@ -15,49 +15,49 @@ namespace Resources.Script
         private void Initialize()
         {
             lesElements.Clear();
-            firstCardHp = GameManager.currentPlayer.hand[0].handPos;
-            lastCardHp = GameManager.currentPlayer.hand[Mathf.Clamp(GameManager.currentPlayer.hand.Count - 1,0, 4)].handPos;
-            foreach (Card c in GameManager.currentPlayer.hand)
+            firstCardBp = GameManager.currentPlayer.board[0].handPos;
+            lastCardBp = GameManager.currentPlayer.board[Mathf.Clamp(GameManager.currentPlayer.board.Count - 1,0, 4)].handPos;
+            foreach (Card c in GameManager.currentPlayer.board)
             {
                 lesElements.Add(c.objectToMove);
             }
         }
-        public void AddElement(Card c)
+        public void AddElement(ShipManager s)
         {
-            lesElements.Add(c.objectToMove);
-            if (lesElements.Count-firstCardHp > 5)
+            lesElements.Add(s.objectToMove);
+            if (lesElements.Count-firstCardBp > 5)
             {
-                c.objectToMove.SetActive(false);
+                s.objectToMove.SetActive(false);
                 btnNext.GetComponent<Button>().interactable = true;
             }
             Initialize();
         }
         public void Next()
         {
-            lesElements[firstCardHp].SetActive(false);
-            firstCardHp++;
-            lastCardHp++;
-            lesElements[lastCardHp].SetActive(true);
-            if (lastCardHp == GameManager.currentPlayer.hand.Count - 1)
+            lesElements[firstCardBp].SetActive(false);
+            firstCardBp++;
+            lastCardBp++;
+            lesElements[lastCardBp].SetActive(true);
+            if (lastCardBp == GameManager.currentPlayer.board.Count - 1)
             {
                 btnNext.GetComponent<Button>().interactable = false;
             }
-            if (firstCardHp != 0)
+            if (firstCardBp != 0)
             {
                 btnPrevious.GetComponent<Button>().interactable = true;
             }
         }
         public void Previous()
         {
-            lesElements[lastCardHp].SetActive(false);
-            lastCardHp--;
-            firstCardHp--;
-            lesElements[firstCardHp].SetActive(true);
-            if (firstCardHp == 0)
+            lesElements[lastCardBp].SetActive(false);
+            lastCardBp--;
+            firstCardBp--;
+            lesElements[firstCardBp].SetActive(true);
+            if (firstCardBp == 0)
             {
                 btnPrevious.GetComponent<Button>().interactable = false;
             }
-            if (lastCardHp != GameManager.currentPlayer.hand.Count - 1)
+            if (lastCardBp != GameManager.currentPlayer.board.Count - 1)
             {
                 btnNext.GetComponent<Button>().interactable = true;
             }
@@ -67,23 +67,23 @@ namespace Resources.Script
             lesElements.Remove(card.objectToMove);
             Destroy(card.objectToMove);
             int nbDisplay = 0;
-            foreach (Card c in GameManager.currentPlayer.hand)
+            foreach (Card c in GameManager.currentPlayer.board)
             {
                 if (c.handPos > card.handPos)
                 {
-                    if (c.handPos == lastCardHp)
+                    if (c.handPos == lastCardBp)
                     {
-                        lastCardHp--;
+                        lastCardBp--;
                     }
                     c.handPos--;
                 }
             }
-            while (firstCardHp != 0 && lastCardHp-firstCardHp < 4)
+            while (firstCardBp != 0 && lastCardBp-firstCardBp < 4)
             {
-                firstCardHp--;
-                lesElements[firstCardHp].SetActive(true);
+                firstCardBp--;
+                lesElements[firstCardBp].SetActive(true);
             }
-            if(lastCardHp-firstCardHp < 4)
+            if(lastCardBp-firstCardBp < 4)
                 foreach (GameObject go in lesElements)
                 {
                     if (go.activeSelf)
@@ -93,15 +93,15 @@ namespace Resources.Script
                     else if(nbDisplay < 5)
                     {
                         go.SetActive(true);
-                        lastCardHp++;
+                        lastCardBp++;
                         nbDisplay++;
                     }
                 }
-            if (lastCardHp == GameManager.currentPlayer.hand.Count - 1)
+            if (lastCardBp == GameManager.currentPlayer.board.Count - 1)
             {
                 btnNext.GetComponent<Button>().interactable = false;
             }
-            if (firstCardHp == 0)
+            if (firstCardBp == 0)
             {
                 btnPrevious.GetComponent<Button>().interactable = false;
             }

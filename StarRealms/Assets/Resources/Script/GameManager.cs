@@ -21,9 +21,6 @@ namespace Resources.Script
         public static GameObject camP2;
         public static Vector3 pos1 = new Vector3(-0.88f, 0.82f, -10.55f);
         public static Vector3 pos2 = new Vector3(0.77f, 0.72f, 13.54f);
-        // pos : -0.88 / 0.82 / -10.55
-        // rot : 17.389 / 0 / 0
-        // scale : 2 / 2 / 2
         public static GameObject shopObject;
 
         private void Awake()
