@@ -1,37 +1,166 @@
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Resources.Script
 {
     public class Card : MonoBehaviour
     {
-        private static int _nbCard = 0;
+        private static int _nbCard;
         public int id;
         public new string name = "";
-        public int cost = 0;
+        public int cost;
         public Faction faction = Faction.Bleu;
-        public bool shipOrBase = false;
-        public bool isTaunt = false;
+        public bool shipOrBase;
+        public bool isTaunt;
         public Sprite icon;
         public Mesh image;
         public Dictionary<List<Condition>, Dictionary<Effect, int>> Actions = new Dictionary<List<Condition>,
             Dictionary<Effect, int>>();
-        public int baseLife = 0;
-        public bool isUsed = false;
-        public bool needPlayer = false;
-        public Card mySelf = null;
-
-        void Start()
-        {
-            GameManager.currentPlayer.board.Add(this);
-        }
+        public int baseLife;
+        public bool isUsed;
+        public bool needPlayer;
+        public Card mySelf;
+        public float timer;
+        public GameObject objectToMove;
+        public bool draged;
+        public Object model3D;
+        public Object vaisseauBoard;
+        public int handPos;
+        
+        public int rankCond;
+        private float _currentTime;
+        private bool _overBoard;
+        
         void Update()
         {
-            transform.LookAt(GameObject.FindWithTag("MainCamera").transform.position - new Vector3(0,0,0));
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (! draged && gameObject.activeSelf)
             {
-                CheckCondition();
+                if (objectToMove.transform.position != transform.position || objectToMove.transform.rotation != transform.rotation)
+                {
+                    _currentTime += Time.deltaTime;
+                    float percent = _currentTime / timer;
+                    transform.position = Vector3.Lerp(transform.position, objectToMove.transform.position, percent);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, objectToMove.transform.rotation, percent);
+                }
+                else
+                {
+                    _currentTime = 0;
+                }
             }
+        }
+        private void OnMouseDown()
+        {
+            if ((ContainsWithId(GameManager.currentPlayer.shopObject.GetComponent<Shop>().display) ||
+                ContainsWithId(GameManager.currentPlayer.shopObject.GetComponent<Shop>().explorer)) &&
+                !GameManager.IsPopUpActivated())
+            { 
+                GameManager.currentPlayer.Buy(this);
+            }
+        }
+        private void OnMouseUp()
+        {
+            if (draged)
+            {
+                if (_overBoard)
+                {
+                    vaisseauBoard = Instantiate(model3D, new Vector3(),new Quaternion());
+                    vaisseauBoard.GetComponent<ShipManager>().objectToMove = Instantiate((GameObject) UnityEngine.Resources.Load("Prefab/Tmp/Image"),GameManager.currentPlayer.objectBoard.transform.GetChild(0).GetChild(0));
+                    vaisseauBoard.GetComponent<Transform>().SetParent(vaisseauBoard.GetComponent<ShipManager>().objectToMove.transform);
+                    vaisseauBoard.GetComponent<ShipManager>().hisCard = this;
+                    gameObject.GetComponent<BoxCollider>().enabled = false;
+                    transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
+                    transform.SetParent(vaisseauBoard.GetComponent<ShipManager>().objectToMove.transform);
+                    GameManager.currentPlayer.panelHand.FillGap(this);
+                    GameManager.currentPlayer.PlayCard(this);
+                    handPos = GameManager.currentPlayer.boardNumber;
+                    GameManager.currentPlayer.boardNumber++;
+                    objectToMove = vaisseauBoard.GetComponent<ShipManager>().objectToMove;
+                    GameManager.currentPlayer.panelBoard.AddElement(vaisseauBoard.GetComponent<ShipManager>());
+                    PlaySelf();
+                }
+                draged = false;
+            }
+            GameManager.currentPlayer.objectBoard.transform.GetChild(1).gameObject.SetActive(false);
+          
+        }
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag("board"))
+            {
+                _overBoard = true;
+            }
+        }
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.CompareTag("board"))
+            {
+                _overBoard = false;
+            }
+        }
+        private void OnMouseDrag()
+        {
+            GameManager.currentPlayer.objectBoard.transform.GetChild(1).gameObject.SetActive(true);
+            if (!GameManager.popUpPlayerChoice.activeSelf && !isUsed && GameManager.currentPlayer.hand.Contains(this))
+            {
+                draged = true;
+                Vector3 position = transform.position;
+                int signe;
+                if (GameManager.currentPlayer == GameManager.player1)
+                {
+                    signe = 1;
+                }
+                else
+                {
+                    signe = -1;
+                }
+                position = new Vector3(position.x + signe * Input.GetAxis("Mouse X") / 4, position.y + Input.GetAxis("Mouse Y") / 4.5f, position.z);
+                transform.position = position;
+            }
+        }
+        public List<Condition> GetNextCond(bool clicked)
+        {
+            List<Condition> firstCond = new List<Condition>();
+            int thisRank = 0;
+            if (!isUsed)
+            {
+                foreach (KeyValuePair<List<Condition>, Dictionary<Effect, int>> conds in Actions)
+                {
+                    if (thisRank == rankCond)
+                    {
+                        if (!conds.Key.Contains(Condition.Or) && !conds.Key.Contains(Condition.AutoScrap))
+                        {
+                            if (!Actions[conds.Key].ContainsKey(Effect.Discard) &&
+                                !Actions[conds.Key].ContainsKey(Effect.Hinder) &&
+                                !Actions[conds.Key].ContainsKey(Effect.Scrap) &&
+                                !Actions[conds.Key].ContainsKey(Effect.BaseDestruction) &&
+                                !Actions[conds.Key].ContainsKey(Effect.DiscardToDraw))
+                            {
+                                firstCond = conds.Key;
+                                rankCond++;
+                            } else if (clicked)
+                            {
+                                firstCond = conds.Key;
+                                rankCond++;
+                            }
+                        }
+                        else if (clicked)
+                        {
+                            firstCond = conds.Key;
+                            rankCond++;
+                        }
+                        return firstCond;
+                    }
+                    else
+                    {
+                        thisRank++;
+                    }
+                }
+            }
+            return firstCond;
         }
         public void SetId()
         {
@@ -40,81 +169,100 @@ namespace Resources.Script
         }
         public void PlaySelf()
         {
-            GameManager.currentPlayer.PlayCard(this);
+            rankCond = 0;
+            CheckCondition(GetNextCond(false));
         }
-        public void CheckCondition()
+        public void CancelPlay()
         {
-            foreach (List<Condition> conds in Actions.Keys)
+            /*gameObject.transform.SetParent(GameManager.CurrentPlayer.objectHand.transform);
+            ShipManager ship = FindMyShip();
+            ship.objectToMove.SetActive(false);
+            ship.Destruction();
+            objectToMove = GameManager.CurrentPlayer.objectHand.transform.GetChild(0).transform.GetChild(0).transform.GetChild(handPos).gameObject;
+            objectToMove.SetActive(true);
+            gameObject.GetComponent<BoxCollider>().enabled = true;
+            transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
+            GameManager.CurrentPlayer.handNumber++;
+            GameManager.CurrentPlayer.hand.Add(this);
+            GameManager.CurrentPlayer.board.Remove(this);*/
+        }
+        public void CheckCondition(List<Condition> conds)
+        {
+            List<bool> allCheck = new List<bool>();
+            foreach (Condition cond in conds)
             {
-                foreach (Condition cond in conds)
+                switch (cond)
                 {
-                    switch (cond)
-                    {
-                        case Condition.Nothing:
-                            DoEffect(Actions[conds]);
-                            break;
-                        case Condition.Or:
-                            /*choix du joueur*/
-                            Effect choix = Effect.D;
-                            Dictionary<Effect, int> aFaire = new Dictionary<Effect, int>();
-                            aFaire.Add(choix,Actions[conds][choix]);
-                            DoEffect(aFaire);
-                            break;
-                        case Condition.Synergie:
-                            if (CheckSynergie())
-                            {
-                                DoEffect(Actions[conds]);
-                            }
-
-                            break;
-                        case Condition.AutoScrap:
-                            /*Confirmation player*/
-                            DoEffect(Actions[conds]);
-                            Destroy(this);
-                            break;
-                        case Condition.ForEachSameFaction:
-                            for (int i = 0; i < CheckNbSameFactionOnBoard(); i++)
-                            {
-                                DoEffect(Actions[conds]);
-                            }
-
-                            break;
-                        case Condition.TwoBaseOrMore:
-                            if (CheckNbBaseOnBoard() >= 2)
-                            {
-                                DoEffect(Actions[conds]);
-                            }
-                            break;
-                    }
+                    case Condition.Nothing:
+                        allCheck.Add(true);
+                        break;
+                    case Condition.Synergie:
+                        if (CheckSynergie())
+                        {
+                            allCheck.Add(true);
+                        }
+                        break;
+                    case Condition.ForEachSameFaction:
+                        for (int i = 0; i < CheckNbSameFactionOnBoard(); i++)
+                        {
+                            DoEffect(Actions[conds],false);
+                        }
+                        break;
+                    case Condition.TwoBaseOrMore:
+                        if (CheckNbBaseOnBoard() >= 2)
+                        {
+                            allCheck.Add(true);
+                        }
+                        break;
                 }
             }
+            if (!allCheck.Contains(false) && allCheck.Contains(true))
+            {
+                DoEffect(Actions[conds],false);
+            }
         }
-        public void DoEffect(Dictionary<Effect, int> lesEffets)
+        public void DoEffect(Dictionary<Effect, int> lesEffets, bool isAutoScrap)
         {
             foreach (KeyValuePair<Effect, int> e in lesEffets)
             {
                 switch (e.Key)
                 {
                     case Effect.Copy:
-                        GameManager.popUp.GetComponent<PopUpManager>().Activate(this,Zone.Board,e.Key,e.Value);
+                        GameManager.popUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.Board,e.Key,e.Value,isAutoScrap);
                         break;
                     case Effect.D:
                         AddValue(Effect.D,e.Value);
+                        GameManager.currentPlayer.objectInfo.transform.GetChild(1).GetChild(0).GetComponent<Text>()
+                            .text = GameManager.currentPlayer.totalPower + " P";
+                        AutoSrap(isAutoScrap);
                         break;
                     case Effect.Discard:
-                        GameManager.popUp.GetComponent<PopUpManager>().Activate(this,Zone.HandAndDiscardPile,e.Key,e.Value);
+                        GameManager.popUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.Hand,e.Key,e.Value,isAutoScrap);
+                        AutoSrap(isAutoScrap);
                         break;
                     case Effect.Draw:
+                        Debug.Log("test");
                         GameManager.currentPlayer.Draw(e.Value);
+                        AutoSrap(isAutoScrap);
                         break;
                     case Effect.G:
                         AddValue(Effect.G,e.Value);
+                        GameManager.currentPlayer.objectInfo.transform.GetChild(2).GetChild(0).GetComponent<Text>()
+                            .text = GameManager.currentPlayer.money + " $";
+                        AutoSrap(isAutoScrap);
                         break;
                     case Effect.H:
                         AddValue(Effect.H,e.Value);
+                        GameManager.currentPlayer.objectInfo.transform.GetChild(0).GetChild(0).GetComponent<Text>()
+                            .text = GameManager.currentPlayer.hp + "\nHP";
+                        if(GameManager.currentPlayer == GameManager.player1)
+                            GameManager.player2.objectInfo.transform.GetChild(3).GetChild(0).GetComponent<Text>().text = GameManager.player1.hp+"\nHP";
+                        else
+                            GameManager.player1.objectInfo.transform.GetChild(3).GetChild(0).GetComponent<Text>().text = GameManager.player2.hp+"\nHP";
+                        AutoSrap(isAutoScrap);
                         break;
                     case Effect.Hinder:
-                        GameManager.popUp.GetComponent<PopUpManager>().Activate(this,Zone.Board,e.Key,e.Value);
+                        GameManager.popUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.Display,e.Key,e.Value,true);
                         break;
                     case Effect.Requisition:
                         Requisition();
@@ -123,16 +271,16 @@ namespace Resources.Script
                         TargetDiscard();
                         break;
                     case Effect.Scrap:
-                        GameManager.popUp.GetComponent<PopUpManager>().Activate(this,Zone.HandAndDiscardPile,e.Key,e.Value);
+                        GameManager.popUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.HandAndDiscardPile,e.Key,e.Value,isAutoScrap);
                         break;
                     case Effect.Wormhole:
                         GameManager.currentPlayer.cardOnTop = true;
                         break;
                     case Effect.BaseDestruction:
-                        GameManager.popUp.GetComponent<PopUpManager>().Activate(this,Zone.EnnemyBoardBase,e.Key,e.Value);
+                        GameManager.popUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.EnnemyBoardBase,e.Key,e.Value,isAutoScrap);
                         break;
                     case Effect.DiscardToDraw:
-                        GameManager.popUp.GetComponent<PopUpManager>().Activate(this,Zone.Hand,e.Key,e.Value);
+                        GameManager.popUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.Hand,e.Key,e.Value,isAutoScrap);
                         break;
                     case Effect.AllShipOneMoreDamage:
                         foreach (Card card in GameManager.currentPlayer.board)
@@ -149,6 +297,28 @@ namespace Resources.Script
                 }
             }
         }
+
+        public void AutoSrap(bool isAutoScrap)
+        {
+            if (!isAutoScrap)
+            {
+                if (rankCond == Actions.Keys.Count)
+                {
+                    isUsed = true;
+                }
+                else
+                {
+                    CheckCondition(GetNextCond(false));
+                }
+            }
+            else
+            {
+                GameManager.currentPlayer.panelBoard.FillGap(this);
+                GameManager.currentPlayer.board.Remove(this);
+                GameManager.currentPlayer.boardNumber--;
+                Destroy(gameObject);
+            }
+        }
         public void DiscardToDraw(int nbDiscard)
         {
             GameManager.currentPlayer.Draw(nbDiscard);
@@ -157,7 +327,7 @@ namespace Resources.Script
         {
             foreach (Card c in GameManager.currentPlayer.board)
             {
-                if (c.faction == faction || c.faction == Faction.All)
+                if ((c.faction == faction || c.faction == Faction.All) && c != this)
                 {
                     return true;
                 }
@@ -191,19 +361,35 @@ namespace Resources.Script
                     break;
             }
         }
-        public void ScrapOrDiscard(bool scrapOrDiscard, List<Card> lesCartes)
+        public void ScrapOrDiscard(bool scrapOrDiscard, List<Card> lesCartes, bool isAs)
         {
             if (!scrapOrDiscard)
             {
                 foreach (Card c in lesCartes)
                 {
-                    Destroy(c);
+                    if (GameManager.currentPlayer.hand.Contains(c))
+                    {
+                        GameManager.currentPlayer.hand.Remove(c);
+                    }else if (GameManager.currentPlayer.discardPile.Contains(c))
+                    {
+                        GameManager.currentPlayer.discardPile.Remove(c);
+                    } else if (GameManager.currentPlayer.shopObject.GetComponent<Shop>().display.Contains(c))
+                    {
+                        GameManager.currentPlayer.shopObject.GetComponent<Shop>().Refill(c);
+                        GameManager.currentPlayer.shopObject.GetComponent<Shop>().display.Remove(c);
+                    }
+                    Destroy(c.gameObject);
                 }
             }
             else
             {
-                //GameManager.currentPlayer.Discard(nbMax);
+                foreach (Card c in lesCartes)
+                {
+                    GameManager.currentPlayer.hand.Remove(c);
+                    GameManager.currentPlayer.discardPile.Add(c);
+                }
             }
+            AutoSrap(isAs);
         }
         public void TargetDiscard()
         {
@@ -254,7 +440,7 @@ namespace Resources.Script
             {
                 Actions.Add(k.Key,k.Value);
             }
-            CheckCondition();
+            CheckCondition(GetNextCond(false));
         }
         public void UnCopy()
         {
@@ -270,7 +456,7 @@ namespace Resources.Script
             isUsed = mySelf.isUsed;
             needPlayer = mySelf.needPlayer;
         }
-        private List<Condition> FindConditionsOfEffect(Effect e)
+        public List<Condition> FindConditionsOfEffect(Effect e)
         {
             foreach ( KeyValuePair<List<Condition>, Dictionary<Effect, int>> k in Actions)
             {
@@ -286,7 +472,7 @@ namespace Resources.Script
             resultat.Add(Condition.NotFound);
             return resultat;
         }
-        private bool HaveIDamage(Card c)
+        public bool HaveIDamage(Card c)
         {
             foreach (KeyValuePair<List<Condition>, Dictionary<Effect, int>> k in c.Actions)
             {
@@ -297,6 +483,52 @@ namespace Resources.Script
                         return true;
                     }
                 }
+            }
+            return false;
+        }
+        public bool HaveIThisCondition(Condition condition)
+        {
+            foreach (List<Condition> lesConds in Actions.Keys)
+            {
+                foreach (Condition cond in lesConds)
+                {
+                    if (cond == condition)
+                        return true;
+                }
+            }
+            return false;
+        }
+        public List<Condition> GetListCondsFromCondition(Condition condition)
+        {
+            foreach (List<Condition> lesConds in Actions.Keys)
+            {
+                foreach (Condition cond in lesConds)
+                {
+                    if (cond == condition)
+                        return lesConds;
+                }
+            }
+            return new List<Condition>();
+        }
+        public ShipManager FindMyShip()
+        {
+            ShipManager monShip = null;
+            List<ShipManager> lesShips = GameManager.currentPlayer.objectBoard.GetComponentsInChildren<ShipManager>().ToList();
+            foreach (ShipManager sm in lesShips)
+            {
+                if (sm.hisCard.id == id)
+                {
+                    monShip = sm;
+                }
+            }
+            return monShip;
+        }
+        public bool ContainsWithId(List<Card> listCard)
+        {
+            foreach (Card card in listCard)
+            {
+                if (card.id == id)
+                    return true;
             }
             return false;
         }

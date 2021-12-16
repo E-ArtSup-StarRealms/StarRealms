@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
+using UnityEngine.UI;
 
 
 namespace Resources.Script
@@ -9,70 +9,95 @@ namespace Resources.Script
     {    
         //Variables de classe (attributs de la classe)
         public int hp = 50;
-        public int money = 0;
-        public int totalPower = 0;
+        public int money;
+        public int totalPower;
         public int toDiscard;
         public List<Card> deck = new List<Card>();
         public List<Card> discardPile = new List<Card>();
         public List<Card> hand = new List<Card>();
         public List<Card> board = new List<Card>();
-        public Dictionary<Faction, int> dicoFacThisTurn;
         public bool cardOnTop;
         public bool freeShip;
+        public ListNavigation panelHand;
+        public NavigationBoard panelBoard;
     
         //Variables utiles pour le code
         public List<Effect> priorityCheck;
         public GameObject shopObject;
-        private Shop shop;
+        private Shop _shop;
         public GameObject enemyObject;
-        private Player enemy;
+        private Player _enemy;
         public GameObject objectDeck;
         public GameObject objectDiscardPile;
         public GameObject objectHand;
         public GameObject objectBoard;
+        public GameObject objectInfo;
+        public int handNumber;
+        public int boardNumber;
 
         void Start()
         {
-            shop = shopObject.GetComponent<Shop>();
-            enemy = enemyObject.GetComponent<Player>();
+            _shop = shopObject.GetComponent<Shop>();
+            _enemy = enemyObject.GetComponent<Player>();
+            objectInfo.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = hp + "\nHP";
+            objectBoard.transform.GetChild(1).gameObject.SetActive(false);
         }
-    
-        void Update()
+        /*void Update()
         {
-        if(gameObject.name == "Player")
+            if(gameObject.name == "Player")
             {
                 if (Input.GetKeyUp(KeyCode.D))
                     Draw(1);
                 if (Input.GetKeyUp(KeyCode.B))
-                    Buy(shop.transform.GetChild(0).GetComponent<Card>());
+                    Buy(_shop.transform.GetChild(0).GetComponent<Card>());
                 if (Input.GetKeyUp(KeyCode.P))
                     PlayCard(GameObject.Find("Hand").transform.GetChild(0).GetComponent<Card>());
                 if (Input.GetKeyUp(KeyCode.A))
                     PlayAll();
                 if (Input.GetKeyUp(KeyCode.E))
-                    EndTurn();
+                    EndTurn(false);
                 if (Input.GetKeyUp(KeyCode.F))
                     Attack(enemyObject);
                 if (Input.GetKeyUp(KeyCode.L))
                     LookDeck();
             }
-        }
-
-    
+        }*/
         public void Draw(int nb)
         {
             for (int i = 0; i < nb; i++)
             {
                 if (deck.Count == 0)
                 {
-                    RefillDeck();
+                    if (discardPile.Count != 0)
+                    {
+                        RefillDeck();
+                        deck[0].gameObject.transform.SetParent(objectHand.transform);
+                        deck[0].objectToMove = Instantiate((GameObject) UnityEngine.Resources.Load("Prefab/Tmp/Image"),panelHand.transform);
+                        deck[0].transform.SetParent(deck[0].objectToMove.transform);
+                        deck[0].gameObject.SetActive(true);
+                        deck[0].transform.localScale = new Vector3(182,121,97);
+                        deck[0].handPos = handNumber;
+                        handNumber++;
+                        hand.Add(deck[0]);
+                        panelHand.AddElement(deck[0]);
+                        deck.RemoveAt(0);
+                    }
                 }
-                deck[0].gameObject.transform.SetParent(objectHand.transform);
-                hand.Add(deck[0]);
-                deck.RemoveAt(0);
+                else
+                {
+                    deck[0].gameObject.transform.SetParent(objectHand.transform);
+                    deck[0].objectToMove = Instantiate((GameObject) UnityEngine.Resources.Load("Prefab/Tmp/Image"),panelHand.transform);
+                    deck[0].transform.SetParent(deck[0].objectToMove.transform);
+                    deck[0].gameObject.SetActive(true);
+                    deck[0].transform.localScale = new Vector3(182,121,97);
+                    deck[0].handPos = handNumber;
+                    handNumber++;
+                    hand.Add(deck[0]);
+                    panelHand.AddElement(deck[0]);
+                    deck.RemoveAt(0);
+                }
             }
         }
-
         public void Buy(Card card)
         {
             if (freeShip)
@@ -81,18 +106,18 @@ namespace Resources.Script
             {
                 TakeCardFromShop(card);
                 money -= card.cost;
+                objectInfo.transform.GetChild(2).GetChild(0).GetComponent<Text>().text = money+" $";
+                card.objectToMove = objectDiscardPile.transform.GetChild(0).gameObject;
             }
             else
-                Debug.Log("Vous n'avez pas assez d'argent");
+                Debug.Log("You do not have enough money");
         }
-
         public void PlayCard(Card card)
         {
-            card.gameObject.transform.SetParent(objectBoard.transform);
+            handNumber--;
             hand.Remove(card);
             board.Add(card);
         }
-
         public void PlayAll()
         {
             bool canPlay = true;
@@ -103,7 +128,6 @@ namespace Resources.Script
                     canPlay = false;
                 }
             }
-
             if (canPlay)
             {
                 int nbCards = hand.Count;
@@ -113,64 +137,91 @@ namespace Resources.Script
                 }
             }
         }
-
-        public void EndTurn()
+        public void EndTurn(bool bypass)
         {
-            if (hand.Count == 0)
+            handNumber = 0;
+            boardNumber = 0;
+            if (!CanPurchase() && totalPower == 0 && hand.Count == 0 || bypass)
             {
-                if (money == 0 && totalPower == 0)
+                int nbCard = board.Count;
+                for (int i = 0; i < nbCard; i++)
                 {
-                    int nbCard = board.Count;
-                    for (int i = 0; i < nbCard; i++)
+                    if (!board[0].shipOrBase)
                     {
-                        if (!board[0].shipOrBase)
-                        {
-                            board[0].gameObject.transform.SetParent(objectDiscardPile.transform);
-                            discardPile.Add(board[0]);
-                            board.RemoveAt(0);
-                        }
+                        board[0].gameObject.transform.SetParent(objectDiscardPile.transform);
+                        board[0].objectToMove = objectDiscardPile;
+                        board[0].gameObject.GetComponent<BoxCollider>().enabled = true;
+                        board[0].transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
+                        board[0].objectToMove = objectDiscardPile.transform.GetChild(0).gameObject;
+                        board[0].isUsed = false;
+                        discardPile.Add(board[0]);
+                        board.RemoveAt(0);
                     }
-                    Debug.Log("Changement de tour");
-                    //Appel de la fonction de changement de tour dans le GameManeger
                 }
-                else
-                    Debug.Log("Vous avez de l'argent ou des points d'attaque inutilisés");
+                nbCard = hand.Count;
+                for (int i = 0; i < nbCard; i++)
+                {
+                    hand[0].gameObject.transform.SetParent(objectDiscardPile.transform);
+                    hand[0].objectToMove.SetActive(false);
+                    hand[0].objectToMove = objectDiscardPile.transform.GetChild(0).gameObject;
+                    discardPile.Add(hand[0]);
+                    hand.RemoveAt(0);
+                }
+                foreach (ShipManager sm in objectBoard.GetComponentsInChildren<ShipManager>())
+                {
+                    if (discardPile.Contains(sm.hisCard))
+                    {
+                        Destroy(sm.objectToMove);
+                        Destroy(sm.gameObject);
+                    }
+                }
+                panelHand.Reset();
+                panelBoard.Reset();
+                GameManager.EndTurn();
+            }else if( hand.Count > 0 )
+            {
+                GameManager.popUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You still have cards in your hand.\nAre you sure you want to skip your turn?");
             }
-            else
-                Debug.Log("Il vous reste des cartes dans votre main");
+            else if( CanPurchase() )
+            {
+                GameManager.popUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You can at least buy one more ship/base.\nAre you sure you want to skip your turn?");
+            }
+            else if( totalPower!=0 )
+            {
+                GameManager.popUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You can still attack.\nAre you sure you want to skip your turn?");
+            }
+                
         }
-
         public void Attack(GameObject target)
         {
             if (target.name == enemyObject.name)
             {
-                Debug.Log("ennemi");
-                if (canAttackPlayer())
+                if (CanAttackPlayer())
                 {
-                    enemy.hp -= totalPower;
+                    _enemy.hp -= totalPower;
+                    _enemy.objectInfo.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = _enemy.hp+"\nHP";
+                    objectInfo.transform.GetChild(3).GetChild(0).GetComponent<Text>().text = _enemy.hp+"\nHP";
                     totalPower = 0;
-                    if (enemy.hp <= 0)
-                        Debug.Log("You Win");
+                    objectInfo.transform.GetChild(1).GetChild(0).GetComponent<Text>().text = totalPower+" P";
+                    if (_enemy.hp <= 0)
+                        GameManager.popUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You Win !");
                 }
                 else
-                    Debug.Log("Vous devez d'abord détruire la base taunt avant d'attaquer le joueur");
+                    GameManager.popUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You must first destroy the taunt base before attacking the player");
             }
             else
             {
                 Card targetCard = target.GetComponent<Card>();
-                if (targetCard.isTaunt || canAttackPlayer())
+                if (targetCard.isTaunt || CanAttackPlayer())
                 {
                     AttackBase(targetCard, target);
                 }
                 else
                 {
-                    Debug.Log("Vous devez d'abord détruire la base taunt");
+                    GameManager.popUpEndTurn.GetComponent<PopUpEndTurn>().Activate("You must first destroy the taunt base");
                 }
             }
         }
-
-        //public void Discard(int nb){ } //A faire une fois qu'on aura l'UI
-
         public void LookDiscard()
         {
             foreach (Card card in discardPile)
@@ -178,7 +229,6 @@ namespace Resources.Script
                 Debug.Log(card);
             }
         }
-
         public void LookDeck()
         {
             foreach (Card card in deck)
@@ -186,18 +236,20 @@ namespace Resources.Script
                 Debug.Log(card);
             }
         }
-
         public void RefillDeck()
         {
             Shuffle();
-            for (int i = 0; i < discardPile.Count; i++)
+            for (int i = 1 ; i < discardPile.Count; i++)
             {
-                objectDiscardPile.transform.GetChild(0).SetParent(objectDeck.transform);
+                objectDiscardPile.transform.GetChild(1).SetParent(objectDeck.transform);
             }
             deck = new List<Card>(discardPile);
+            foreach (Card c in deck)
+            {
+                c.objectToMove = objectDeck;
+            }
             discardPile.Clear();
         }
-    
         public void Shuffle()
         {
             int nbCard = discardPile.Count;
@@ -211,29 +263,39 @@ namespace Resources.Script
                 objectDiscardPile.transform.GetChild(rnd).SetParent(objectDiscardPile.transform);
             }
         }
-    
-        //Méthodes utiles pour la classe
-    
+        public void ShuffleDeck()
+        {
+            int nbCard = deck.Count;
+            List<Card> tempList = new List<Card>(deck);
+            deck.Clear();
+            for (int i = 0; i < nbCard; i++)
+            {
+                int rnd = Random.Range(0, nbCard - i);
+                deck.Add(tempList[rnd]);
+                tempList.RemoveAt(rnd);
+                objectDeck.transform.GetChild(rnd).SetParent(objectDeck.transform);
+            }
+        }
         public void AttackBase(Card targetCard, GameObject target)
         {
             if(targetCard.baseLife <= totalPower)
             {
                 Destroy(target);
                 totalPower -= targetCard.baseLife;
+                objectInfo.transform.GetChild(1).GetChild(0).GetComponent<Text>().text = totalPower+" P";
             }
             else
-                Debug.Log("Vous n'avez pas assez d'attaque");
+                Debug.Log("You don't have enough power");
         }
-        public bool canAttackPlayer()
+        public bool CanAttackPlayer()
         {
-            foreach (Card card in enemy.board)
+            foreach (Card card in _enemy.board)
             {
                 if (card.isTaunt)
                     return false;
             }
             return true;
         }
-
         public void TakeCardFromShop(Card card)
         {
             if (cardOnTop)
@@ -246,8 +308,26 @@ namespace Resources.Script
                 card.gameObject.transform.SetParent(objectDiscardPile.transform);
                 discardPile.Add(card);
             }
-            shop.display.Remove(card);
-            shop.Refill();
+            card.transform.localScale = new Vector3(0.7f,0.7f,1);
+            _shop.Refill(card);
+        }
+        public bool CanPurchase()
+        {
+            foreach (Card c in _shop.display)
+            {
+                if (c.cost <= money)
+                {
+                    return true ;
+                }
+            }
+            if (_shop.explorer.Count>0)
+            {
+                if (_shop.explorer[0].cost <= money)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

@@ -1,24 +1,44 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Resources.Script
 {
     public class GameManager : MonoBehaviour
     {
-        public static GameObject popUp;
+        public static GameObject popUpPlayerChoice;
+        public static GameObject popUpOr;
+        public static GameObject popUpAutoScrap;
+        public static GameObject popUpEndTurn;
+        
         public static Player player1 ;
         public static Player player2;
         public static Player currentPlayer;
 
         [SerializeField]
         private GameObject panelWin;
-        private bool firstRound;
+        private static bool _firstRound = true;
+
+        public static GameObject camP1;
+        public static GameObject camP2;
+        public static Vector3 pos1 = new Vector3(-1.03f, 0.82f, -14.2f);
+        public static Vector3 pos2 = new Vector3(1.14f, 0.82f, 14.16f);
+        public static GameObject shopObject;
 
         private void Awake()
         {
-            popUp = GameObject.Find("PopUp");
-            popUp.SetActive(false);
+            shopObject = GameObject.Find("Shop");
+            camP1 = GameObject.Find("CM vcam1");
+            camP2 = GameObject.Find("CM vcam2");
+            camP2.SetActive(false);
+            popUpPlayerChoice = GameObject.Find("PopUpPlayerChoice");
+            popUpOr = GameObject.Find("PopUpOr");
+            popUpAutoScrap = GameObject.Find("PopUpAutoScrap");
+            popUpEndTurn = GameObject.Find("PopUpEndTurn");
+
+            popUpPlayerChoice.SetActive(false);
+            popUpAutoScrap.SetActive(false);
+            popUpOr.SetActive(false);
+            popUpEndTurn.SetActive(false);
+
             player1 = GameObject.Find("Player1").GetComponent<Player>();
             player2 = GameObject.Find("Player2").GetComponent<Player>();
             currentPlayer = player1;
@@ -26,58 +46,73 @@ namespace Resources.Script
 
         private void Start()
         {
-            panelWin.SetActive(false);
-            firstRound = true;
+            // I SLASHED PANEL WIN CAUSE I COULDNT FIND IT
+             panelWin.SetActive(false);
             //BeginTurn();
         }
 
         //Distribue les carte selon si c'est le premier tour ou non
-        private void BeginTurn()
+        public static void BeginTurn()
         {
-
-           
-           
-
-            if(firstRound)
+            //pioche de debut de tour
+            if(_firstRound)
             {
-
                 currentPlayer.Draw(3);
-                firstRound = false;
-
+                _firstRound = false;
             }
             else
             {
-
                 currentPlayer.Draw(5);
-
             }
 
+            if (currentPlayer.toDiscard >0)
+            {
+                popUpPlayerChoice.GetComponent<PopUpManager>().Activate(GameObject.Find("GeneralCard").GetComponent<Card>(),
+                    Zone.Hand,Effect.Discard,currentPlayer.toDiscard,false);
+            }
         }
 
-        private void endTurn()
+        public static void EndTurn()
         {
+            //supression de la money et du power restan 
             currentPlayer.money = 0;
             currentPlayer.totalPower = 0;
-            if (currentPlayer = player1)
+
+           //echange de borad (visuelle)
+            if(camP2.activeSelf == false)
             {
-                if(player2.hp <= 0 )
-                {
-                    panelWin.SetActive(true);
-                }
-                player1.hp = currentPlayer.hp;
-                currentPlayer = player2;
+                camP2.SetActive(true);
+                shopObject.transform.position = pos2;
+                shopObject.transform.eulerAngles = new Vector3(shopObject.transform.eulerAngles.x, shopObject.transform.eulerAngles.y + 180 , shopObject.transform.eulerAngles.z);
+                camP1.SetActive(false);
             }
             else
             {
-                if (player1.hp <= 0)
-                {
-                    panelWin.SetActive(true);
-                }
-                player2.hp = currentPlayer.hp;
+                camP1.SetActive(true);
+                shopObject.transform.position = pos1;
+                shopObject.transform.eulerAngles = new Vector3(shopObject.transform.eulerAngles.x, shopObject.transform.eulerAngles.y + 180, shopObject.transform.eulerAngles.z);
+                camP2.SetActive(false);
+            }
+
+            //switche du current player et des hp de ce dernier
+                if (currentPlayer == player1)
+            {
+             
+               currentPlayer = player2;
+            }
+            else
+            {
                 currentPlayer = player1;
             }
-            
+            BeginTurn();
         }
 
+        public static bool IsPopUpActivated()
+        {
+            return popUpPlayerChoice.activeSelf ||
+                   popUpAutoScrap.activeSelf ||
+                   popUpOr.activeSelf ||
+                   popUpEndTurn.activeSelf;
+        }
     }
 }

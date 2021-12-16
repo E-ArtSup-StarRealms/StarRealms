@@ -1,27 +1,29 @@
 ﻿{
   "card" : [
     {
-    "name": "Hunter B56",
-    "cost": 1,
-    "faction": "Rouge",
-    "shipOrBase": false,
-    "isTaunt": false,
-    "icon": "",
-    "mesh": "",
-    "Actions": [
-       {
+      "name": "Hunter B56",
+      "cost": 1,
+      "faction": "Rouge",
+      "shipOrBase": false,
+      "isTaunt": false,
+      "icon": "",
+      "mesh": "",
+      "actions": 
+      [
+        {
         "conditions": [""],
         "effects": ["2D"]
-      },
-      {
+        },
+        {
         "conditions": ["Synergie"],
         "effects": ["Draw"]
-      }
+        }
       
-    ],
-    "baseLife": 0,
-    "isUsed": false,
-    "needPlayer": false
+      ],
+      "baseLife": 0,
+      "isUsed": false,
+      "needPlayer": false, 
+      "nbExemplaire" : 3
   },
     {
     "name": "Defective Transporter",
@@ -31,15 +33,15 @@
     "isTaunt": false,
     "icon": "",
     "mesh": "",
-    "Actions": 
+    "actions": 
     [
       {
         "conditions": [""],
-        "effects": ["D","Draw"]
+        "effects": ["G","Draw"]
       },
       {
         "conditions": ["Synergie"],
-        "effects": ["2G"]
+        "effects": ["G"]
       },
       {
         "conditions": ["AutoScrap"],
@@ -49,7 +51,8 @@
     ],
     "baseLife": 0,
     "isUsed": false,
-    "needPlayer": true
+    "needPlayer": true,
+      "nbExemplaire" : 3
   },
     {
       "name": "Driller S88",
@@ -59,11 +62,11 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
-          "effects": ["G"]
+          "effects": ["Scrap"]
         },
         {
           "conditions": ["Synergie"],
@@ -71,13 +74,14 @@
         },
         {
           "conditions": ["AutoScrap"],
-          "effects": ["2G"]
+          "effects": ["3G"]
         }
         
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 2
     },
     {
       "name": "Mainframe Repeater",
@@ -87,7 +91,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -100,7 +104,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 3
     },
     {
       "name": "Bomber F62",
@@ -110,7 +115,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -128,7 +133,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 3
     },
     {
       "name": "Hyperlight Breaker",
@@ -138,7 +144,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -156,7 +162,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 3
     },
     {
       "name": "Teleporter G34",
@@ -166,7 +173,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -180,7 +187,8 @@
       ],
       "baseLife": 5,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 2
     },
     {
       "name": "Mainframe A00",
@@ -190,7 +198,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -204,7 +212,8 @@
       ],
       "baseLife": 5,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 1
     },
     {
       "name": "Bungler Fly",
@@ -214,7 +223,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": ["Or"],
@@ -228,7 +237,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 3
     },
     {
       "name": "Garbage Cleaner",
@@ -238,7 +248,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -252,7 +262,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 3
     },
     {
       "name": "Corrosive Sorter",
@@ -262,7 +273,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -276,7 +287,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 3
     },
     {
       "name": "Hostile Shell",
@@ -286,7 +298,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -304,7 +316,8 @@
       ],
       "baseLife": 3,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 3
     },
     {
       "name": "Amorphous Offshoot",
@@ -314,7 +327,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -328,17 +341,18 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 3
     },
     {
       "name": "Arthropod Crusher",
-      "cost": 5,
+      "cost": 4,
       "faction": "Vert",
       "shipOrBase": false,
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -352,7 +366,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 2
     },
     {
       "name": "Traveling Hive",
@@ -362,7 +377,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -376,7 +391,8 @@
       ],
       "baseLife": 5,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 2
     },
     {
       "name": "The Swarm",
@@ -386,7 +402,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": ["ForEachSameFaction"],
@@ -404,7 +420,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 1
     },
     {
       "name": "Tax Collector",
@@ -414,7 +431,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -428,7 +445,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 3
     },
     {
       "name": "Trade Vessel",
@@ -438,7 +456,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -447,12 +465,17 @@
         {
           "conditions": ["Synergie"],
           "effects": ["Draw"]
+        },
+        {
+          "conditions": ["AutoScrap"],
+          "effects": ["Scrap"]
         }
         
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 3
     },
     {
       "name": "Caller of the Fleet",
@@ -462,7 +485,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -471,12 +494,17 @@
         {
           "conditions": ["Synergie"],
           "effects": ["Wormhole"]
+        },
+        {
+          "conditions": ["AutoScrap"],
+          "effects": ["Hinder"]
         }
         
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 1
     },
     {
       "name": "Fortified Trade Station",
@@ -486,7 +514,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": ["Or"],
@@ -500,7 +528,8 @@
       ],
       "baseLife": 4,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 2
     },
     {
       "name": "Emperor's Herald",
@@ -510,7 +539,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": "",
@@ -528,7 +557,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 1
     },
     {
       "name": "Fleet Optimizer",
@@ -538,7 +568,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -552,7 +582,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 2
     },
     {
       "name": "Imperial Prime Destroyer",
@@ -562,7 +593,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -580,7 +611,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 3
     },
     {
       "name": "Emperor's Will",
@@ -590,7 +622,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -603,7 +635,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 1
     },
     {
       "name": "Medic Shuttle",
@@ -613,7 +646,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -627,7 +660,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 3
     },
     {
       "name": "Deflector Shield",
@@ -637,7 +671,7 @@
       "isTaunt": true,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -651,7 +685,8 @@
       ],
       "baseLife": 2,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 4
     },
     {
       "name": "Federation's Mechanic",
@@ -661,21 +696,22 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
           "effects": ["G","2H"]
         },
         {
-          "conditions": ["Synergie","TwoBaseOrMore"],
+          "conditions": ["Synergie"],
           "effects": ["Scrap"]
         }
         
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 3
     },
     {
       "name": "Defensive Frigate",
@@ -685,7 +721,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -699,7 +735,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 2
     },
     {
       "name": "Recycling Station",
@@ -709,7 +746,7 @@
       "isTaunt": true,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -723,7 +760,8 @@
       ],
       "baseLife": 4,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 2
     },
     {
       "name": "Armored Protector",
@@ -733,11 +771,11 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
-          "effects": ["4D"]
+          "effects": ["3D"]
         },
         {
           "conditions": ["Synergie"],
@@ -747,7 +785,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 3
     },
     {
       "name": "Emergency Shelter",
@@ -757,7 +796,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -775,7 +814,8 @@
       ],
       "baseLife": 6,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": true,
+      "nbExemplaire" : 2
     },
     {
       "name": "Diplomatic Headquarters",
@@ -785,7 +825,7 @@
       "isTaunt": true,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -799,7 +839,8 @@
       ],
       "baseLife": 7,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 1
     },
     {
       "name": "Scout",
@@ -809,7 +850,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -819,7 +860,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 16
     },
     {
       "name": "Viper",
@@ -829,7 +871,7 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
@@ -839,7 +881,8 @@
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": false
+      "needPlayer": false,
+      "nbExemplaire" : 4
     },
     {
       "name": "Explorer",
@@ -849,21 +892,22 @@
       "isTaunt": false,
       "icon": "",
       "mesh": "",
-      "Actions": 
+      "actions": 
       [
         {
           "conditions": [""],
           "effects": ["2G"]
         },
         {
-          "conditions": ["AutoScrap"],
-          "effects": ["2D"]
+          "conditions": ["AutoScrap","Or"],
+          "effects": ["2D","Hinder"]
         }
         
       ],
       "baseLife": 0,
       "isUsed": false,
-      "needPlayer": true
+      "needPlayer": false,
+      "nbExemplaire" : 10
     }
   ]
 }

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Resources.Script
@@ -11,15 +10,24 @@ namespace Resources.Script
         public Zone zoneApplied;
         public Effect effectApplied;
         public int nbToSelect;
-        public readonly List<Card> LesCartes = new List<Card>();
-        public void Activate(Card c,Zone zone,Effect e, int nbSelect)
+        public List<Card> LesCartes = new List<Card>();
+        public bool isAutoScrap;
+        public void Activate(Card c,Zone zone,Effect e, int nbSelect,bool isAs)
         {
+            LesCartes.Clear();
             gameObject.SetActive(true);
+            isAutoScrap = isAs;
+            GameObject.Find("Text_Validate").GetComponent<Text>().text = "No Card";
             cardFrom = c;
             zoneApplied = zone;
             effectApplied = e;
             nbToSelect = nbSelect;
             SetUp();
+        }
+
+        public void onEnable()
+        {
+            GameObject.Find("Text_Validate").GetComponent<Text>().text = "No Card";
         }
         public void SetUp()
         {
@@ -27,46 +35,54 @@ namespace Resources.Script
         }
         public void Validate()
         {
-            Debug.Log("Validate");
+            
             switch (effectApplied)
             {
                 case Effect.Copy:
-                    Debug.Log(LesCartes.Count);
                     if (LesCartes.Count > 0)
                     {
-                        Debug.Log("do Copy");
                         cardFrom.Copy(LesCartes[0]);
+                        cardFrom.rankCond = 0;
                     }
                     break;
                 case Effect.Discard:
-                    cardFrom.ScrapOrDiscard(true,LesCartes);
+                    if (LesCartes.Count < nbToSelect)
+                    {
+                        cardFrom.rankCond++;
+                        cardFrom.ScrapOrDiscard(true, LesCartes,isAutoScrap);
+                    }
                     break;
                 case Effect.Scrap:
-                    cardFrom.ScrapOrDiscard(false,LesCartes);
+                    cardFrom.rankCond++;
+                    cardFrom.ScrapOrDiscard(false,LesCartes,isAutoScrap);
+                    break;
+                case Effect.Hinder:
+                    cardFrom.rankCond++;
+                    cardFrom.ScrapOrDiscard(false,LesCartes,isAutoScrap);
                     break;
             }
+            gameObject.SetActive(false);
+        }
+        public void Cancel()
+        {
+            //cardFrom.CancelPlay();
+            gameObject.SetActive(false);
         }
         void Update()
         {
             if (Input.GetMouseButtonDown(0) && cardFrom != null)
             {
-                Debug.Log("click");
                 if (Camera.main)
                 {
-                    Debug.Log("camera");
                     var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                     if (Physics.Raycast(ray, out var hit, 100.0f))
                     {
-                        Debug.Log("raycast");
                         if (hit.transform != null)
                         {
-                            Debug.Log("hit not null");
                             if (hit.transform.gameObject.GetComponent<Card>() != null)
                             {
-                                Debug.Log("hit is card");
                                 if (hit.transform.gameObject.GetComponent<Card>() != cardFrom)
                                 {
-                                    Debug.Log("hit is not cardFrom");
                                     switch (zoneApplied)
                                     {
                                         case Zone.Board:
@@ -79,12 +95,10 @@ namespace Resources.Script
                                                     LesCartes.Remove(LesCartes[0]);
                                                     LesCartes.Add(hit.transform.gameObject.GetComponent<Card>());
                                                 }
-                                                Debug.Log("Add");
                                             }
                                             break;
                                         case Zone.Hand:
-                                            if (hit.transform.gameObject.GetComponent<Card>()
-                                                .GetComponentInParent<Transform>().name == "Hand")
+                                            if (GameManager.currentPlayer.hand.Contains(hit.transform.gameObject.GetComponent<Card>()))
                                             {
                                                 if (LesCartes.Count < nbToSelect)
                                                     LesCartes.Add(hit.transform.gameObject.GetComponent<Card>());
@@ -95,9 +109,9 @@ namespace Resources.Script
                                                 }
                                             }
                                             break;
-                                        case Zone.Shop:
-                                            if (hit.transform.gameObject.GetComponent<Card>()
-                                                .GetComponentInParent<Transform>().name == "Shop")
+                                        case Zone.Display:
+                                            if (GameManager.currentPlayer.shopObject.GetComponent<Shop>().display.
+                                                Contains(hit.transform.gameObject.GetComponent<Card>()))
                                             {
                                                 if (LesCartes.Count < nbToSelect)
                                                     LesCartes.Add(hit.transform.gameObject.GetComponent<Card>());
@@ -109,8 +123,7 @@ namespace Resources.Script
                                             }
                                             break;
                                         case Zone.DiscardPile:
-                                            if (hit.transform.gameObject.GetComponent<Card>()
-                                                .GetComponentInParent<Transform>().name == "DiscardPile")
+                                            if (GameManager.currentPlayer.discardPile.Contains(hit.transform.gameObject.GetComponent<Card>()))
                                             {
                                                 if (LesCartes.Count < nbToSelect)
                                                     LesCartes.Add(hit.transform.gameObject.GetComponent<Card>());
@@ -122,10 +135,8 @@ namespace Resources.Script
                                             }
                                             break;
                                         case Zone.HandAndDiscardPile:
-                                            if (hit.transform.gameObject.GetComponent<Card>()
-                                                    .GetComponentInParent<Transform>().name == "Hand" ||
-                                                hit.transform.gameObject.GetComponent<Card>()
-                                                    .GetComponentInParent<Transform>().name == "DiscardPile")
+                                            if (GameManager.currentPlayer.hand.Contains(hit.transform.gameObject.GetComponent<Card>()) ||
+                                                GameManager.currentPlayer.discardPile.Contains(hit.transform.gameObject.GetComponent<Card>()))
                                             {
                                                 if (LesCartes.Count < nbToSelect)
                                                     LesCartes.Add(hit.transform.gameObject.GetComponent<Card>());
@@ -141,6 +152,18 @@ namespace Resources.Script
                             }
                         }
                     }
+                }
+                if (LesCartes.Count == 0)
+                {
+                    GameObject.Find("Text_Validate").GetComponent<Text>().text = "No Card";
+                }
+                else if (LesCartes.Count == 1)
+                {
+                    GameObject.Find("Text_Validate").GetComponent<Text>().text = LesCartes[0].name;
+                }
+                else
+                {
+                    GameObject.Find("Text_Validate").GetComponent<Text>().text = LesCartes.Count + " Cards";
                 }
             }
         }

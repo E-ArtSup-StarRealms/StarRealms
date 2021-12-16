@@ -1,34 +1,51 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Resources.Script
 {
     public class Shop : MonoBehaviour
     {
-        public Card Default;
-        public int nbDefault = 10;
+        public List<Card> explorer;
         public List<Card> display = new List<Card>();
-        public List<Card> gameDeck;
-        public int chosenCard; 
-        /*public void RefillAll()
+        public static readonly List<Card> GameDeck = new List<Card>();
+        public GameObject objectGameDeck;
+        
+        public void Refill(Card chosenCard)
         {
-            for(int i = 0; i < display.Count; i++)
+            if (!chosenCard.name.Equals("Explorer"))
             {
-                gameDeck.Add(display[i]);
+                display.Insert(display.IndexOf(chosenCard),GameDeck[0]);
+                GameDeck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).transform.GetChild(display.IndexOf(GameDeck[0])).gameObject;
+                GameDeck[0].gameObject.SetActive(true);
+                display.Remove(chosenCard);
+                GameDeck.Remove(GameDeck[0]);
             }
-            display.Clear();
-            for(int i=0;i<5;i++)
+            else
             {
-                display.Add(gameDeck[0]);
-                gameDeck.RemoveAt(0);
+                explorer.Remove(chosenCard);
             }
-        }*/
-        public void Refill()
+        }
+        public void Startfill()
         {
-            display.RemoveAt(chosenCard);
-            display.Add(gameDeck[0]);
-            gameDeck.RemoveAt(0);
+            for(int i=0 ; i < 5 ; i++)
+            {
+                display.Add(GameDeck[0]);
+                GameDeck[0].gameObject.SetActive(true);
+                GameDeck[0].objectToMove = transform.GetChild(0).transform.GetChild(0).transform.GetChild(i).gameObject;
+                GameDeck.Remove(GameDeck[0]);
+            }
+        }
+        public static void ShuffleGameDeck()
+        {
+            int nbCard = GameDeck.Count;
+            List<Card> tempList = new List<Card>(GameDeck);
+            GameDeck.Clear();
+            for (int i = 0; i < nbCard; i++)
+            {
+                int rnd = Random.Range(0, nbCard - i);
+                GameDeck.Add(tempList[rnd]);
+                tempList.RemoveAt(rnd);
+            }
         }
     }
 }
