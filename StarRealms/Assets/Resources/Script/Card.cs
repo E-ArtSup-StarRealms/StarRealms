@@ -228,23 +228,28 @@ namespace Resources.Script
                 switch (e.Key)
                 {
                     case Effect.Copy:
-                        GameManager.popUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.Board,e.Key,e.Value);
+                        GameManager.popUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.Board,e.Key,e.Value,isAutoScrap);
                         break;
                     case Effect.D:
                         AddValue(Effect.D,e.Value);
                         GameManager.currentPlayer.objectInfo.transform.GetChild(1).GetChild(0).GetComponent<Text>()
                             .text = GameManager.currentPlayer.totalPower + " P";
+                        AutoSrap(isAutoScrap);
                         break;
                     case Effect.Discard:
-                        GameManager.popUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.Hand,e.Key,e.Value);
+                        GameManager.popUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.Hand,e.Key,e.Value,isAutoScrap);
+                        AutoSrap(isAutoScrap);
                         break;
                     case Effect.Draw:
+                        Debug.Log("test");
                         GameManager.currentPlayer.Draw(e.Value);
+                        AutoSrap(isAutoScrap);
                         break;
                     case Effect.G:
                         AddValue(Effect.G,e.Value);
                         GameManager.currentPlayer.objectInfo.transform.GetChild(2).GetChild(0).GetComponent<Text>()
                             .text = GameManager.currentPlayer.money + " $";
+                        AutoSrap(isAutoScrap);
                         break;
                     case Effect.H:
                         AddValue(Effect.H,e.Value);
@@ -254,9 +259,10 @@ namespace Resources.Script
                             GameManager.player2.objectInfo.transform.GetChild(3).GetChild(0).GetComponent<Text>().text = GameManager.player1.hp+"\nHP";
                         else
                             GameManager.player1.objectInfo.transform.GetChild(3).GetChild(0).GetComponent<Text>().text = GameManager.player2.hp+"\nHP";
+                        AutoSrap(isAutoScrap);
                         break;
                     case Effect.Hinder:
-                        GameManager.popUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.Display,e.Key,e.Value);
+                        GameManager.popUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.Display,e.Key,e.Value,true);
                         break;
                     case Effect.Requisition:
                         Requisition();
@@ -265,16 +271,16 @@ namespace Resources.Script
                         TargetDiscard();
                         break;
                     case Effect.Scrap:
-                        GameManager.popUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.HandAndDiscardPile,e.Key,e.Value);
+                        GameManager.popUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.HandAndDiscardPile,e.Key,e.Value,isAutoScrap);
                         break;
                     case Effect.Wormhole:
                         GameManager.currentPlayer.cardOnTop = true;
                         break;
                     case Effect.BaseDestruction:
-                        GameManager.popUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.EnnemyBoardBase,e.Key,e.Value);
+                        GameManager.popUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.EnnemyBoardBase,e.Key,e.Value,isAutoScrap);
                         break;
                     case Effect.DiscardToDraw:
-                        GameManager.popUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.Hand,e.Key,e.Value);
+                        GameManager.popUpPlayerChoice.GetComponent<PopUpManager>().Activate(this,Zone.Hand,e.Key,e.Value,isAutoScrap);
                         break;
                     case Effect.AllShipOneMoreDamage:
                         foreach (Card card in GameManager.currentPlayer.board)
@@ -290,7 +296,10 @@ namespace Resources.Script
                         break;
                 }
             }
+        }
 
+        public void AutoSrap(bool isAutoScrap)
+        {
             if (!isAutoScrap)
             {
                 if (rankCond == Actions.Keys.Count)
@@ -306,6 +315,7 @@ namespace Resources.Script
             {
                 GameManager.currentPlayer.panelBoard.FillGap(this);
                 GameManager.currentPlayer.board.Remove(this);
+                GameManager.currentPlayer.boardNumber--;
                 Destroy(gameObject);
             }
         }
@@ -351,7 +361,7 @@ namespace Resources.Script
                     break;
             }
         }
-        public void ScrapOrDiscard(bool scrapOrDiscard, List<Card> lesCartes)
+        public void ScrapOrDiscard(bool scrapOrDiscard, List<Card> lesCartes, bool isAs)
         {
             if (!scrapOrDiscard)
             {
@@ -379,6 +389,7 @@ namespace Resources.Script
                     GameManager.currentPlayer.discardPile.Add(c);
                 }
             }
+            AutoSrap(isAs);
         }
         public void TargetDiscard()
         {

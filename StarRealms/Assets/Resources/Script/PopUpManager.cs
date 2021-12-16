@@ -11,10 +11,12 @@ namespace Resources.Script
         public Effect effectApplied;
         public int nbToSelect;
         public List<Card> LesCartes = new List<Card>();
-        public void Activate(Card c,Zone zone,Effect e, int nbSelect)
+        public bool isAutoScrap;
+        public void Activate(Card c,Zone zone,Effect e, int nbSelect,bool isAs)
         {
             LesCartes.Clear();
             gameObject.SetActive(true);
+            isAutoScrap = isAs;
             GameObject.Find("Text_Validate").GetComponent<Text>().text = "No Card";
             cardFrom = c;
             zoneApplied = zone;
@@ -47,16 +49,16 @@ namespace Resources.Script
                     if (LesCartes.Count < nbToSelect)
                     {
                         cardFrom.rankCond++;
-                        cardFrom.ScrapOrDiscard(true, LesCartes);
+                        cardFrom.ScrapOrDiscard(true, LesCartes,isAutoScrap);
                     }
                     break;
                 case Effect.Scrap:
                     cardFrom.rankCond++;
-                    cardFrom.ScrapOrDiscard(false,LesCartes);
+                    cardFrom.ScrapOrDiscard(false,LesCartes,isAutoScrap);
                     break;
                 case Effect.Hinder:
                     cardFrom.rankCond++;
-                    cardFrom.ScrapOrDiscard(false,LesCartes);
+                    cardFrom.ScrapOrDiscard(false,LesCartes,isAutoScrap);
                     break;
             }
             gameObject.SetActive(false);

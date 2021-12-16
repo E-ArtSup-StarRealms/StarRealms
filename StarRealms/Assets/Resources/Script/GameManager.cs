@@ -54,7 +54,6 @@ namespace Resources.Script
         //Distribue les carte selon si c'est le premier tour ou non
         public static void BeginTurn()
         {
-
             //pioche de debut de tour
             if(_firstRound)
             {
@@ -64,6 +63,12 @@ namespace Resources.Script
             else
             {
                 currentPlayer.Draw(5);
+            }
+
+            if (currentPlayer.toDiscard >0)
+            {
+                popUpPlayerChoice.GetComponent<PopUpManager>().Activate(GameObject.Find("GeneralCard").GetComponent<Card>(),
+                    Zone.Hand,Effect.Discard,currentPlayer.toDiscard,false);
             }
         }
 

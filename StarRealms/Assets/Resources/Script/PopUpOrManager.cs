@@ -10,7 +10,7 @@ namespace Resources.Script
         public Card cardFrom;
         public Dictionary<Effect, int> choix1 = new Dictionary<Effect, int>();
         public Dictionary<Effect, int> choix2 = new Dictionary<Effect, int>();
-        public bool isAutoScrap = false;
+        public bool isAutoScrap;
         
         public void Activate(Card c, Dictionary<Effect,int> lesEffets,bool isAs)
         {

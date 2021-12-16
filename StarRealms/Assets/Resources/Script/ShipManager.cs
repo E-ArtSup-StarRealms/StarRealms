@@ -39,7 +39,8 @@ namespace Resources.Script
                 if(hisCard.HaveIThisCondition(Condition.AutoScrap))
                 {
                     GameManager.popUpAutoScrap.GetComponent<PopUpAutoScrap>().
-                        Activate(hisCard,hisCard.Actions[hisCard.GetListCondsFromCondition(Condition.AutoScrap)],
+                        Activate(hisCard,
+                            hisCard.Actions[hisCard.GetListCondsFromCondition(Condition.AutoScrap)],
                             hisCard.GetListCondsFromCondition(Condition.AutoScrap).Contains(Condition.Or));
                 } else if (hisCard.HaveIThisCondition(Condition.Or))
                 {

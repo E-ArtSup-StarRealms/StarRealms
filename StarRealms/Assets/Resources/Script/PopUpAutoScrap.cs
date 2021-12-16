@@ -13,6 +13,7 @@ namespace Resources.Script
         
         public void Activate(Card c, Dictionary<Effect,int> lesEffets, bool hasOr)
         {
+            
             gameObject.SetActive(true);
             cardFrom = c;
             effect.Clear();
@@ -53,7 +54,9 @@ namespace Resources.Script
             if(isOr)
             {
                 GameManager.popUpOr.GetComponent<PopUpOrManager>().
-                    Activate(cardFrom,cardFrom.Actions[cardFrom.GetListCondsFromCondition(Condition.Or)],true);
+                    Activate(cardFrom,
+                        cardFrom.Actions[cardFrom.GetListCondsFromCondition(Condition.Or)],
+                        true);
             }
             else
             {
