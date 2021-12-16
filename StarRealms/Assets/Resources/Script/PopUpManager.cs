@@ -40,18 +40,22 @@ namespace Resources.Script
                     if (LesCartes.Count > 0)
                     {
                         cardFrom.Copy(LesCartes[0]);
+                        cardFrom.rankCond = 0;
                     }
                     break;
                 case Effect.Discard:
                     if (LesCartes.Count < nbToSelect)
                     {
+                        cardFrom.rankCond++;
                         cardFrom.ScrapOrDiscard(true, LesCartes);
                     }
                     break;
                 case Effect.Scrap:
+                    cardFrom.rankCond++;
                     cardFrom.ScrapOrDiscard(false,LesCartes);
                     break;
                 case Effect.Hinder:
+                    cardFrom.rankCond++;
                     cardFrom.ScrapOrDiscard(false,LesCartes);
                     break;
             }

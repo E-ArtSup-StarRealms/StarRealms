@@ -44,7 +44,7 @@ namespace Resources.Script
                 } else if (hisCard.HaveIThisCondition(Condition.Or))
                 {
                     GameManager.popUpOr.GetComponent<PopUpOrManager>().
-                        Activate(hisCard,hisCard.Actions[hisCard.GetListCondsFromCondition(Condition.Or)]);
+                        Activate(hisCard,hisCard.Actions[hisCard.GetListCondsFromCondition(Condition.Or)],false);
                 }
             }
         }

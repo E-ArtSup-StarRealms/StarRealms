@@ -10,13 +10,15 @@ namespace Resources.Script
         public Card cardFrom;
         public Dictionary<Effect, int> choix1 = new Dictionary<Effect, int>();
         public Dictionary<Effect, int> choix2 = new Dictionary<Effect, int>();
+        public bool isAutoScrap = false;
         
-        public void Activate(Card c, Dictionary<Effect,int> lesEffets)
+        public void Activate(Card c, Dictionary<Effect,int> lesEffets,bool isAs)
         {
             choix1.Clear();
             choix2.Clear();
             gameObject.SetActive(true);
             cardFrom = c;
+            isAutoScrap = isAs;
             choix1.Add(lesEffets.Keys.ToList()[0],lesEffets.Values.ToList()[0]);
             choix2.Add(lesEffets.Keys.ToList()[1],lesEffets.Values.ToList()[1]);
             SetUp();
@@ -30,13 +32,15 @@ namespace Resources.Script
         
         public void Choix1()
         {
-            cardFrom.DoEffect(choix1);
+            cardFrom.rankCond++;
+            cardFrom.DoEffect(choix1,isAutoScrap);
             gameObject.SetActive(false);
         }
         
         public void Choix2()
         {
-            cardFrom.DoEffect(choix2);
+            cardFrom.rankCond++;
+            cardFrom.DoEffect(choix2,isAutoScrap);
             gameObject.SetActive(false);
         }
     }

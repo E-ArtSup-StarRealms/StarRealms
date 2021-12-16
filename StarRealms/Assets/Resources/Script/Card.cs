@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using Cache = UnityEngine.Cache;
-//scale : 182,121,97
+
 namespace Resources.Script
 {
     public class Card : MonoBehaviour
@@ -31,7 +31,7 @@ namespace Resources.Script
         public Object vaisseauBoard;
         public int handPos;
         
-        private int _rankCond;
+        public int rankCond;
         private float _currentTime;
         private bool _overBoard;
         
@@ -74,12 +74,12 @@ namespace Resources.Script
                     gameObject.GetComponent<BoxCollider>().enabled = false;
                     transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
                     transform.SetParent(vaisseauBoard.GetComponent<ShipManager>().objectToMove.transform);
+                    GameManager.currentPlayer.panelHand.FillGap(this);
                     GameManager.currentPlayer.PlayCard(this);
-                    GameManager.currentPlayer.objectHand.transform.GetChild(0).GetChild(0).GetComponent<ListNavigation>().FillGap(this);
                     handPos = GameManager.currentPlayer.boardNumber;
                     GameManager.currentPlayer.boardNumber++;
                     objectToMove = vaisseauBoard.GetComponent<ShipManager>().objectToMove;
-                    GameManager.currentPlayer.objectBoard.transform.GetChild(0).GetChild(0).GetComponent<NavigationBoard>().AddElement(vaisseauBoard.GetComponent<ShipManager>());
+                    GameManager.currentPlayer.panelBoard.AddElement(vaisseauBoard.GetComponent<ShipManager>());
                     PlaySelf();
                 }
                 draged = false;
@@ -108,7 +108,7 @@ namespace Resources.Script
             {
                 draged = true;
                 Vector3 position = transform.position;
-                int signe = 1;
+                int signe;
                 if (GameManager.currentPlayer == GameManager.player1)
                 {
                     signe = 1;
@@ -129,7 +129,7 @@ namespace Resources.Script
             {
                 foreach (KeyValuePair<List<Condition>, Dictionary<Effect, int>> conds in Actions)
                 {
-                    if (thisRank == _rankCond)
+                    if (thisRank == rankCond)
                     {
                         if (!conds.Key.Contains(Condition.Or) && !conds.Key.Contains(Condition.AutoScrap))
                         {
@@ -140,19 +140,18 @@ namespace Resources.Script
                                 !Actions[conds.Key].ContainsKey(Effect.DiscardToDraw))
                             {
                                 firstCond = conds.Key;
-                                _rankCond++;
+                                rankCond++;
                             } else if (clicked)
                             {
                                 firstCond = conds.Key;
-                                _rankCond++;
+                                rankCond++;
                             }
                         }
                         else if (clicked)
                         {
                             firstCond = conds.Key;
-                            _rankCond++;
+                            rankCond++;
                         }
-                        
                         return firstCond;
                     }
                     else
@@ -170,7 +169,7 @@ namespace Resources.Script
         }
         public void PlaySelf()
         {
-            _rankCond = 0;
+            rankCond = 0;
             CheckCondition(GetNextCond(false));
         }
         public void CancelPlay()
@@ -206,7 +205,7 @@ namespace Resources.Script
                     case Condition.ForEachSameFaction:
                         for (int i = 0; i < CheckNbSameFactionOnBoard(); i++)
                         {
-                            DoEffect(Actions[conds]);
+                            DoEffect(Actions[conds],false);
                         }
                         break;
                     case Condition.TwoBaseOrMore:
@@ -219,10 +218,10 @@ namespace Resources.Script
             }
             if (!allCheck.Contains(false) && allCheck.Contains(true))
             {
-                DoEffect(Actions[conds]);
+                DoEffect(Actions[conds],false);
             }
         }
-        public void DoEffect(Dictionary<Effect, int> lesEffets)
+        public void DoEffect(Dictionary<Effect, int> lesEffets, bool isAutoScrap)
         {
             foreach (KeyValuePair<Effect, int> e in lesEffets)
             {
@@ -291,13 +290,23 @@ namespace Resources.Script
                         break;
                 }
             }
-            if (_rankCond == Actions.Keys.Count)
+
+            if (!isAutoScrap)
             {
-                isUsed = true;
+                if (rankCond == Actions.Keys.Count)
+                {
+                    isUsed = true;
+                }
+                else
+                {
+                    CheckCondition(GetNextCond(false));
+                }
             }
             else
             {
-                CheckCondition(GetNextCond(false));
+                GameManager.currentPlayer.panelBoard.FillGap(this);
+                GameManager.currentPlayer.board.Remove(this);
+                Destroy(gameObject);
             }
         }
         public void DiscardToDraw(int nbDiscard)
@@ -501,7 +510,6 @@ namespace Resources.Script
                     monShip = sm;
                 }
             }
-            Debug.Log(monShip.name);
             return monShip;
         }
         public bool ContainsWithId(List<Card> listCard)

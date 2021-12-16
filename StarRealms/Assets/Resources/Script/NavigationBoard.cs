@@ -15,8 +15,17 @@ namespace Resources.Script
         private void Initialize()
         {
             lesElements.Clear();
-            firstCardBp = GameManager.currentPlayer.board[0].handPos;
-            lastCardBp = GameManager.currentPlayer.board[Mathf.Clamp(GameManager.currentPlayer.board.Count - 1,0, 4)].handPos;
+            foreach (Card c in GameManager.currentPlayer.board)
+            {
+                if (c.objectToMove.activeSelf && c.handPos <= firstCardBp)
+                {
+                    firstCardBp = c.handPos;
+                }
+                if (c.objectToMove.activeSelf && c.handPos >= firstCardBp)
+                {
+                    lastCardBp = c.handPos;
+                }
+            }
             foreach (Card c in GameManager.currentPlayer.board)
             {
                 lesElements.Add(c.objectToMove);
@@ -64,12 +73,13 @@ namespace Resources.Script
         }
         public void FillGap(Card card)
         {
-            lesElements.Remove(card.objectToMove);
+            lesElements.Remove(card.FindMyShip().objectToMove);
+            Destroy(card.FindMyShip());
             Destroy(card.objectToMove);
             int nbDisplay = 0;
             foreach (Card c in GameManager.currentPlayer.board)
             {
-                if (c.handPos > card.handPos)
+                if (c.handPos >= card.handPos)
                 {
                     if (c.handPos == lastCardBp)
                     {

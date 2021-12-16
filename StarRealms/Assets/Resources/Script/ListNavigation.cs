@@ -16,8 +16,17 @@ namespace Resources.Script
         private void Initialize()
         {
             lesElements.Clear();
-            firstCardHp = GameManager.currentPlayer.hand[0].handPos;
-            lastCardHp = GameManager.currentPlayer.hand[Mathf.Clamp(GameManager.currentPlayer.hand.Count - 1,0, 4)].handPos;
+            foreach (Card c in GameManager.currentPlayer.hand)
+            {
+                if (c.objectToMove.activeSelf && c.handPos <= firstCardHp)
+                {
+                    firstCardHp = c.handPos;
+                }
+                if (c.objectToMove.activeSelf && c.handPos >= firstCardHp)
+                {
+                    lastCardHp = c.handPos;
+                }
+            }
             foreach (Card c in GameManager.currentPlayer.hand)
             {
                 lesElements.Add(c.objectToMove);
@@ -70,7 +79,7 @@ namespace Resources.Script
             int nbDisplay = 0;
             foreach (Card c in GameManager.currentPlayer.hand)
             {
-                if (c.handPos > card.handPos)
+                if (c.handPos >= card.handPos)
                 {
                     if (c.handPos == lastCardHp)
                     {

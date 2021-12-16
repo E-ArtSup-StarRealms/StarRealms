@@ -53,11 +53,11 @@ namespace Resources.Script
             if(isOr)
             {
                 GameManager.popUpOr.GetComponent<PopUpOrManager>().
-                    Activate(cardFrom,cardFrom.Actions[cardFrom.GetListCondsFromCondition(Condition.Or)]);
+                    Activate(cardFrom,cardFrom.Actions[cardFrom.GetListCondsFromCondition(Condition.Or)],true);
             }
             else
             {
-                cardFrom.DoEffect(effect);
+                cardFrom.DoEffect(effect, true);
             }
             gameObject.SetActive(false);
         }

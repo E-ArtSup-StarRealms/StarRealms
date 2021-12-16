@@ -19,8 +19,8 @@ namespace Resources.Script
 
         public static GameObject camP1;
         public static GameObject camP2;
-        public static Vector3 pos1 = new Vector3(-1.18f, 0.82f, -9.17f);
-        public static Vector3 pos2 = new Vector3(1.14f, 0.82f, 9.16f);
+        public static Vector3 pos1 = new Vector3(-1.03f, 0.82f, -14.2f);
+        public static Vector3 pos2 = new Vector3(1.14f, 0.82f, 14.16f);
         public static GameObject shopObject;
 
         private void Awake()
