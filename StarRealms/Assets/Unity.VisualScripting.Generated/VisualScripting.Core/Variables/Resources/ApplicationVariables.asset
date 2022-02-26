@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c63e9930078442aa987ca9a1511ae44, type: 3}
+  m_Name: ApplicationVariables
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"collection":{"$content":[{"name":"param_GameMode","value":{"$content":0,"$type":"System.Int32"},"$version":"A"},{"name":"param_Shortcut","value":{"$content":[],"$type":"System.Collections.Generic.List`1[[System.String,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"$version":"A"},{"name":"param_Window","value":{"$content":0,"$type":"System.Int32"},"$version":"A"},{"name":"param_Res","value":{"$content":0,"$type":"System.Int32"},"$version":"A"},{"name":"param_Qual","value":{"$content":0,"$type":"System.Int32"},"$version":"A"},{"name":"param_Contrast","value":{"$content":0,"$type":"System.Int32"},"$version":"A"},{"name":"param_Brightness","value":{"$content":0.0,"$type":"System.Single"},"$version":"A"},{"name":"param_TextSize","value":{"$content":0.0,"$type":"System.Single"},"$version":"A"},{"name":"param_Cursize","value":{"$content":0.0,"$type":"System.Single"},"$version":"A"},{"name":"param_ImageEffect","value":{"$content":false,"$type":"System.Boolean"},"$version":"A"},{"name":"param_GlobalVolume","value":{"$content":0.0,"$type":"System.Single"},"$version":"A"},{"name":"param_SFXVolume","value":{"$content":0.0,"$type":"System.Single"},"$version":"A"},{"name":"param_UIVolume","value":{"$content":0.0,"$type":"System.Single"},"$version":"A"},{"name":"param_MusicVolume","value":{"$content":0.0,"$type":"System.Single"},"$version":"A"},{"name":"param_Speakers","value":{"$content":"Stereo","$type":"UnityEngine.AudioSpeakerMode"},"$version":"A"},{"name":"game_CharaP1","value":{"$content":0,"$type":"System.Int32"},"$version":"A"},{"name":"game_CharaP2","value":{"$content":0,"$type":"System.Int32"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
